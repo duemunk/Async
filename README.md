@@ -41,7 +41,7 @@ Async.utility {}
 Async.background {}
 ```
 
-Chain as many block as you want:
+Chain as many blocks as you want:
 ```swift
 Async.userInitiated {
   // 1
