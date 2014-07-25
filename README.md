@@ -14,7 +14,7 @@ dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_BACKGROUND, 0),
 })
 ```
 
-**Async** adds syntactic suger to this
+**Async** adds syntactic sugar resulting in this:
 ```swift
 Async.background {
   println("This is run on the background queue")
