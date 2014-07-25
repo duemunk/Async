@@ -1,0 +1,30 @@
+# xcode noise
+build/*
+*.pbxuser
+*.mode1v3
+*.mode2v3
+*.perspectivev3
+# NB: also, whitelist the default ones, some projects need to use these
+!default.pbxuser
+!default.mode1v3
+!default.mode2v3
+!default.perspectivev3
+
+# old skool
+.svn
+
+# osx noise
+.DS_Store
+profile
+
+
+# Xcode
+*/build/*
+xcuserdata
+xcuserdata/
+profile
+*.moved-aside
+DerivedData
+.idea/
+*.hmap
+*.xccheckout
