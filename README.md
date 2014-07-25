@@ -1,7 +1,7 @@
 Async
 =====
 
-Syntactic sugar in Swift for asynchronous dispatches in Grand Central Dispatch (GCD)
+Syntactic sugar in Swift for asynchronous dispatches in Grand Central Dispatch ([GCD](https://developer.apple.com/library/prerelease/ios/documentation/Performance/Reference/GCD_libdispatch_Ref/index.html))
 
 The familiar syntax for GCD is:
 ```swift
