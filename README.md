@@ -30,8 +30,8 @@ Async.background {
 ### Support
 OS X 10.10+ and iOS 8.0+
 
-### Examples
-Support the modern queue classes
+### Examples (actually the entire API)
+Supports the modern queue classes
 ```swift
 Async.main {}
 Async.userInteractive {}
