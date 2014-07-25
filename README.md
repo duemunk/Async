@@ -74,9 +74,11 @@ The way it work is by using the new notifaction API for GCD introduced in OS X 1
 let previousBlock = {}
 let chainingBlock = {}
 let dispatchQueueForChainingBlock = ...
+
 // Use the GCD API to extend the blocks
 let _previousBlock = dispatch_block_create(DISPATCH_BLOCK_INHERIT_QOS_CLASS, previousBlock)
 let _chainingBlock = dispatch_block_create(DISPATCH_BLOCK_INHERIT_QOS_CLASS, chainingBlock)
+
 // Use the GCD API to call back when finishing the "previous" block
 dispatch_block_notify(_previousBlock, dispatchQueueForChainingBlock, _chainingBlock)
 ```
