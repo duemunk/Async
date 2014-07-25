@@ -54,6 +54,18 @@ Async.userInitiated {
 }
 ```
 
+Store reference for later chaining
+```swift
+let backgroundBlock = Async.background {
+	println("This is run on the background queue")
+}
+// Run other code here...
+// Chain to reference
+backgroundBlock.main {
+	println("This is run on the \(qos_class_self().description) (expected \(qos_class_main().description)), after the previous block")
+}
+```
+
 ### How
 The way it work is by using the new notifaction API for GCD introduced in OS X 10.10 and iOS 8. Each chaining block is called when the previous queue has finished.
 ```swift
