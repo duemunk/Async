@@ -36,7 +36,7 @@ Support the modern queue classes
 Async.main {}
 Async.userInteractive {}
 Async.userInitiated {}
-Async.default {}
+Async.default_ {}
 Async.utility {}
 Async.background {}
 ```
@@ -66,3 +66,7 @@ let _chainingBlock = dispatch_block_create(DISPATCH_BLOCK_INHERIT_QOS_CLASS, cha
 // Use the GCD API to call back when finishing the "previous" block
 dispatch_block_notify(_previousBlock, dispatchQueueForChainingBlock, _chainingBlock)
 ```
+
+### Known improvements
+```swift default``` is a keyword. Workaround used: ```swift default_```
+The ```swift dispatch_block_t``` can't be extended. Workaround used: Wrap ```swift dispatch_block_t``` in a struct that takes the block as a property.
