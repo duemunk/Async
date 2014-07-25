@@ -59,7 +59,9 @@ Store reference for later chaining
 let backgroundBlock = Async.background {
 	println("This is run on the background queue")
 }
+
 // Run other code here...
+
 // Chain to reference
 backgroundBlock.main {
 	println("This is run on the \(qos_class_self().description) (expected \(qos_class_main().description)), after the previous block")
