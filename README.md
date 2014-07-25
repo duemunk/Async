@@ -31,7 +31,7 @@ Async.background {
 OS X 10.10+ and iOS 8.0+
 
 ### Examples (actually the entire API)
-Supports the modern queue classes
+Supports the modern queue classes:
 ```swift
 Async.main {}
 Async.userInteractive {}
@@ -41,7 +41,7 @@ Async.utility {}
 Async.background {}
 ```
 
-Chain as many block as you want
+Chain as many block as you want:
 ```swift
 Async.userInitiated {
   // 1
@@ -54,7 +54,7 @@ Async.userInitiated {
 }
 ```
 
-Store reference for later chaining
+Store reference for later chaining:
 ```swift
 let backgroundBlock = Async.background {
 	println("This is run on the background queue")
