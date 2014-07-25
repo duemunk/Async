@@ -6,12 +6,12 @@ Syntactic sugar in Swift for asynchronous dispatches in Grand Central Dispatch (
 The familiar syntax for GCD is:
 ```swift
 dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_BACKGROUND, 0), {
-			println("This is run on the background queue")
-			
-			dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_BACKGROUND, 0), {
-				println("This is run on the main queue, after the previous block")
-			})
-		})
+	println("This is run on the background queue")
+	
+	dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_BACKGROUND, 0), {
+		println("This is run on the main queue, after the previous block")
+	})
+})
 ```
 
 **Async** adds syntactic suger to this
