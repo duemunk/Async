@@ -157,8 +157,8 @@
 		4EF8309C1975952B00C5F0EE /* AsyncExample OS X */ = {
 			isa = PBXGroup;
 			children = (
-				4EF830A11975952B00C5F0EE /* ViewController.swift */,
 				4EF830A31975952B00C5F0EE /* AppDelegate.swift */,
+				4EF830A11975952B00C5F0EE /* ViewController.swift */,
 				4EF830A51975952B00C5F0EE /* Images.xcassets */,
 				4EF830A71975952B00C5F0EE /* Main.storyboard */,
 				4EF8309D1975952B00C5F0EE /* Supporting Files */,

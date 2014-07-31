@@ -62,6 +62,17 @@ class ViewController: UIViewController {
 			println("This is run on the \(qos_class_self().description) (expected \(qos_class_main().description)), after the previous block")
 		}
 		*/
+		
+		/*
+		// Custom queues
+		let customQueue = dispatch_queue_create("CustomQueueLabel", DISPATCH_QUEUE_CONCURRENT)
+		let otherCustomQueue = dispatch_queue_create("OtherCustomQueueLabel", DISPATCH_QUEUE_CONCURRENT)
+		Async.customQueue(customQueue) {
+			println("Custom queue")
+		}.customQueue(otherCustomQueue) {
+			println("Other custom queue")
+		}
+		*/
 	}
 }
 

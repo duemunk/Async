@@ -91,6 +91,9 @@ class Async {
 	class func background(block: dispatch_block_t) -> dispatch_block_t_wrapper {
 		return Async.run(block, inQueue: GCD.backgroundQueue())
 	}
+	class func customQueue(queue: dispatch_queue_t, block: dispatch_block_t) -> dispatch_block_t_wrapper {
+		return Async.run(block, inQueue: queue)
+	}
 }
 
 
@@ -125,6 +128,9 @@ struct dispatch_block_t_wrapper {
 	}
 	func background(chainingBlock: dispatch_block_t) -> dispatch_block_t_wrapper {
 		return chain(block: chainingBlock, runInQueue: GCD.backgroundQueue())
+	}
+	func customQueue(queue: dispatch_queue_t, chainingBlock: dispatch_block_t) -> dispatch_block_t_wrapper {
+		return chain(block: chainingBlock, runInQueue: queue)
 	}
 }
 

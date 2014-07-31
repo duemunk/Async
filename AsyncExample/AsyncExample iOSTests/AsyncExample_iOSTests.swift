@@ -115,5 +115,19 @@ class AsyncExample_iOSTests: XCTestCase {
 		}
 		waitForExpectationsWithTimeout(1, handler: nil)
 	}
+	
+	func testCustomQueue() {
+		let expectation = expectationWithDescription("Expected custom queues")
+		var id = 0
+		let customQueue = dispatch_queue_create("CustomQueueLabel", DISPATCH_QUEUE_CONCURRENT)
+		let otherCustomQueue = dispatch_queue_create("OtherCustomQueueLabel", DISPATCH_QUEUE_SERIAL)
+		Async.customQueue(customQueue) {
+			XCTAssertEqual(++id, 1, "Count custom queue")
+		}.customQueue(otherCustomQueue) {
+			XCTAssertEqual(++id, 2, "Count other custom queue")
+			expectation.fulfill()
+		}
+		waitForExpectationsWithTimeout(1, handler: nil)
+	}
     
 }
