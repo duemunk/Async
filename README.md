@@ -84,8 +84,8 @@ dispatch_block_notify(_previousBlock, dispatchQueueForChainingBlock, _chainingBl
 ```
 
 ### Known improvements
-```swift default``` is a keyword. Workaround used: ```swift default_```
-The ```swift dispatch_block_t``` can't be extended. Workaround used: Wrap ```swift dispatch_block_t``` in a struct that takes the block as a property.
+```default``` is a keyword. Workaround used: ```default_```
+The ```dispatch_block_t``` can't be extended. Workaround used: Wrap ```dispatch_block_t``` in a struct that takes the block as a property.
 
 ### License
 The MIT License (MIT)
