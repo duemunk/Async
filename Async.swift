@@ -146,8 +146,9 @@ extension qos_class_t {
 				case +QOS_CLASS_USER_INITIATED: return "User Initiated"
 				case +QOS_CLASS_DEFAULT: return "Default"
 				case +QOS_CLASS_UTILITY: return "Utility"
-				case +QOS_CLASS_BACKGROUND: return "User Interactive"
-				default: return "Unkown"
+				case +QOS_CLASS_BACKGROUND: return "Background"
+				case +QOS_CLASS_UNSPECIFIED: return "Unspecified"
+				default: return "Unknown"
 			}
 		}
 	}
