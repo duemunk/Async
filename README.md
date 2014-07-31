@@ -68,6 +68,18 @@ backgroundBlock.main {
 }
 ```
 
+Custom queues:
+```swift
+let customQueue = dispatch_queue_create("CustomQueueLabel", DISPATCH_QUEUE_CONCURRENT)
+let otherCustomQueue = dispatch_queue_create("OtherCustomQueueLabel", DISPATCH_QUEUE_CONCURRENT)
+Async.customQueue(customQueue) {
+	println("Custom queue")
+}.customQueue(otherCustomQueue) {
+	println("Other custom queue")
+}
+```
+
+
 ### How
 The way it work is by using the new notifaction API for GCD introduced in OS X 10.10 and iOS 8. Each chaining block is called when the previous queue has finished.
 ```swift
