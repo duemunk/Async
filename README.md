@@ -17,9 +17,9 @@ dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_BACKGROUND, 0),
 **Async** adds syntactic sugar resulting in this:
 ```swift
 Async.background {
-  println("This is run on the background queue")
+	println("This is run on the background queue")
 }.main {
-  println("This is run on the main queue, after the previous block")
+	println("This is run on the main queue, after the previous block")
 }
 ```
 
@@ -44,13 +44,13 @@ Async.background {}
 Chain as many blocks as you want:
 ```swift
 Async.userInitiated {
-  // 1
+	// 1
 }.main {
-  // 2
+	// 2
 }.background {
-  // 3
+	// 3
 }.main {
-  // 4
+	// 4
 }
 ```
 
