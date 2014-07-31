@@ -30,7 +30,7 @@ Async.background {
 ### Support
 OS X 10.10+ and iOS 8.0+
 
-### Examples (actually the entire API)
+### Things you can do
 Supports the modern queue classes:
 ```swift
 Async.main {}
@@ -65,6 +65,16 @@ let backgroundBlock = Async.background {
 // Chain to reference
 backgroundBlock.main {
 	println("This is run on the \(qos_class_self().description) (expected \(qos_class_main().description)), after the previous block")
+}
+```
+
+Dispatch block after delay
+```swift
+let seconds = 0.5
+Async.main(after: seconds) {
+	println("Is called after 0.5 seconds")
+}.background(after: 0.4) {
+	println("At least 0.4 seconds after previous block, and 0.9 after Async code is called")
 }
 ```
 
