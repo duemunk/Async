@@ -17,9 +17,9 @@ dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_BACKGROUND, 0),
 **Async** adds syntactic sugar resulting in this:
 ```swift
 Async.background {
-  println("This is run on the background queue")
+	println("This is run on the background queue")
 }.main {
-  println("This is run on the main queue, after the previous block")
+	println("This is run on the main queue, after the previous block")
 }
 ```
 
@@ -44,13 +44,13 @@ Async.background {}
 Chain as many blocks as you want:
 ```swift
 Async.userInitiated {
-  // 1
+	// 1
 }.main {
-  // 2
+	// 2
 }.background {
-  // 3
+	// 3
 }.main {
-  // 4
+	// 4
 }
 ```
 
@@ -68,7 +68,18 @@ backgroundBlock.main {
 }
 ```
 
-Dispatch block after delay
+Custom queues:
+```swift
+let customQueue = dispatch_queue_create("CustomQueueLabel", DISPATCH_QUEUE_CONCURRENT)
+let otherCustomQueue = dispatch_queue_create("OtherCustomQueueLabel", DISPATCH_QUEUE_CONCURRENT)
+Async.customQueue(customQueue) {
+	println("Custom queue")
+}.customQueue(otherCustomQueue) {
+	println("Other custom queue")
+}
+```
+
+Dispatch block after delay:
 ```swift
 let seconds = 0.5
 Async.main(after: seconds) {
@@ -79,7 +90,7 @@ Async.main(after: seconds) {
 ```
 
 ### How
-The way it work is by using the new notifaction API for GCD introduced in OS X 10.10 and iOS 8. Each chaining block is called when the previous queue has finished.
+The way it work is by using the new notification API for GCD introduced in OS X 10.10 and iOS 8. Each chaining block is called when the previous queue has finished.
 ```swift
 let previousBlock = {}
 let chainingBlock = {}
