@@ -64,8 +64,10 @@ private class GCD {
 private let _async = Async()
 
 class Async {
+
 	
 	/* dispacth_async() */
+
 	private class func async(block: dispatch_block_t, inQueue queue: dispatch_queue_t) -> dispatch_block_t_wrapper {
 		// Create a new block (Qos Class) from block to allow adding a notification to it later (see dispatch_block_t_wrapper)
 		// Create block with the "inherit" type
@@ -97,7 +99,9 @@ class Async {
 		return Async.async(block, inQueue: queue)
 	}
 
+
 	/* dispatch_after() */
+
 	private class func after(seconds: Double, block: dispatch_block_t, inQueue queue: dispatch_queue_t) -> dispatch_block_t_wrapper {
 		let nanoSeconds = Int64(seconds * Double(NSEC_PER_SEC))
 		let time = dispatch_time(DISPATCH_TIME_NOW, nanoSeconds)
@@ -140,6 +144,9 @@ struct dispatch_block_t_wrapper {
 	init(_ block: dispatch_block_t) {
 		self.block = block
 	}
+
+
+	/* dispatch_async() */
 	
 	private func chain(block chainingBlock: dispatch_block_t, runInQueue queue: dispatch_queue_t) -> dispatch_block_t_wrapper {
 		// See Async.async() for comments
@@ -169,7 +176,10 @@ struct dispatch_block_t_wrapper {
 	func customQueue(queue: dispatch_queue_t, chainingBlock: dispatch_block_t) -> dispatch_block_t_wrapper {
 		return chain(block: chainingBlock, runInQueue: queue)
 	}
+
 	
+	/* dispatch_after() */
+
 	private func after(seconds: Double, block chainingBlock: dispatch_block_t, runInQueue queue: dispatch_queue_t) -> dispatch_block_t_wrapper {
 		
 		// Create a new block (Qos Class) from block to allow adding a notification to it later (see dispatch_block_t_wrapper)
@@ -213,7 +223,9 @@ struct dispatch_block_t_wrapper {
 		return self.after(after, block: block, runInQueue: queue)
 	}
 
+
 	/* cancel */
+
 	func cancel() {
 		dispatch_block_cancel(block)
 	}
