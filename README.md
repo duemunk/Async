@@ -108,6 +108,17 @@ Async.main {
 }
 ```
 
+Wait for block to finish – an ease way to continue on current queue after background task:
+```swift
+let block = Async.background {
+	// Do stuff
+}
+
+// Do other stuff
+
+block.wait()
+```
+
 ### How does it work
 The way it work is by using the new notification API for GCD introduced in OS X 10.10 and iOS 8. Each chaining block is called when the previous queue has finished.
 ```swift

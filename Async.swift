@@ -229,6 +229,20 @@ struct dispatch_block_t_wrapper {
 	func cancel() {
 		dispatch_block_cancel(block)
 	}
+	
+
+	/* wait */
+
+	/// If optional parameter forSeconds is not provided, use DISPATCH_TIME_FOREVER
+	func wait(seconds: Double = 0.0) {
+		if seconds != 0.0 {
+			let nanoSeconds = Int64(seconds * Double(NSEC_PER_SEC))
+			let time = dispatch_time(DISPATCH_TIME_NOW, nanoSeconds)
+			dispatch_block_wait(block, time)
+		} else {
+			dispatch_block_wait(block, DISPATCH_TIME_FOREVER)
+		}
+	}
 }
 
 // Convenience

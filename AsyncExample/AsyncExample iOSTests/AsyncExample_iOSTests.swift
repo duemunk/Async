@@ -395,4 +395,45 @@ class AsyncExample_iOSTests: XCTestCase {
 
 		waitForExpectationsWithTimeout(20, handler: nil)
 	}
+	
+	
+	/* dispatch_wait() */
+	
+	func testWait() {
+		var id = 0
+		let block = Async.background {
+			// Heavy work
+			for i in 0...100 {
+				println("A \(i)")
+			}
+			XCTAssertEqual(++id, 1, "")
+		}
+		XCTAssertEqual(id, 0, "")
+		
+		block.wait()
+		XCTAssertEqual(++id, 2, "")
+	}
+	
+	func testWaitMax() {
+		var id = 0
+		let block = Async.background {
+			XCTAssertEqual(++id, 1, "") // A
+			// Heavy work
+			for i in 0...10000 {
+				println("A \(i)")
+			}
+			XCTAssertEqual(++id, 3, "") // C
+		}
+		XCTAssertEqual(id, 0, "")
+		
+		let date = NSDate()
+		let timeDelay = 0.3
+		let upperTimeDelay = timeDelay + 0.2
+		
+		block.wait(seconds: timeDelay)
+		
+		XCTAssertEqual(++id, 2, "") // B
+		let timePassed = NSDate().timeIntervalSinceDate(date)
+		XCTAssert(timePassed < upperTimeDelay, "Shouldn't wait \(upperTimeDelay) seconds before firing")
+	}
 }
