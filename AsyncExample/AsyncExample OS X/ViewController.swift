@@ -83,6 +83,23 @@ class ViewController: NSViewController {
 			println("At least 0.4 seconds after previous block, and 0.9 after Async code is called")
 		}
 		*/
+		
+		/*
+		// Cancel blocks not yet dispatched
+		let block1 = Async.background {
+			// Heavy work
+			for i in 0...1000 {
+				println("A \(i)")
+			}
+		}
+		let block2 = block1.background {
+			println("B – shouldn't be reached, since cancelled")
+		}
+		Async.main {
+			block1.cancel() // First block is _not_ cancelled
+			block2.cancel() // Second block _is_ cancelled
+		}
+		*/
 	}
 }
 

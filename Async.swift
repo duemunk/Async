@@ -212,6 +212,11 @@ struct dispatch_block_t_wrapper {
 	func customQueue(#after: Double, queue: dispatch_queue_t, block: dispatch_block_t) -> dispatch_block_t_wrapper {
 		return self.after(after, block: block, runInQueue: queue)
 	}
+
+	/* cancel */
+	func cancel() {
+		dispatch_block_cancel(block)
+	}
 }
 
 // Convenience

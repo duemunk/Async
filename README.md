@@ -89,6 +89,25 @@ Async.main(after: seconds) {
 }
 ```
 
+Cancel blocks that aren't already dispatched:
+```swift
+// Cancel blocks not yet dispatched
+let block1 = Async.background {
+	// Heavy work
+	for i in 0...1000 {
+		println("A \(i)")
+	}
+}
+let block2 = block1.background {
+	println("B – shouldn't be reached, since cancelled")
+}
+Async.main { 
+	// Cancel async to allow block1 to begin
+	block1.cancel() // First block is _not_ cancelled
+	block2.cancel() // Second block _is_ cancelled
+}
+```
+
 ### How does it work
 The way it work is by using the new notification API for GCD introduced in OS X 10.10 and iOS 8. Each chaining block is called when the previous queue has finished.
 ```swift
