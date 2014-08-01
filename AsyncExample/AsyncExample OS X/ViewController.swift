@@ -73,6 +73,16 @@ class ViewController: NSViewController {
 			println("Other custom queue")
 		}
 		*/
+		
+		/*
+		// After
+		let seconds = 0.5
+		Async.main(after: seconds) {
+			println("Is called after 0.5 seconds")
+		}.background(after: 0.4) {
+			println("At least 0.4 seconds after previous block, and 0.9 after Async code is called")
+		}
+		*/
 	}
 }
 
