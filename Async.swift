@@ -29,10 +29,9 @@
 
 import Foundation
 
-// HACK: For Beta 4
-@prefix func +(v: qos_class_t) -> Int {
-	let i: UInt32 = reinterpretCast(v)
-	return Int(i)
+// HACK: For Beta 5
+prefix func +(v: qos_class_t) -> Int {
+	return Int(v.value)
 }
 
 private class GCD {
