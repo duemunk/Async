@@ -373,7 +373,7 @@ class AsyncExample_iOSTests: XCTestCase {
 
 	func testCancel() {
 		let expectation = expectationWithDescription("Block1 should run")
-
+		
 		let block1 = Async.background {
 			// Heavy work
 			for i in 0...1000 {
@@ -387,12 +387,10 @@ class AsyncExample_iOSTests: XCTestCase {
 		}
 		
 		Async.main(after: 0.01) {
-			let success1 = block1.cancel() // First block is _not_ cancelled
-			let success2 = block2.cancel() // Second block _is_ cancelled
-			XCTAssertFalse(success1, "Reported that is it did cancel first block")
-			XCTAssertTrue(success2, "Reported that is it didn't cancel first block")
+			block1.cancel() // First block is _not_ cancelled
+			block2.cancel() // Second block _is_ cancelled
 		}
-
+		
 		waitForExpectationsWithTimeout(20, handler: nil)
 	}
 	
