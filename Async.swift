@@ -29,7 +29,7 @@
 
 import Foundation
 
-// HACK: For Beta 5
+// HACK: For Beta 5, 6
 prefix func +(v: qos_class_t) -> Int {
 	return Int(v.value)
 }
