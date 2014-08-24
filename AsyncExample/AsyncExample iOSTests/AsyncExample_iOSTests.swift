@@ -370,30 +370,30 @@ class AsyncExample_iOSTests: XCTestCase {
 
 
 	/* dispatch_block_cancel() */
-/*
-	func testCancel() {
-		let expectation = expectationWithDescription("Block1 should run")
-		
-		let block1 = Async.background {
-			// Heavy work
-			for i in 0...1000 {
-				println("A \(i)")
-			}
-			expectation.fulfill()
-		}
-		let block2 = block1.background {
-			println("B – shouldn't be reached, since cancelled")
-			XCTFail("Shouldn't be reached, since cancelled")
-		}
-		
-		Async.main(after: 0.01) {
-			block1.cancel() // First block is _not_ cancelled
-			block2.cancel() // Second block _is_ cancelled
-		}
-		
-		waitForExpectationsWithTimeout(20, handler: nil)
-	}
-	*/
+
+//	func testCancel() {
+//		let expectation = expectationWithDescription("Block1 should run")
+//		
+//		let block1 = Async.background {
+//			// Heavy work
+//			for i in 0...1000 {
+//				println("A \(i)")
+//			}
+//			expectation.fulfill()
+//		}
+//		let block2 = block1.background {
+//			println("B – shouldn't be reached, since cancelled")
+//			XCTFail("Shouldn't be reached, since cancelled")
+//		}
+//		
+//		Async.main(after: 0.01) {
+//			block1.cancel() // First block is _not_ cancelled
+//			block2.cancel() // Second block _is_ cancelled
+//		}
+//		
+//		waitForExpectationsWithTimeout(20, handler: nil)
+//	}
+	
 	
 	/* dispatch_wait() */
 	
