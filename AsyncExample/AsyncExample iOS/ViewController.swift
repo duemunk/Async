@@ -15,9 +15,9 @@ class ViewController: UIViewController {
 
 		// Async syntactic sugar
 		Async.background {
-			println("A: This is run on the \(qos_class_self().description) (expected \(QOS_CLASS_BACKGROUND.description))")
+			println("A: This is run on the background")
 		}.main {
-			println("B: This is run on the \(qos_class_self().description) (expected \(qos_class_main().description)), after the previous block")
+			println("B: This is run on the , after the previous block")
 		}
 
 		// Regular GCD
