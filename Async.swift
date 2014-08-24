@@ -234,11 +234,10 @@ public struct DispatchBlock {
 
 
 	/* cancel */
-/*
-	func cancel() {
-		dispatch_block_cancel(block)
-	}
-*/	
+
+    //	func cancel() {
+    //      dispatch_block_cancel(block)
+    //  }
 
 	/* wait */
 
@@ -253,26 +252,26 @@ public struct DispatchBlock {
 		}
 	}
 }
-/*
-// Convenience
-extension qos_class_t {
 
-	// Calculated property
-	var description: String {
-		get {
-			switch +self {
-				case +qos_class_main(): return "Main"
-				case +QOS_CLASS_USER_INTERACTIVE: return "User Interactive"
-				case +QOS_CLASS_USER_INITIATED: return "User Initiated"
-				case +QOS_CLASS_DEFAULT: return "Default"
-				case +QOS_CLASS_UTILITY: return "Utility"
-				case +QOS_CLASS_BACKGROUND: return "Background"
-				case +QOS_CLASS_UNSPECIFIED: return "Unspecified"
-				default: return "Unknown"
-			}
-		}
-	}
-}
-*/
+// Convenience
+// extension qos_class_t {
+//
+//	// Calculated property
+//	var description: String {
+//		get {
+//			switch +self {
+//				case +qos_class_main(): return "Main"
+//				case +QOS_CLASS_USER_INTERACTIVE: return "User Interactive"
+//				case +QOS_CLASS_USER_INITIATED: return "User Initiated"
+//				case +QOS_CLASS_DEFAULT: return "Default"
+//				case +QOS_CLASS_UTILITY: return "Utility"
+//				case +QOS_CLASS_BACKGROUND: return "Background"
+//				case +QOS_CLASS_UNSPECIFIED: return "Unspecified"
+//				default: return "Unknown"
+//			}
+//		}
+//	}
+//}
+
 
 
