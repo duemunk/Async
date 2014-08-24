@@ -75,7 +75,7 @@ extension Async { // Static methods
 	/* dispatch_async() */
 
 	private static func async(block: dispatch_block_t, inQueue queue: dispatch_queue_t) -> Async {
-		// Create a new block (Qos Class) from block to allow adding a notification to it later (see Async)
+		// Create a new block (Qos Class) from block to allow adding a notification to it later (see matching regular Async methods)
 		// Create block with the "inherit" type
 		let _block = dispatch_block_create(DISPATCH_BLOCK_INHERIT_QOS_CLASS, block)
 		// Add block to queue
