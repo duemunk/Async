@@ -134,6 +134,8 @@ let _chainingBlock = dispatch_block_create(DISPATCH_BLOCK_INHERIT_QOS_CLASS, cha
 dispatch_block_notify(_previousBlock, dispatchQueueForChainingBlock, _chainingBlock)
 ```
 
+The syntax part of the chaining works by having class methods on the `Async` object e.g. `Async.main {}` which returns a struct. The struct has matching methods e.g. `theStruct.main {}`.
+
 ### Known improvements
 ```default``` is a keyword. Workaround used: ```default_```. Could use [this](http://ericasadun.com/2014/08/21/swift-when-cocoa-and-swift-collide/) trick shown be Erica Sadun, i.e. ```class func `default`() -> {}``` but it results in this use ```Async.`default`{}```
 
