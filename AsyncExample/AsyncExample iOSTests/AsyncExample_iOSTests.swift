@@ -71,16 +71,6 @@ class AsyncExample_iOSTests: XCTestCase {
 		waitForExpectationsWithTimeout(1, handler: nil)
 	}
 	
-	// Not expected to succeed (Apples wording: "Not intended as a work classification")
-	func testAsyncDefault() {
-		let expectation = expectationWithDescription("Expected On \(qos_class_self().description) (expected \(QOS_CLASS_DEFAULT.description))")
-		Async.default_ {
-			XCTAssertEqual(+qos_class_self(), +QOS_CLASS_DEFAULT, "On \(qos_class_self().description) (expected \(QOS_CLASS_DEFAULT.description))")
-			expectation.fulfill()
-		}
-		waitForExpectationsWithTimeout(1, handler: nil)
-	}
-	
 	func testAsyncUtility() {
 		let expectation = expectationWithDescription("Expected On \(qos_class_self().description) (expected \(QOS_CLASS_USER_INTERACTIVE.description))")
 		Async.utility {
@@ -275,38 +265,7 @@ class AsyncExample_iOSTests: XCTestCase {
 			expectation.fulfill()
 		}
 		waitForExpectationsWithTimeout((timeDelay1 + timeDelay2) * 2, handler: nil)
-	}
-	
-	// Not expected to succeed (Apples wording: "Not intended as a work classification")
-	func testAfterUserDefault() {
-		let expectation = expectationWithDescription("Expected after time")
-		let date1 = NSDate()
-		var date2 = NSDate()
-		let timeDelay1 = 1.1
-		let upperTimeDelay1 = timeDelay1 + 0.2
-		let timeDelay2 = 1.2
-		let upperTimeDelay2 = timeDelay2 + 0.2
-		var id = 0
-		Async.default_(after: timeDelay1) {
-			XCTAssertEqual(++id, 1, "First after")
-			
-			let timePassed = NSDate().timeIntervalSinceDate(date1)
-			XCTAssert(timePassed >= timeDelay1, "Should wait \(timeDelay1) seconds before firing")
-			XCTAssert(timePassed < upperTimeDelay1, "Shouldn't wait \(upperTimeDelay1) seconds before firing")
-			XCTAssertEqual(+qos_class_self(), +QOS_CLASS_DEFAULT, "On \(qos_class_self().description) (expected \(QOS_CLASS_DEFAULT.description))")
-			
-			date2 = NSDate() // Update
-		}.default_(after: timeDelay2) {
-			XCTAssertEqual(++id, 2, "Second after")
-			
-			let timePassed = NSDate().timeIntervalSinceDate(date2)
-			XCTAssert(timePassed >= timeDelay2, "Should wait \(timeDelay2) seconds before firing")
-			XCTAssert(timePassed < upperTimeDelay2, "Shouldn't wait \(upperTimeDelay2) seconds before firing")
-			XCTAssertEqual(+qos_class_self(), +QOS_CLASS_DEFAULT, "On \(qos_class_self().description) (expected \(QOS_CLASS_DEFAULT.description))")
-			expectation.fulfill()
-		}
-		waitForExpectationsWithTimeout((timeDelay1 + timeDelay2) * 2, handler: nil)
-	}
+    }
 	
 	func testAfterUtility() {
 		let expectation = expectationWithDescription("Expected after time")
