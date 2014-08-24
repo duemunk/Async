@@ -68,7 +68,7 @@ public class Async {
 
 	private class func async(block: dispatch_block_t, inQueue queue: dispatch_queue_t) -> DispatchBlock {
         // Wrap block in a struct since dispatch_block_t can't be extended and to give it a group
-		let dBlock =  DispatchBlock(block)
+		let dBlock =  DispatchBlock()
 
         // Add block to queue
 		dispatch_group_async(dBlock.dgroup, queue, block)
@@ -108,7 +108,7 @@ public class Async {
 	}
 	private class func at(time: dispatch_time_t, block: dispatch_block_t, inQueue queue: dispatch_queue_t) -> DispatchBlock {
 		// See Async.async() for comments
-        let dBlock = DispatchBlock(block)
+        let dBlock = DispatchBlock()
         dispatch_group_enter(dBlock.dgroup)
         dispatch_after(time, queue){
             block()
@@ -143,11 +143,9 @@ public class Async {
 // Wrapper since non-nominal type 'dispatch_block_t' cannot be extended (extension dispatch_block_t {})
 public struct DispatchBlock {
 	
-	private let block: dispatch_block_t
     private let dgroup: dispatch_group_t
 	
-	init(_ block: dispatch_block_t) {
-		self.block = block
+	init() {
         dgroup = dispatch_group_create()
 	}
 
@@ -156,7 +154,7 @@ public struct DispatchBlock {
 	
 	private func chain(block chainingBlock: dispatch_block_t, runInQueue queue: dispatch_queue_t) -> DispatchBlock {
 		// See Async.async() for comments
-        let dBlock = DispatchBlock(chainingBlock)
+        let dBlock = DispatchBlock()
         dispatch_group_enter(dBlock.dgroup)
         dispatch_group_notify(self.dgroup, queue) {
             chainingBlock()
@@ -192,7 +190,7 @@ public struct DispatchBlock {
 
 	private func after(seconds: Double, block chainingBlock: dispatch_block_t, runInQueue queue: dispatch_queue_t) -> DispatchBlock {
         
-        var dBlock = DispatchBlock(chainingBlock)
+        var dBlock = DispatchBlock()
         
         dispatch_group_notify(self.dgroup, queue)
         {
