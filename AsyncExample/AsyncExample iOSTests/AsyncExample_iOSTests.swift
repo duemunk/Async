@@ -9,6 +9,24 @@
 import UIKit
 import XCTest
 
+// Just a mininally printing workload
+func dumbFibonachi(n:Int)->Int {
+    if n < 3 {
+        return 1
+    }
+    return dumbFibonachi(n-1) + dumbFibonachi(n-2)
+}
+
+var fibonachiResult:[Int] = [] // Prevents optimiser removing fibonachi calls
+var emptyString = ""
+func heavyWork() {
+    // Heavy work
+    for i in 0...15 {
+        fibonachiResult = [Int](count: 2000, repeatedValue: 15).map { return dumbFibonachi($0)}
+        print(emptyString)
+    }
+}
+
 class AsyncExample_iOSTests: XCTestCase {
     
     override func setUp() {
@@ -375,10 +393,7 @@ class AsyncExample_iOSTests: XCTestCase {
 		let expectation = expectationWithDescription("Block1 should run")
 		
 		let block1 = Async.background {
-			// Heavy work
-			for i in 0...1000 {
-				println("A \(i)")
-			}
+			heavyWork()
 			expectation.fulfill()
 		}
 		let block2 = block1.background {
@@ -393,17 +408,33 @@ class AsyncExample_iOSTests: XCTestCase {
 		
 		waitForExpectationsWithTimeout(20, handler: nil)
 	}
-	
-	
+
+    func testChainedBlocksAfterCancel() {
+        let expectation1 = expectationWithDescription("First block should run")
+        let expectation2 = expectationWithDescription("Third and last block should run")
+        let firstBlock = Async.main(after: 1.0) {
+            // Something to delay
+            expectation1.fulfill()
+        }
+        let secondBlock = firstBlock.background {
+            // Something to cancel
+            println("This should be cancelled")
+            XCTFail("This should be cancelled")
+        }
+        secondBlock.background {
+            expectation2.fulfill()
+        }
+        secondBlock.cancel()
+        waitForExpectationsWithTimeout(3, handler: nil)
+    }
+
 	/* dispatch_wait() */
 	
 	func testWait() {
 		var id = 0
 		let block = Async.background {
-			// Heavy work
-			for i in 0...100 {
-				println("A \(i)")
-			}
+			// Medium light work
+			println("Fib 12 = \(dumbFibonachi(12))")
 			XCTAssertEqual(++id, 1, "")
 		}
 		XCTAssertEqual(id, 0, "")
@@ -411,15 +442,12 @@ class AsyncExample_iOSTests: XCTestCase {
 		block.wait()
 		XCTAssertEqual(++id, 2, "")
 	}
-	
+
 	func testWaitMax() {
 		var id = 0
 		let block = Async.background {
 			XCTAssertEqual(++id, 1, "") // A
-			// Heavy work
-			for i in 0...10000 {
-				println("A \(i)")
-			}
+			heavyWork()
 			XCTAssertEqual(++id, 3, "") // C
 		}
 		XCTAssertEqual(id, 0, "")
