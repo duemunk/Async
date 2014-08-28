@@ -140,6 +140,9 @@ The syntax part of the chaining works by having class methods on the `Async` obj
 
 The ```dispatch_block_t``` can't be extended. Workaround used: Wrap ```dispatch_block_t``` in a struct that takes the block as a property.
 
+### Legacy support
+For support of iOS 7 and OS X 10.9 check out [Async.legacy](https://github.com/josephlord/Async.legacy). [Joseph Lord](https://github.com/josephlord) works hard to have as high feature parity with **Async** as possible.
+
 ### License
 The MIT License (MIT)
 
