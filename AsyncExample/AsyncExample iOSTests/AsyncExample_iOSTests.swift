@@ -29,10 +29,10 @@ class AsyncExample_iOSTests: XCTestCase {
 		let expectation = expectationWithDescription("Expected after time")
 		
 		let qos = QOS_CLASS_BACKGROUND
-		let queue = dispatch_get_global_queue(+qos, 0)
+		let queue = dispatch_get_global_queue(qos.id, 0)
 		dispatch_async(queue) {
 			let currentQos = qos_class_self()
-			XCTAssertEqual(+currentQos, +qos, "On \(currentQos.description) (expected \(qos.description))")
+			XCTAssertEqual(currentQos.id, qos.id, "On \(currentQos.description) (expected \(qos.description))")
 			expectation.fulfill()
 		}
 		waitForExpectationsWithTimeout(1, handler: nil)
@@ -45,7 +45,7 @@ class AsyncExample_iOSTests: XCTestCase {
 		let expectation = expectationWithDescription("Expected on main queue")
 		var calledStuffAfterSinceAsync = false
 		Async.main {
-			XCTAssertEqual(+qos_class_self(), +qos_class_main(), "On \(qos_class_self().description) (expexted \(qos_class_main().description))")
+			XCTAssertEqual(qos_class_self().id, qos_class_main().id, "On \(qos_class_self().description) (expexted \(qos_class_main().description))")
 			XCTAssert(calledStuffAfterSinceAsync, "Should be async")
 			expectation.fulfill()
 		}
@@ -56,7 +56,7 @@ class AsyncExample_iOSTests: XCTestCase {
 	func testAsyncUserInteractive() {
 		let expectation = expectationWithDescription("Expected On \(qos_class_self().description) (expected \(QOS_CLASS_USER_INTERACTIVE.description))")
 		Async.userInteractive {
-			XCTAssertEqual(+qos_class_self(), +QOS_CLASS_USER_INTERACTIVE, "On \(qos_class_self().description) (expected \(QOS_CLASS_USER_INTERACTIVE.description))")
+			XCTAssertEqual(qos_class_self().id, QOS_CLASS_USER_INTERACTIVE.id, "On \(qos_class_self().description) (expected \(QOS_CLASS_USER_INTERACTIVE.description))")
 			expectation.fulfill()
 		}
 		waitForExpectationsWithTimeout(1, handler: nil)
@@ -65,7 +65,7 @@ class AsyncExample_iOSTests: XCTestCase {
 	func testAsyncUserInitiared() {
 		let expectation = expectationWithDescription("Expected On \(qos_class_self().description) (expected \(QOS_CLASS_USER_INITIATED.description))")
 		Async.userInitiated {
-			XCTAssertEqual(+qos_class_self(), +QOS_CLASS_USER_INITIATED, "On \(qos_class_self().description) (expected \(QOS_CLASS_USER_INITIATED.description))")
+			XCTAssertEqual(qos_class_self().id, QOS_CLASS_USER_INITIATED.id, "On \(qos_class_self().description) (expected \(QOS_CLASS_USER_INITIATED.description))")
 			expectation.fulfill()
 		}
 		waitForExpectationsWithTimeout(1, handler: nil)
@@ -75,7 +75,7 @@ class AsyncExample_iOSTests: XCTestCase {
 	func testAsyncDefault() {
 		let expectation = expectationWithDescription("Expected On \(qos_class_self().description) (expected \(QOS_CLASS_DEFAULT.description))")
 		Async.default_ {
-			XCTAssertEqual(+qos_class_self(), +QOS_CLASS_DEFAULT, "On \(qos_class_self().description) (expected \(QOS_CLASS_DEFAULT.description))")
+			XCTAssertEqual(qos_class_self().id, QOS_CLASS_DEFAULT.id, "On \(qos_class_self().description) (expected \(QOS_CLASS_DEFAULT.description))")
 			expectation.fulfill()
 		}
 		waitForExpectationsWithTimeout(1, handler: nil)
@@ -84,7 +84,7 @@ class AsyncExample_iOSTests: XCTestCase {
 	func testAsyncUtility() {
 		let expectation = expectationWithDescription("Expected On \(qos_class_self().description) (expected \(QOS_CLASS_USER_INTERACTIVE.description))")
 		Async.utility {
-			XCTAssertEqual(+qos_class_self(), +QOS_CLASS_UTILITY, "On \(qos_class_self().description) (expected \(QOS_CLASS_UTILITY.description))")
+			XCTAssertEqual(qos_class_self().id, QOS_CLASS_UTILITY.id, "On \(qos_class_self().description) (expected \(QOS_CLASS_UTILITY.description))")
 			expectation.fulfill()
 		}
 		waitForExpectationsWithTimeout(1, handler: nil)
@@ -93,7 +93,7 @@ class AsyncExample_iOSTests: XCTestCase {
 	func testAsyncBackground() {
 		let expectation = expectationWithDescription("Expected On \(qos_class_self().description) (expected \(QOS_CLASS_BACKGROUND.description))")
 		Async.background {
-			XCTAssertEqual(+qos_class_self(), +QOS_CLASS_BACKGROUND, "On \(qos_class_self().description) (expected \(QOS_CLASS_BACKGROUND.description))")
+			XCTAssertEqual(qos_class_self().id, QOS_CLASS_BACKGROUND.id, "On \(qos_class_self().description) (expected \(QOS_CLASS_BACKGROUND.description))")
 			expectation.fulfill()
 		}
 		waitForExpectationsWithTimeout(1, handler: nil)
@@ -103,10 +103,10 @@ class AsyncExample_iOSTests: XCTestCase {
 		let expectation = expectationWithDescription("Expected on background to main queue")
 		var wasInBackground = false
 		Async.background {
-			XCTAssertEqual(+qos_class_self(), +QOS_CLASS_BACKGROUND, "On \(qos_class_self().description) (expected \(QOS_CLASS_BACKGROUND.description))")
+			XCTAssertEqual(qos_class_self().id, QOS_CLASS_BACKGROUND.id, "On \(qos_class_self().description) (expected \(QOS_CLASS_BACKGROUND.description))")
 			wasInBackground = true
 		}.main {
-			XCTAssertEqual(+qos_class_self(), +qos_class_main(), "On \(qos_class_self().description) (expected \(qos_class_main().description))")
+			XCTAssertEqual(qos_class_self().id, qos_class_main().id, "On \(qos_class_self().description) (expected \(qos_class_main().description))")
 			XCTAssert(wasInBackground, "Was in background first")
 			expectation.fulfill()
 		}
@@ -117,19 +117,19 @@ class AsyncExample_iOSTests: XCTestCase {
 		let expectation = expectationWithDescription("Expected On \(qos_class_self().description) (expected \(QOS_CLASS_USER_INTERACTIVE.description))")
 		var id = 0
 		Async.main {
-			XCTAssertEqual(+qos_class_self(), +qos_class_main(), "On \(qos_class_self().description) (expexted \(qos_class_main().description))")
+			XCTAssertEqual(qos_class_self().id, qos_class_main().id, "On \(qos_class_self().description) (expexted \(qos_class_main().description))")
 			XCTAssertEqual(++id, 1, "Count main queue")
 		}.userInteractive {
-			XCTAssertEqual(+qos_class_self(), +QOS_CLASS_USER_INTERACTIVE, "On \(qos_class_self().description) (expected \(QOS_CLASS_USER_INTERACTIVE.description))")
+			XCTAssertEqual(qos_class_self().id, QOS_CLASS_USER_INTERACTIVE.id, "On \(qos_class_self().description) (expected \(QOS_CLASS_USER_INTERACTIVE.description))")
 			XCTAssertEqual(++id, 2, "Count user interactive queue")
 		}.userInitiated {
-			XCTAssertEqual(+qos_class_self(), +QOS_CLASS_USER_INITIATED, "On \(qos_class_self().description) (expected \(QOS_CLASS_USER_INITIATED.description))")
+			XCTAssertEqual(qos_class_self().id, QOS_CLASS_USER_INITIATED.id, "On \(qos_class_self().description) (expected \(QOS_CLASS_USER_INITIATED.description))")
 			XCTAssertEqual(++id, 3, "Count user initiated queue")
 		}.utility {
-			XCTAssertEqual(+qos_class_self(), +QOS_CLASS_UTILITY, "On \(qos_class_self().description) (expected \(QOS_CLASS_UTILITY.description))")
+			XCTAssertEqual(qos_class_self().id, QOS_CLASS_UTILITY.id, "On \(qos_class_self().description) (expected \(QOS_CLASS_UTILITY.description))")
 			XCTAssertEqual(++id, 4, "Count utility queue")
 		}.background {
-			XCTAssertEqual(+qos_class_self(), +QOS_CLASS_BACKGROUND, "On \(qos_class_self().description) (expected \(QOS_CLASS_BACKGROUND.description))")
+			XCTAssertEqual(qos_class_self().id, QOS_CLASS_BACKGROUND.id, "On \(qos_class_self().description) (expected \(QOS_CLASS_BACKGROUND.description))")
 			XCTAssertEqual(++id, 5, "Count background queue")
 			expectation.fulfill()
 		}
@@ -160,13 +160,13 @@ class AsyncExample_iOSTests: XCTestCase {
 		let timeDelay = 1.0
 		let upperTimeDelay = timeDelay + 0.2
 		let time = dispatch_time(DISPATCH_TIME_NOW, Int64(timeDelay * Double(NSEC_PER_SEC)))
-		let queue = dispatch_get_global_queue(+QOS_CLASS_BACKGROUND, 0)
+		let queue = dispatch_get_global_queue(QOS_CLASS_BACKGROUND.id, 0)
 		dispatch_after(time, queue, {
 			let timePassed = NSDate().timeIntervalSinceDate(date)
 			println("\(timePassed)")
 			XCTAssert(timePassed >= timeDelay, "Should wait \(timeDelay) seconds before firing")
 			XCTAssert(timePassed < upperTimeDelay, "Shouldn't wait \(upperTimeDelay) seconds before firing")
-			XCTAssertEqual(+qos_class_self(), +QOS_CLASS_BACKGROUND, "On \(qos_class_self().description) (expected \(QOS_CLASS_BACKGROUND.description))")
+			XCTAssertEqual(qos_class_self().id, QOS_CLASS_BACKGROUND.id, "On \(qos_class_self().description) (expected \(QOS_CLASS_BACKGROUND.description))")
 			expectation.fulfill()
 		})
 		waitForExpectationsWithTimeout(timeDelay*2, handler: nil)
@@ -181,7 +181,7 @@ class AsyncExample_iOSTests: XCTestCase {
 			let timePassed = NSDate().timeIntervalSinceDate(date)
 			XCTAssert(timePassed >= timeDelay, "Should wait \(timeDelay) seconds before firing")
 			XCTAssert(timePassed < upperTimeDelay, "Shouldn't wait \(upperTimeDelay) seconds before firing")
-			XCTAssertEqual(+qos_class_self(), +qos_class_main(), "On main queue")
+			XCTAssertEqual(qos_class_self().id, qos_class_main().id, "On main queue")
 			expectation.fulfill()
 		}
 		waitForExpectationsWithTimeout(timeDelay*2, handler: nil)
@@ -202,7 +202,7 @@ class AsyncExample_iOSTests: XCTestCase {
 			let timePassed = NSDate().timeIntervalSinceDate(date1)
 			XCTAssert(timePassed >= timeDelay1, "Should wait \(timeDelay1) seconds before firing")
 			XCTAssert(timePassed < upperTimeDelay1, "Shouldn't wait \(upperTimeDelay1) seconds before firing")
-			XCTAssertEqual(+qos_class_self(), +QOS_CLASS_USER_INTERACTIVE, "On \(qos_class_self().description) (expected \(QOS_CLASS_USER_INTERACTIVE.description))")
+			XCTAssertEqual(qos_class_self().id, QOS_CLASS_USER_INTERACTIVE.id, "On \(qos_class_self().description) (expected \(QOS_CLASS_USER_INTERACTIVE.description))")
 			
 			date2 = NSDate() // Update
 		}.utility(after: timeDelay2) {
@@ -211,7 +211,7 @@ class AsyncExample_iOSTests: XCTestCase {
 			let timePassed = NSDate().timeIntervalSinceDate(date2)
 			XCTAssert(timePassed >= timeDelay2, "Should wait \(timeDelay2) seconds before firing")
 			XCTAssert(timePassed < upperTimeDelay2, "Shouldn't wait \(upperTimeDelay2) seconds before firing")
-			XCTAssertEqual(+qos_class_self(), +QOS_CLASS_UTILITY, "On \(qos_class_self().description) (expected \(QOS_CLASS_UTILITY.description))")
+			XCTAssertEqual(qos_class_self().id, QOS_CLASS_UTILITY.id, "On \(qos_class_self().description) (expected \(QOS_CLASS_UTILITY.description))")
 			expectation.fulfill()
 		}
 		waitForExpectationsWithTimeout((timeDelay1 + timeDelay2) * 2, handler: nil)
@@ -232,7 +232,7 @@ class AsyncExample_iOSTests: XCTestCase {
 			let timePassed = NSDate().timeIntervalSinceDate(date1)
 			XCTAssert(timePassed >= timeDelay1, "Should wait \(timeDelay1) seconds before firing")
 			XCTAssert(timePassed < upperTimeDelay1, "Shouldn't wait \(upperTimeDelay1) seconds before firing")
-			XCTAssertEqual(+qos_class_self(), +QOS_CLASS_USER_INTERACTIVE, "On \(qos_class_self().description) (expected \(QOS_CLASS_USER_INTERACTIVE.description))")
+			XCTAssertEqual(qos_class_self().id, QOS_CLASS_USER_INTERACTIVE.id, "On \(qos_class_self().description) (expected \(QOS_CLASS_USER_INTERACTIVE.description))")
 			
 			date2 = NSDate() // Update
 		}.userInteractive(after: timeDelay2) {
@@ -241,7 +241,7 @@ class AsyncExample_iOSTests: XCTestCase {
 			let timePassed = NSDate().timeIntervalSinceDate(date2)
 			XCTAssert(timePassed >= timeDelay2, "Should wait \(timeDelay2) seconds before firing")
 			XCTAssert(timePassed < upperTimeDelay2, "Shouldn't wait \(upperTimeDelay2) seconds before firing")
-			XCTAssertEqual(+qos_class_self(), +QOS_CLASS_USER_INTERACTIVE, "On \(qos_class_self().description) (expected \(QOS_CLASS_USER_INTERACTIVE.description))")
+			XCTAssertEqual(qos_class_self().id, QOS_CLASS_USER_INTERACTIVE.id, "On \(qos_class_self().description) (expected \(QOS_CLASS_USER_INTERACTIVE.description))")
 			expectation.fulfill()
 		}
 		waitForExpectationsWithTimeout((timeDelay1 + timeDelay2) * 2, handler: nil)
@@ -262,7 +262,7 @@ class AsyncExample_iOSTests: XCTestCase {
 			let timePassed = NSDate().timeIntervalSinceDate(date1)
 			XCTAssert(timePassed >= timeDelay1, "Should wait \(timeDelay1) seconds before firing")
 			XCTAssert(timePassed < upperTimeDelay1, "Shouldn't wait \(upperTimeDelay1) seconds before firing")
-			XCTAssertEqual(+qos_class_self(), +QOS_CLASS_USER_INITIATED, "On \(qos_class_self().description) (expected \(QOS_CLASS_USER_INITIATED.description))")
+			XCTAssertEqual(qos_class_self().id, QOS_CLASS_USER_INITIATED.id, "On \(qos_class_self().description) (expected \(QOS_CLASS_USER_INITIATED.description))")
 			
 			date2 = NSDate() // Update
 		}.userInitiated(after: timeDelay2) {
@@ -271,7 +271,7 @@ class AsyncExample_iOSTests: XCTestCase {
 			let timePassed = NSDate().timeIntervalSinceDate(date2)
 			XCTAssert(timePassed >= timeDelay2, "Should wait \(timeDelay2) seconds before firing")
 			XCTAssert(timePassed < upperTimeDelay2, "Shouldn't wait \(upperTimeDelay2) seconds before firing")
-			XCTAssertEqual(+qos_class_self(), +QOS_CLASS_USER_INITIATED, "On \(qos_class_self().description) (expected \(QOS_CLASS_USER_INITIATED.description))")
+			XCTAssertEqual(qos_class_self().id, QOS_CLASS_USER_INITIATED.id, "On \(qos_class_self().description) (expected \(QOS_CLASS_USER_INITIATED.description))")
 			expectation.fulfill()
 		}
 		waitForExpectationsWithTimeout((timeDelay1 + timeDelay2) * 2, handler: nil)
@@ -293,7 +293,7 @@ class AsyncExample_iOSTests: XCTestCase {
 			let timePassed = NSDate().timeIntervalSinceDate(date1)
 			XCTAssert(timePassed >= timeDelay1, "Should wait \(timeDelay1) seconds before firing")
 			XCTAssert(timePassed < upperTimeDelay1, "Shouldn't wait \(upperTimeDelay1) seconds before firing")
-			XCTAssertEqual(+qos_class_self(), +QOS_CLASS_DEFAULT, "On \(qos_class_self().description) (expected \(QOS_CLASS_DEFAULT.description))")
+			XCTAssertEqual(qos_class_self().id, QOS_CLASS_DEFAULT.id, "On \(qos_class_self().description) (expected \(QOS_CLASS_DEFAULT.description))")
 			
 			date2 = NSDate() // Update
 		}.default_(after: timeDelay2) {
@@ -302,7 +302,7 @@ class AsyncExample_iOSTests: XCTestCase {
 			let timePassed = NSDate().timeIntervalSinceDate(date2)
 			XCTAssert(timePassed >= timeDelay2, "Should wait \(timeDelay2) seconds before firing")
 			XCTAssert(timePassed < upperTimeDelay2, "Shouldn't wait \(upperTimeDelay2) seconds before firing")
-			XCTAssertEqual(+qos_class_self(), +QOS_CLASS_DEFAULT, "On \(qos_class_self().description) (expected \(QOS_CLASS_DEFAULT.description))")
+			XCTAssertEqual(qos_class_self().id, QOS_CLASS_DEFAULT.id, "On \(qos_class_self().description) (expected \(QOS_CLASS_DEFAULT.description))")
 			expectation.fulfill()
 		}
 		waitForExpectationsWithTimeout((timeDelay1 + timeDelay2) * 2, handler: nil)
@@ -323,7 +323,7 @@ class AsyncExample_iOSTests: XCTestCase {
 			let timePassed = NSDate().timeIntervalSinceDate(date1)
 			XCTAssert(timePassed >= timeDelay1, "Should wait \(timeDelay1) seconds before firing")
 			XCTAssert(timePassed < upperTimeDelay1, "Shouldn't wait \(upperTimeDelay1) seconds before firing")
-			XCTAssertEqual(+qos_class_self(), +QOS_CLASS_UTILITY, "On \(qos_class_self().description) (expected \(QOS_CLASS_UTILITY.description))")
+			XCTAssertEqual(qos_class_self().id, QOS_CLASS_UTILITY.id, "On \(qos_class_self().description) (expected \(QOS_CLASS_UTILITY.description))")
 			
 			date2 = NSDate() // Update
 		}.utility(after: timeDelay2) {
@@ -332,7 +332,7 @@ class AsyncExample_iOSTests: XCTestCase {
 			let timePassed = NSDate().timeIntervalSinceDate(date2)
 			XCTAssert(timePassed >= timeDelay2, "Should wait \(timeDelay2) seconds before firing")
 			XCTAssert(timePassed < upperTimeDelay2, "Shouldn't wait \(upperTimeDelay2) seconds before firing")
-			XCTAssertEqual(+qos_class_self(), +QOS_CLASS_UTILITY, "On \(qos_class_self().description) (expected \(QOS_CLASS_UTILITY.description))")
+			XCTAssertEqual(qos_class_self().id, QOS_CLASS_UTILITY.id, "On \(qos_class_self().description) (expected \(QOS_CLASS_UTILITY.description))")
 			expectation.fulfill()
 		}
 		waitForExpectationsWithTimeout((timeDelay1 + timeDelay2) * 2, handler: nil)
@@ -353,7 +353,7 @@ class AsyncExample_iOSTests: XCTestCase {
 			let timePassed = NSDate().timeIntervalSinceDate(date1)
 			XCTAssert(timePassed >= timeDelay1, "Should wait \(timeDelay1) seconds before firing")
 			XCTAssert(timePassed < upperTimeDelay1, "Shouldn't wait \(upperTimeDelay1) seconds before firing")
-			XCTAssertEqual(+qos_class_self(), +QOS_CLASS_BACKGROUND, "On \(qos_class_self().description) (expected \(QOS_CLASS_BACKGROUND.description))")
+			XCTAssertEqual(qos_class_self().id, QOS_CLASS_BACKGROUND.id, "On \(qos_class_self().description) (expected \(QOS_CLASS_BACKGROUND.description))")
 			
 			date2 = NSDate() // Update
 		}.background(after: timeDelay2) {
@@ -362,7 +362,7 @@ class AsyncExample_iOSTests: XCTestCase {
 			let timePassed = NSDate().timeIntervalSinceDate(date2)
 			XCTAssert(timePassed >= timeDelay2, "Should wait \(timeDelay2) seconds before firing")
 			XCTAssert(timePassed < upperTimeDelay2, "Shouldn't wait \(upperTimeDelay2) seconds before firing")
-			XCTAssertEqual(+qos_class_self(), +QOS_CLASS_BACKGROUND, "On \(qos_class_self().description) (expected \(QOS_CLASS_BACKGROUND.description))")
+			XCTAssertEqual(qos_class_self().id, QOS_CLASS_BACKGROUND.id, "On \(qos_class_self().description) (expected \(QOS_CLASS_BACKGROUND.description))")
 			expectation.fulfill()
 		}
 		waitForExpectationsWithTimeout((timeDelay1 + timeDelay2) * 2, handler: nil)

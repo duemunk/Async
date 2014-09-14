@@ -29,9 +29,12 @@
 
 import Foundation
 
-// HACK: For Beta 5, 6
-prefix func +(v: qos_class_t) -> Int {
-	return Int(v.value)
+// HACK: For Swift 1.0
+extension qos_class_t {
+    
+    public var id:Int {
+        return Int(self.value)
+    }
 }
 
 private class GCD {
@@ -39,22 +42,22 @@ private class GCD {
 	/* dispatch_get_queue() */
 	class func mainQueue() -> dispatch_queue_t {
 		return dispatch_get_main_queue()
-		// Could use return dispatch_get_global_queue(+qos_class_main(), 0)
+		// Could use return dispatch_get_global_queue(qos_class_main().id, 0)
 	}
 	class func userInteractiveQueue() -> dispatch_queue_t {
-		return dispatch_get_global_queue(+QOS_CLASS_USER_INTERACTIVE, 0)
+		return dispatch_get_global_queue(QOS_CLASS_USER_INTERACTIVE.id, 0)
 	}
 	class func userInitiatedQueue() -> dispatch_queue_t {
-		 return dispatch_get_global_queue(+QOS_CLASS_USER_INITIATED, 0)
+		 return dispatch_get_global_queue(QOS_CLASS_USER_INITIATED.id, 0)
 	}
 	class func defaultQueue() -> dispatch_queue_t {
-		return dispatch_get_global_queue(+QOS_CLASS_DEFAULT, 0)
+		return dispatch_get_global_queue(QOS_CLASS_DEFAULT.id, 0)
 	}
 	class func utilityQueue() -> dispatch_queue_t {
-		return dispatch_get_global_queue(+QOS_CLASS_UTILITY, 0)
+		return dispatch_get_global_queue(QOS_CLASS_UTILITY.id, 0)
 	}
 	class func backgroundQueue() -> dispatch_queue_t {
-		return dispatch_get_global_queue(+QOS_CLASS_BACKGROUND, 0)
+		return dispatch_get_global_queue(QOS_CLASS_BACKGROUND.id, 0)
 	}
 }
 
@@ -252,14 +255,14 @@ extension qos_class_t {
 	// Calculated property
 	var description: String {
 		get {
-			switch +self {
-				case +qos_class_main(): return "Main"
-				case +QOS_CLASS_USER_INTERACTIVE: return "User Interactive"
-				case +QOS_CLASS_USER_INITIATED: return "User Initiated"
-				case +QOS_CLASS_DEFAULT: return "Default"
-				case +QOS_CLASS_UTILITY: return "Utility"
-				case +QOS_CLASS_BACKGROUND: return "Background"
-				case +QOS_CLASS_UNSPECIFIED: return "Unspecified"
+			switch self.id {
+				case qos_class_main().id: return "Main"
+				case QOS_CLASS_USER_INTERACTIVE.id: return "User Interactive"
+				case QOS_CLASS_USER_INITIATED.id: return "User Initiated"
+				case QOS_CLASS_DEFAULT.id: return "Default"
+				case QOS_CLASS_UTILITY.id: return "Utility"
+				case QOS_CLASS_BACKGROUND.id: return "Background"
+				case QOS_CLASS_UNSPECIFIED.id: return "Unspecified"
 				default: return "Unknown"
 			}
 		}
