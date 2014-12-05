@@ -72,7 +72,7 @@ public struct Async {
 }
 
 
-extension Async { // Static methods
+public extension Async { // Static methods
 
 	
 	/* dispatch_async() */
@@ -146,7 +146,7 @@ extension Async { // Static methods
 }
 
 
-extension Async { // Regualar methods matching static once
+public extension Async { // Regualar methods matching static once
 
 
 	/* dispatch_async() */
@@ -250,7 +250,7 @@ extension Async { // Regualar methods matching static once
 
 
 // Convenience
-extension qos_class_t {
+public extension qos_class_t {
 
 	// Calculated property
 	var description: String {
