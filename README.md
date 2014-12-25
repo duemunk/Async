@@ -1,9 +1,18 @@
-Async
+Async [![](http://img.shields.io/badge/operator_overload-nope-green.svg)](https://gist.github.com/duemunk/61e45932dbb1a2ca0954) [![](http://img.shields.io/badge/OS%20X-10.10%2B-lightgrey.svg)]() [![](http://img.shields.io/badge/iOS-8.0%2B-lightgrey.svg)]()
 =====
 
 Syntactic sugar in Swift for asynchronous dispatches in Grand Central Dispatch ([GCD](https://developer.apple.com/library/prerelease/ios/documentation/Performance/Reference/GCD_libdispatch_Ref/index.html))
 
-The familiar syntax for GCD is:
+**Async** sugar looks like this:
+```swift
+Async.background {
+	println("This is run on the background queue")
+}.main {
+	println("This is run on the main queue, after the previous block")
+}
+```
+
+Instead of the familiar syntax for GCD:
 ```swift
 dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_BACKGROUND, 0), {
 	println("This is run on the background queue")
@@ -14,21 +23,11 @@ dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_BACKGROUND, 0),
 })
 ```
 
-**Async** adds syntactic sugar resulting in this:
-```swift
-Async.background {
-	println("This is run on the background queue")
-}.main {
-	println("This is run on the main queue, after the previous block")
-}
-```
+
 
 ### Benefits
 1. Less verbose code
 2. Less code indentation
-
-### Support
-OS X 10.10+ and iOS 8.0+
 
 ### Things you can do
 Supports the modern queue classes:
@@ -137,6 +136,9 @@ The syntax part of the chaining works by having class methods on the `Async` obj
 
 ### Known improvements
 The ```dispatch_block_t``` can't be extended. Workaround used: Wrap ```dispatch_block_t``` in a struct that takes the block as a property.
+
+### Legacy support
+For support of iOS 7 and OS X 10.9 check out [Async.legacy](https://github.com/josephlord/Async.legacy). [Joseph Lord](https://github.com/josephlord) works hard to have as high feature parity with **Async** as possible.
 
 ### License
 The MIT License (MIT)
