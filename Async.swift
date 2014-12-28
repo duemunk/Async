@@ -234,6 +234,184 @@ extension Async { // Regualar methods matching static once
 }
 
 
+public class AsyncIO<A, R> {
+    
+    private var block: dispatch_block_t?
+    
+    private typealias ReturnType = R
+    private typealias ArgumentType = A
+    
+    private var _arguments: ArgumentType?
+    private var _return: ReturnType?
+    
+    private func boost(block inBlock: A -> R, arguments: A) {
+        _arguments = arguments
+        
+        let voidInOutBlock: () -> () = {
+            if let arguments = self._arguments {
+                self._return = inBlock(arguments)
+                println(": \(self._return)")
+            } else {
+                println("| \(arguments)")
+                self._return = nil
+            }
+        }
+        // Create a new block (Qos Class) from block to allow adding a notification to it later (see matching regular Async methods)
+        // Create block with the "inherit" type
+        let cancellableVoidInOutBlock = dispatch_block_create(DISPATCH_BLOCK_INHERIT_QOS_CLASS, voidInOutBlock)
+        
+        self.block = cancellableVoidInOutBlock
+    }
+    
+    private func boost<T>(block inBlock: A -> R, chainTo: AsyncIO<T, ArgumentType>) {
+        
+        let voidInOutBlock: () -> () = {
+            let returnFromPrevious = chainTo._return
+            self._arguments = returnFromPrevious
+            
+            if let arguments = self._arguments {
+                self._return = inBlock(arguments)
+                println(": \(self._return)")
+            } else {
+                assert(false, "No return value from previous")
+            }
+        }
+        // Create a new block (Qos Class) from block to allow adding a notification to it later (see matching regular Async methods)
+        // Create block with the "inherit" type
+        let cancellableVoidInOutBlock = dispatch_block_create(DISPATCH_BLOCK_INHERIT_QOS_CLASS, voidInOutBlock)
+        
+        self.block = cancellableVoidInOutBlock
+    }
+    
+    private func boost<T>(block inBlock: A -> R, chainTo: AsyncO<ArgumentType>) {
+        
+        let voidInOutBlock: () -> () = {
+            let returnFromPrevious = chainTo._return
+            self._arguments = returnFromPrevious
+            
+            if let arguments = self._arguments {
+                self._return = inBlock(arguments)
+                println(": \(self._return)")
+            } else {
+                assert(false, "No return value from previous")
+            }
+        }
+        // Create a new block (Qos Class) from block to allow adding a notification to it later (see matching regular Async methods)
+        // Create block with the "inherit" type
+        let cancellableVoidInOutBlock = dispatch_block_create(DISPATCH_BLOCK_INHERIT_QOS_CLASS, voidInOutBlock)
+        
+        self.block = cancellableVoidInOutBlock
+    }
+    
+    /* dispatch_async() */
+    
+    private class func async<A, R>(block: A -> R, inQueue queue: dispatch_queue_t, arguments: A) -> AsyncIO<A, R> {
+        
+        let async = AsyncIO<A, R>()
+        async.boost(block: block, arguments: arguments)
+        // Add block to queue
+        dispatch_async(queue, async.block)
+
+        return async
+    }
+    
+    public class func main(arguments: A, block: A -> R) -> AsyncIO<A, R> {
+        return AsyncIO.async(block, inQueue: GCD.mainQueue(), arguments: arguments)
+    }
+    
+//    public class func main(block:() -> R) -> AsyncIO<(), R> {
+//        return AsyncIO.async(block, inQueue: GCD.mainQueue(), arguments: ())
+//    }
+
+    
+    /* Chaining */
+    
+    private func chain<T>(block chainingBlock: ReturnType -> T, runInQueue queue: dispatch_queue_t) -> AsyncIO<ReturnType, T> {
+        
+        let async = AsyncIO<ReturnType, T>()
+        async.boost(block: chainingBlock, chainTo: self)
+        // Add block to queue
+        dispatch_async(queue, async.block)
+        
+        return async
+    }
+    
+    public func main<T>(chainingBlock: ReturnType -> T) -> AsyncIO<ReturnType, T> {
+        return chain(block: chainingBlock, runInQueue: GCD.mainQueue())
+    }
+}
+
+
+public class AsyncO<R> {
+    
+    private var block: dispatch_block_t?
+    
+    private typealias ReturnType = R
+    
+    private var _return: ReturnType?
+    
+    private func boost(block inBlock: () -> R) {
+        
+        let voidInOutBlock: () -> () = {
+            self._return = inBlock()
+        }
+        // Create a new block (Qos Class) from block to allow adding a notification to it later (see matching regular Async methods)
+        // Create block with the "inherit" type
+        let cancellableVoidInOutBlock = dispatch_block_create(DISPATCH_BLOCK_INHERIT_QOS_CLASS, voidInOutBlock)
+        
+        self.block = cancellableVoidInOutBlock
+    }
+    
+    private func boost(block inBlock: () -> R, chainTo: Async) {
+        
+        let voidInOutBlock: () -> () = {
+            
+            self._return = inBlock()
+        }
+        // Create a new block (Qos Class) from block to allow adding a notification to it later (see matching regular Async methods)
+        // Create block with the "inherit" type
+        let cancellableVoidInOutBlock = dispatch_block_create(DISPATCH_BLOCK_INHERIT_QOS_CLASS, voidInOutBlock)
+        
+        self.block = cancellableVoidInOutBlock
+    }
+    
+    /* dispatch_async() */
+    
+    private class func async<R>(block: () -> R, inQueue queue: dispatch_queue_t) -> AsyncO<R> {
+        
+        let async = AsyncO<R>()
+        async.boost(block: block)
+        // Add block to queue
+        dispatch_async(queue, async.block)
+        
+        return async
+    }
+    
+    public class func main(block: () -> R) -> AsyncO<R> {
+        return AsyncO.async(block, inQueue: GCD.mainQueue())
+    }
+    
+    
+    /* Chaining */
+    
+    private func chain<T>(block chainingBlock: ReturnType -> T, runInQueue queue: dispatch_queue_t) -> AsyncIO<ReturnType, T> {
+        
+        let async = AsyncIO<ReturnType, T>()
+        async.boost(block: chainingBlock, chainTo: self)
+        // Add block to queue
+        dispatch_async(queue, async.block)
+        
+        return async
+    }
+    
+    public func main<T>(chainingBlock: ReturnType -> T) -> AsyncIO<ReturnType, T> {
+        return chain(block: chainingBlock, runInQueue: GCD.mainQueue())
+    }
+}
+
+
+
+
 // Convenience
 extension qos_class_t {
 

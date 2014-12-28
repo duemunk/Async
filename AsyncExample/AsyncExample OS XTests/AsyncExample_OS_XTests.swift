@@ -392,5 +392,66 @@ class AsyncExample_OS_XTests: XCTestCase {
 		XCTAssertEqual(++id, 2, "") // B
 		let timePassed = NSDate().timeIntervalSinceDate(date)
 		XCTAssert(timePassed < upperTimeDelay, "Shouldn't wait \(upperTimeDelay) seconds before firing")
-	}	
+	}
+    
+    /* Closure arguments and return types */
+    
+    func testClosureArguments() {
+
+        let expectationA = expectationWithDescription("A")
+        let expectationB = expectationWithDescription("B")
+        
+        AsyncIO.main("8") { string -> Int in
+            let i = string.toInt()
+            println("C \(i)")
+            XCTAssertEqual(i!, 8, "")
+            expectationA.fulfill()
+            return i!
+        }.main { i -> String in
+            XCTAssertEqual(i, 8, "")
+            expectationB.fulfill()
+            return "Hello \(i)"
+        }
+        
+        // TODO: Improve for () -> Something
+        AsyncIO.main(()) { () -> Int in
+            let i = "8".toInt()
+            println("C \(i)")
+            XCTAssertEqual(i!, 8, "")
+            expectationA.fulfill()
+            return i!
+        }.main { i -> String in
+                XCTAssertEqual(i, 8, "")
+                expectationB.fulfill()
+                return "Hello \(i)"
+        }
+        
+        AsyncIO.main((), block: { () -> Int in
+            let i = "8".toInt()
+            println("C \(i)")
+            XCTAssertEqual(i!, 8, "")
+            expectationA.fulfill()
+            return i!
+        })
+        
+        AsyncO.main { () -> Int in
+            return 1
+        }
+        
+        // TODO: Improve for Something -> ()
+//        AsyncIO.main("8") { string -> Int in
+//            let i = string.toInt()
+//            println("C \(i)")
+//            XCTAssertEqual(i!, 8, "")
+//            expectationA.fulfill()
+//            return i!
+//        }.main { i -> String in
+//            XCTAssertEqual(i, 8, "")
+//            expectationB.fulfill()
+//            let p = "Hello \(i)"
+//        }
+        
+        waitForExpectationsWithTimeout(1, handler: nil)
+        
+    }
 }
