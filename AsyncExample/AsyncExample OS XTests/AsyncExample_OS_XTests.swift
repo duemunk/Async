@@ -496,4 +496,74 @@ class AsyncExample_OS_XTests: XCTestCase {
         assert(count == 3, "Wrong count")
         waitForExpectationsWithTimeout(1, handler: nil)
     }
+    
+    
+    /* dispatch_group */
+    
+    func testGroup() {
+        // TODO:
+        let group = dispatch_group_create()
+
+        Async.background(group: group) {
+            println("b1")
+            for i in 0...100 {
+                println("A \(i)")
+            }
+        }
+        Async.utility(group: group) {
+            println("u")
+        }
+        Async.background(group: group) {
+            println("b2")
+        }
+        
+        NSLog("Pre wait")
+        group.wait()
+        NSLog("Post wait")
+    }
+    
+    func testGroupMain() {
+        // TODO: Stalls
+        let group = dispatch_group_create()
+     
+        Async.main(group: group) {
+            println("m")
+        }
+        
+        NSLog("Pre wait")
+        group.wait()
+        NSLog("Post wait")
+        
+        waitForExpectationsWithTimeout(10, handler: nil)
+    }
+    
+    func testGroupChain() {
+        // TODO: Expectation never reached
+        let exp = expectationWithDescription("")
+        
+        let group = dispatch_group_create()
+        Async.background(group: group) {
+            println("b1")
+            for i in 0...1000 {
+                println("A \(i)")
+            }
+        }.background {
+                println("TADA")
+                exp.fulfill()
+        }
+        
+        Async.utility(group: group) {
+            println("u")
+        }
+        Async.background(group: group) {
+            println("b2")
+        }
+        
+        NSLog("Pre wait")
+        group.wait()
+        //        group.wait(seconds: 1)
+        NSLog("Post wait")
+        
+        waitForExpectationsWithTimeout(10, handler: nil)
+    }
 }

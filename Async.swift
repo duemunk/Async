@@ -81,32 +81,36 @@ extension Async {
 	
 	/* dispatch_async() */
 
-	private static func async(block: dispatch_block_t, inQueue queue: dispatch_queue_t) -> Async {
+	private static func async(block: dispatch_block_t, inQueue queue: dispatch_queue_t, inGroup group: dispatch_group_t? = nil) -> Async {
 		// Create a new block (Qos Class) from block to allow adding a notification to it later (see matching regular Async methods)
 		// Create block with the "inherit" type
 		let _block = dispatch_block_create(DISPATCH_BLOCK_INHERIT_QOS_CLASS, block)
 		// Add block to queue
-		dispatch_async(queue, _block)
+        if let group = group {
+            dispatch_group_async(group, queue, block)
+        } else {
+            dispatch_async(queue, _block)
+        }
 		// Wrap block in a struct since dispatch_block_t can't be extended
 		return Async(_block)
 	}
-	public static func main(block: dispatch_block_t) -> Async {
-		return Async.async(block, inQueue: GCD.mainQueue())
+	public static func main(group: dispatch_group_t? = nil, block: dispatch_block_t) -> Async {
+		return Async.async(block, inQueue: GCD.mainQueue(), inGroup: group)
 	}
-	public static func userInteractive(block: dispatch_block_t) -> Async {
-		return Async.async(block, inQueue: GCD.userInteractiveQueue())
+	public static func userInteractive(group: dispatch_group_t? = nil, block: dispatch_block_t) -> Async {
+		return Async.async(block, inQueue: GCD.userInteractiveQueue(), inGroup: group)
 	}
-	public static func userInitiated(block: dispatch_block_t) -> Async {
-		return Async.async(block, inQueue: GCD.userInitiatedQueue())
+	public static func userInitiated(group: dispatch_group_t? = nil, block: dispatch_block_t) -> Async {
+		return Async.async(block, inQueue: GCD.userInitiatedQueue(), inGroup: group)
 	}
-	public static func utility(block: dispatch_block_t) -> Async {
-		return Async.async(block, inQueue: GCD.utilityQueue())
+	public static func utility(group: dispatch_group_t? = nil, block: dispatch_block_t) -> Async {
+		return Async.async(block, inQueue: GCD.utilityQueue(), inGroup: group)
 	}
-	public static func background(block: dispatch_block_t) -> Async {
-		return Async.async(block, inQueue: GCD.backgroundQueue())
+	public static func background(group: dispatch_group_t? = nil, block: dispatch_block_t) -> Async {
+		return Async.async(block, inQueue: GCD.backgroundQueue(), inGroup: group)
 	}
-	public static func customQueue(queue: dispatch_queue_t, block: dispatch_block_t) -> Async {
-		return Async.async(block, inQueue: queue)
+	public static func customQueue(queue: dispatch_queue_t, group: dispatch_group_t? = nil, block: dispatch_block_t) -> Async {
+		return Async.async(block, inQueue: queue, inGroup: group)
 	}
 
 
@@ -154,7 +158,8 @@ extension Async {
 	private func chain(block chainingBlock: dispatch_block_t, runInQueue queue: dispatch_queue_t) -> Async {
 		// See Async.async() for comments
 		let _chainingBlock = dispatch_block_create(DISPATCH_BLOCK_INHERIT_QOS_CLASS, chainingBlock)
-		dispatch_block_notify(self.block, queue, _chainingBlock)
+        dispatch_block_notify(self.block, queue, _chainingBlock)
+        
 		return Async(_chainingBlock)
 	}
 	
@@ -271,6 +276,22 @@ public struct Apply {
     }
 }
 
+
+// MARK: - dispatch_group_t extension
+
+public extension dispatch_group_t {
+    
+    /// If optional parameter forSeconds is not provided, use DISPATCH_TIME_FOREVER
+    func wait(seconds: Double = 0.0) {
+        if seconds != 0.0 {
+            let nanoSeconds = Int64(seconds * Double(NSEC_PER_SEC))
+            let time = dispatch_time(DISPATCH_TIME_NOW, nanoSeconds)
+            dispatch_group_wait(self, time)
+        } else {
+            dispatch_group_wait(self, DISPATCH_TIME_FOREVER)
+        }
+    }
+}
 
 
 // MARK: - qos_class_t
