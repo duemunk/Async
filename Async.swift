@@ -42,7 +42,7 @@ private class GCD {
 	/* dispatch_get_queue() */
 	class func mainQueue() -> dispatch_queue_t {
 		return dispatch_get_main_queue()
-		// Could use return dispatch_get_global_queue(qos_class_main().id, 0)
+		// Don't ever use dispatch_get_global_queue(qos_class_main().id, 0) re https://gist.github.com/duemunk/34babc7ca8150ff81844
 	}
 	class func userInteractiveQueue() -> dispatch_queue_t {
 		return dispatch_get_global_queue(QOS_CLASS_USER_INTERACTIVE.id, 0)
