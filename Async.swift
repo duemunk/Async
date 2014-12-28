@@ -50,9 +50,6 @@ private class GCD {
 	class func userInitiatedQueue() -> dispatch_queue_t {
 		 return dispatch_get_global_queue(QOS_CLASS_USER_INITIATED.id, 0)
 	}
-	class func defaultQueue() -> dispatch_queue_t {
-		return dispatch_get_global_queue(QOS_CLASS_DEFAULT.id, 0)
-	}
 	class func utilityQueue() -> dispatch_queue_t {
 		return dispatch_get_global_queue(QOS_CLASS_UTILITY.id, 0)
 	}
@@ -95,9 +92,6 @@ extension Async { // Static methods
 	public static func userInitiated(block: dispatch_block_t) -> Async {
 		return Async.async(block, inQueue: GCD.userInitiatedQueue())
 	}
-	public static func default_(block: dispatch_block_t) -> Async {
-		return Async.async(block, inQueue: GCD.defaultQueue())
-	}
 	public static func utility(block: dispatch_block_t) -> Async {
 		return Async.async(block, inQueue: GCD.utilityQueue())
 	}
@@ -131,9 +125,6 @@ extension Async { // Static methods
 	public static func userInitiated(#after: Double, block: dispatch_block_t) -> Async {
 		return Async.after(after, block: block, inQueue: GCD.userInitiatedQueue())
 	}
-	public static func default_(#after: Double, block: dispatch_block_t) -> Async {
-		return Async.after(after, block: block, inQueue: GCD.defaultQueue())
-	}
 	public static func utility(#after: Double, block: dispatch_block_t) -> Async {
 		return Async.after(after, block: block, inQueue: GCD.utilityQueue())
 	}
@@ -166,9 +157,6 @@ extension Async { // Regualar methods matching static once
 	}
 	public func userInitiated(chainingBlock: dispatch_block_t) -> Async {
 		return chain(block: chainingBlock, runInQueue: GCD.userInitiatedQueue())
-	}
-	public func default_(chainingBlock: dispatch_block_t) -> Async {
-		return chain(block: chainingBlock, runInQueue: GCD.defaultQueue())
 	}
 	public func utility(chainingBlock: dispatch_block_t) -> Async {
 		return chain(block: chainingBlock, runInQueue: GCD.utilityQueue())
@@ -212,9 +200,6 @@ extension Async { // Regualar methods matching static once
 	}
 	public func userInitiated(#after: Double, block: dispatch_block_t) -> Async {
 		return self.after(after, block: block, runInQueue: GCD.userInitiatedQueue())
-	}
-	public func default_(#after: Double, block: dispatch_block_t) -> Async {
-		return self.after(after, block: block, runInQueue: GCD.defaultQueue())
 	}
 	public func utility(#after: Double, block: dispatch_block_t) -> Async {
 		return self.after(after, block: block, runInQueue: GCD.utilityQueue())

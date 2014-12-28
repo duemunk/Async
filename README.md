@@ -35,7 +35,6 @@ Supports the modern queue classes:
 Async.main {}
 Async.userInteractive {}
 Async.userInitiated {}
-Async.default_ {}
 Async.utility {}
 Async.background {}
 ```
@@ -136,8 +135,6 @@ dispatch_block_notify(_previousBlock, dispatchQueueForChainingBlock, _chainingBl
 The syntax part of the chaining works by having class methods on the `Async` object e.g. `Async.main {}` which returns a struct. The struct has matching methods e.g. `theStruct.main {}`.
 
 ### Known improvements
-```default``` is a keyword. Workaround used: ```default_```. Could use [this](http://ericasadun.com/2014/08/21/swift-when-cocoa-and-swift-collide/) trick shown be Erica Sadun, i.e. ```class func `default`() -> {}``` but it results in this use ```Async.`default`{}```
-
 The ```dispatch_block_t``` can't be extended. Workaround used: Wrap ```dispatch_block_t``` in a struct that takes the block as a property.
 
 ### Legacy support
