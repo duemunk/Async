@@ -137,6 +137,15 @@ The syntax part of the chaining works by having class methods on the `Async` obj
 ### Known improvements
 The ```dispatch_block_t``` can't be extended. Workaround used: Wrap ```dispatch_block_t``` in a struct that takes the block as a property.
 
+### Bonus stuff
+There is also a wrapper for [`dispatch_apply()`](https://developer.apple.com/library/mac/documentation/Performance/Reference/GCD_libdispatch_Ref/index.html#//apple_ref/c/func/dispatch_apply)  for quick parallelisation of a `for` loop. 
+```swift
+Apply.background(100) { i in
+	// Do stuff e.g. println(i)
+}
+```
+Note that this function returns after the block has been run all 100 times i.e. it is not asynchronous. For asynchronous behaviour, wrap it in a an `Async` block like `Async.main{ Apply.background(100) { ... } }`.
+
 ### Legacy support
 For support of iOS 7 and OS X 10.9 check out [Async.legacy](https://github.com/josephlord/Async.legacy). [Joseph Lord](https://github.com/josephlord) works hard to have as high feature parity with **Async** as possible.
 
