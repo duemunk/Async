@@ -92,7 +92,7 @@ extension Async { // Static methods
 	public static func userInitiated(block: dispatch_block_t) -> Async {
 		return Async.async(block, inQueue: GCD.userInitiatedQueue())
 	}
-	static func utility(block: dispatch_block_t) -> Async {
+	public static func utility(block: dispatch_block_t) -> Async {
 		return Async.async(block, inQueue: GCD.utilityQueue())
 	}
 	public static func background(block: dispatch_block_t) -> Async {
@@ -125,7 +125,7 @@ extension Async { // Static methods
 	public static func userInitiated(#after: Double, block: dispatch_block_t) -> Async {
 		return Async.after(after, block: block, inQueue: GCD.userInitiatedQueue())
 	}
-	static func utility(#after: Double, block: dispatch_block_t) -> Async {
+	public static func utility(#after: Double, block: dispatch_block_t) -> Async {
 		return Async.after(after, block: block, inQueue: GCD.utilityQueue())
 	}
 	public static func background(#after: Double, block: dispatch_block_t) -> Async {
@@ -158,7 +158,7 @@ extension Async { // Regualar methods matching static once
 	public func userInitiated(chainingBlock: dispatch_block_t) -> Async {
 		return chain(block: chainingBlock, runInQueue: GCD.userInitiatedQueue())
 	}
-	func utility(chainingBlock: dispatch_block_t) -> Async {
+	public func utility(chainingBlock: dispatch_block_t) -> Async {
 		return chain(block: chainingBlock, runInQueue: GCD.utilityQueue())
 	}
 	public func background(chainingBlock: dispatch_block_t) -> Async {
@@ -201,7 +201,7 @@ extension Async { // Regualar methods matching static once
 	public func userInitiated(#after: Double, block: dispatch_block_t) -> Async {
 		return self.after(after, block: block, runInQueue: GCD.userInitiatedQueue())
 	}
-	func utility(#after: Double, block: dispatch_block_t) -> Async {
+	public func utility(#after: Double, block: dispatch_block_t) -> Async {
 		return self.after(after, block: block, runInQueue: GCD.utilityQueue())
 	}
 	public func background(#after: Double, block: dispatch_block_t) -> Async {
