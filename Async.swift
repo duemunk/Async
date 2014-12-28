@@ -29,11 +29,11 @@
 
 import Foundation
 
-// HACK: For Swift 1.0
+// HACK: For Swift 1.1
 extension qos_class_t {
     
     public var id:Int {
-        return Int(self.value)
+        return Int(value)
     }
 }
 
