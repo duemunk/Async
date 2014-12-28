@@ -29,13 +29,16 @@
 
 import Foundation
 
-// HACK: For Swift 1.1
+// MARK: - HACK: For Swift 1.1
 extension qos_class_t {
     
     public var id:Int {
         return Int(value)
     }
 }
+
+
+// MARK: - DSL for GCD queues
 
 private class GCD {
 	
@@ -59,6 +62,8 @@ private class GCD {
 }
 
 
+// MARK: - Async – Struct
+
 public struct Async {
     
     private let block: dispatch_block_t
@@ -69,7 +74,9 @@ public struct Async {
 }
 
 
-extension Async { // Static methods
+// MARK: - Async – Static methods
+
+extension Async {
 
 	
 	/* dispatch_async() */
@@ -137,7 +144,9 @@ extension Async { // Static methods
 }
 
 
-extension Async { // Regualar methods matching static once
+// MARK: - Async – Regualar methods matching static ones
+
+extension Async {
 
 
 	/* dispatch_async() */
@@ -234,10 +243,12 @@ extension Async { // Regualar methods matching static once
 }
 
 
-/* dispatch_apply */
+// MARK: - Apply
 
 public struct Apply {
     
+    // DSL for GCD dispatch_apply()
+    //
     // Apply runs a block multiple times, before returning. 
     // If you want run the block asynchounusly from the current thread, 
     // wrap it in an Async block, 
@@ -262,9 +273,11 @@ public struct Apply {
 
 
 
-// Convenience
+// MARK: - qos_class_t
+
 extension qos_class_t {
 
+    // Convenience description of qos_class_t
 	// Calculated property
 	var description: String {
 		get {
