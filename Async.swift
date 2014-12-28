@@ -29,11 +29,11 @@
 
 import Foundation
 
-// HACK: For Swift 1.0
+// HACK: For Swift 1.1
 extension qos_class_t {
     
     public var id:Int {
-        return Int(self.value)
+        return Int(value)
     }
 }
 
@@ -42,7 +42,7 @@ private class GCD {
 	/* dispatch_get_queue() */
 	class func mainQueue() -> dispatch_queue_t {
 		return dispatch_get_main_queue()
-		// Could use return dispatch_get_global_queue(qos_class_main().id, 0)
+		// Don't ever use dispatch_get_global_queue(qos_class_main().id, 0) re https://gist.github.com/duemunk/34babc7ca8150ff81844
 	}
 	class func userInteractiveQueue() -> dispatch_queue_t {
 		return dispatch_get_global_queue(QOS_CLASS_USER_INTERACTIVE.id, 0)
@@ -232,6 +232,34 @@ extension Async { // Regualar methods matching static once
 		}
 	}
 }
+
+
+/* dispatch_apply */
+
+public struct Apply {
+    
+    // Apply runs a block multiple times, before returning. 
+    // If you want run the block asynchounusly from the current thread, 
+    // wrap it in an Async block, 
+    // e.g. Async.main { Apply.background(3) { ... } }
+    
+    public static func userInteractive(iterations: UInt, block: UInt -> ()) {
+        dispatch_apply(iterations, GCD.userInteractiveQueue(), block)
+    }
+    public static func userInitiated(iterations: UInt, block: UInt -> ()) {
+        dispatch_apply(iterations, GCD.userInitiatedQueue(), block)
+    }
+    public static func utility(iterations: UInt, block: UInt -> ()) {
+        dispatch_apply(iterations, GCD.utilityQueue(), block)
+    }
+    public static func background(iterations: UInt, block: UInt -> ()) {
+        dispatch_apply(iterations, GCD.backgroundQueue(), block)
+    }
+    public static func customQueue(iterations: UInt, queue: dispatch_queue_t, block: UInt -> ()) {
+        dispatch_apply(iterations, queue, block)
+    }
+}
+
 
 
 // Convenience
