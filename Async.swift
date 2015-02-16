@@ -223,7 +223,7 @@ extension Async {
 
 	/* cancel */
 
-	func cancel() {
+	public func cancel() {
 		dispatch_block_cancel(block)
 	}
 	
@@ -231,7 +231,7 @@ extension Async {
 	/* wait */
 
 	/// If optional parameter forSeconds is not provided, use DISPATCH_TIME_FOREVER
-	func wait(seconds: Double = 0.0) {
+	public func wait(seconds: Double = 0.0) {
 		if seconds != 0.0 {
 			let nanoSeconds = Int64(seconds * Double(NSEC_PER_SEC))
 			let time = dispatch_time(DISPATCH_TIME_NOW, nanoSeconds)
