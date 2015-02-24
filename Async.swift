@@ -266,7 +266,7 @@ public struct Apply {
     public static func background(iterations: Int, block: Int -> ()) {
         dispatch_apply(iterations, GCD.backgroundQueue(), block)
     }
-    public static func customQueue(iterations: Int, queue: dispatch_queue_t, block: aInt -> ()) {
+    public static func customQueue(iterations: Int, queue: dispatch_queue_t, block: Int -> ()) {
         dispatch_apply(iterations, queue, block)
     }
 }
