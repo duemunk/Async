@@ -254,19 +254,19 @@ public struct Apply {
     // wrap it in an Async block, 
     // e.g. Async.main { Apply.background(3) { ... } }
     
-    public static func userInteractive(iterations: UInt, block: UInt -> ()) {
+    public static func userInteractive(iterations: Int, block: Int -> ()) {
         dispatch_apply(iterations, GCD.userInteractiveQueue(), block)
     }
-    public static func userInitiated(iterations: UInt, block: UInt -> ()) {
+    public static func userInitiated(iterations: Int, block: Int -> ()) {
         dispatch_apply(iterations, GCD.userInitiatedQueue(), block)
     }
-    public static func utility(iterations: UInt, block: UInt -> ()) {
+    public static func utility(iterations: Int, block: Int -> ()) {
         dispatch_apply(iterations, GCD.utilityQueue(), block)
     }
-    public static func background(iterations: UInt, block: UInt -> ()) {
+    public static func background(iterations: Int, block: Int -> ()) {
         dispatch_apply(iterations, GCD.backgroundQueue(), block)
     }
-    public static func customQueue(iterations: UInt, queue: dispatch_queue_t, block: UInt -> ()) {
+    public static func customQueue(iterations: Int, queue: dispatch_queue_t, block: Int -> ()) {
         dispatch_apply(iterations, queue, block)
     }
 }
