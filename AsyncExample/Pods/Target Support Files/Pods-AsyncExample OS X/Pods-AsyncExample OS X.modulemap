@@ -1,0 +1,6 @@
+framework module Pods_AsyncExample_OS_X {
+  umbrella header "Pods-AsyncExample OS X-umbrella.h"
+
+  export *
+  module * { export * }
+}
