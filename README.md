@@ -17,7 +17,7 @@ Instead of the familiar syntax for GCD:
 dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_BACKGROUND, 0), {
 	println("This is run on the background queue")
 	
-	dispatch_async(dispatch_get_main_queue(), 0), {
+	dispatch_async(dispatch_get_main_queue(), {
 		println("This is run on the main queue, after the previous block")
 	})
 })
