@@ -29,13 +29,6 @@
 
 import Foundation
 
-// MARK: - HACK: For Swift 1.1
-public extension qos_class_t {
-    
-    var id:Int {
-        return Int(value)
-    }
-}
 
 // MARK: - DSL for GCD queues
 
@@ -44,19 +37,19 @@ private class GCD {
 	/* dispatch_get_queue() */
 	class func mainQueue() -> dispatch_queue_t {
 		return dispatch_get_main_queue()
-		// Don't ever use dispatch_get_global_queue(qos_class_main().id, 0) re https://gist.github.com/duemunk/34babc7ca8150ff81844
+		// Don't ever use dispatch_get_global_queue(qos_class_main(), 0) re https://gist.github.com/duemunk/34babc7ca8150ff81844
 	}
 	class func userInteractiveQueue() -> dispatch_queue_t {
-		return dispatch_get_global_queue(QOS_CLASS_USER_INTERACTIVE.id, 0)
+		return dispatch_get_global_queue(QOS_CLASS_USER_INTERACTIVE, 0)
 	}
 	class func userInitiatedQueue() -> dispatch_queue_t {
-		 return dispatch_get_global_queue(QOS_CLASS_USER_INITIATED.id, 0)
+		 return dispatch_get_global_queue(QOS_CLASS_USER_INITIATED, 0)
 	}
 	class func utilityQueue() -> dispatch_queue_t {
-		return dispatch_get_global_queue(QOS_CLASS_UTILITY.id, 0)
+		return dispatch_get_global_queue(QOS_CLASS_UTILITY, 0)
 	}
 	class func backgroundQueue() -> dispatch_queue_t {
-		return dispatch_get_global_queue(QOS_CLASS_BACKGROUND.id, 0)
+		return dispatch_get_global_queue(QOS_CLASS_BACKGROUND, 0)
 	}
 }
 
@@ -249,27 +242,26 @@ public struct Apply {
     // DSL for GCD dispatch_apply()
     //
     // Apply runs a block multiple times, before returning. 
-    // If you want run the block asynchounusly from the current thread, 
+    // If you want run the block asynchronously from the current thread,
     // wrap it in an Async block, 
     // e.g. Async.main { Apply.background(3) { ... } }
     
-    public static func userInteractive(iterations: UInt, block: UInt -> ()) {
+    public static func userInteractive(iterations: Int, block: Int -> ()) {
         dispatch_apply(iterations, GCD.userInteractiveQueue(), block)
     }
-    public static func userInitiated(iterations: UInt, block: UInt -> ()) {
+    public static func userInitiated(iterations: Int, block: Int -> ()) {
         dispatch_apply(iterations, GCD.userInitiatedQueue(), block)
     }
-    public static func utility(iterations: UInt, block: UInt -> ()) {
+    public static func utility(iterations: Int, block: Int -> ()) {
         dispatch_apply(iterations, GCD.utilityQueue(), block)
     }
-    public static func background(iterations: UInt, block: UInt -> ()) {
+    public static func background(iterations: Int, block: Int -> ()) {
         dispatch_apply(iterations, GCD.backgroundQueue(), block)
     }
-    public static func customQueue(iterations: UInt, queue: dispatch_queue_t, block: UInt -> ()) {
+    public static func customQueue(iterations: Int, queue: dispatch_queue_t, block: Int -> ()) {
         dispatch_apply(iterations, queue, block)
     }
 }
-
 
 
 // MARK: - qos_class_t
@@ -280,16 +272,27 @@ public extension qos_class_t {
 	// Calculated property
 	var description: String {
 		get {
-			switch self.id {
-				case qos_class_main().id: return "Main"
-				case QOS_CLASS_USER_INTERACTIVE.id: return "User Interactive"
-				case QOS_CLASS_USER_INITIATED.id: return "User Initiated"
-				case QOS_CLASS_DEFAULT.id: return "Default"
-				case QOS_CLASS_UTILITY.id: return "Utility"
-				case QOS_CLASS_BACKGROUND.id: return "Background"
-				case QOS_CLASS_UNSPECIFIED.id: return "Unspecified"
+			switch self {
+				case qos_class_main(): return "Main"
+				case QOS_CLASS_USER_INTERACTIVE: return "User Interactive"
+				case QOS_CLASS_USER_INITIATED: return "User Initiated"
+				case QOS_CLASS_DEFAULT: return "Default"
+				case QOS_CLASS_UTILITY: return "Utility"
+				case QOS_CLASS_BACKGROUND: return "Background"
+				case QOS_CLASS_UNSPECIFIED: return "Unspecified"
 				default: return "Unknown"
 			}
 		}
 	}
+}
+
+// Binary operator for qos_class_t allows for comparison in switch-statements
+func ~=(lhs: qos_class_t, rhs: qos_class_t) -> Bool {
+    return lhs.value ~= rhs.value
+}
+
+// Make qos_class_t equatable
+extension qos_class_t: Equatable {}
+public func ==(lhs: qos_class_t, rhs: qos_class_t) -> Bool {
+    return lhs.value == rhs.value
 }
