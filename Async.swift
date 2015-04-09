@@ -242,7 +242,7 @@ public struct Apply {
     // DSL for GCD dispatch_apply()
     //
     // Apply runs a block multiple times, before returning. 
-    // If you want run the block asynchounusly from the current thread, 
+    // If you want run the block asynchronously from the current thread,
     // wrap it in an Async block, 
     // e.g. Async.main { Apply.background(3) { ... } }
     
