@@ -1,0 +1,14 @@
+PODS:
+  - Async (1.1.1)
+
+DEPENDENCIES:
+  - Async (from `../`)
+
+EXTERNAL SOURCES:
+  Async:
+    :path: ../
+
+SPEC CHECKSUMS:
+  Async: 4ba79915d3f43324db9e1e296db324cb896fa266
+
+COCOAPODS: 0.36.0
