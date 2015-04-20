@@ -23,7 +23,11 @@ dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_BACKGROUND, 0),
 })
 ```
 
-
+### Install
+#### CocoaPods
+```ruby
+pod 'Async', :git => 'https://github.com/duemunk/Async.git'
+```
 
 ### Benefits
 1. Less verbose code
