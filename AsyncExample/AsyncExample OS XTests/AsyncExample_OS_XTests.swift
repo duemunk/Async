@@ -154,7 +154,7 @@ class AsyncExample_OS_XTests: XCTestCase {
 		let queue = dispatch_get_global_queue(QOS_CLASS_BACKGROUND, 0)
 		dispatch_after(time, queue, {
 			let timePassed = NSDate().timeIntervalSinceDate(date)
-			println("\(timePassed)")
+			print("\(timePassed)")
 			XCTAssert(timePassed >= timeDelay, "Should wait \(timeDelay) seconds before firing")
 			XCTAssert(timePassed < upperTimeDelay, "Shouldn't wait \(upperTimeDelay) seconds before firing")
 			XCTAssertEqual(qos_class_self(), QOS_CLASS_BACKGROUND, "On \(qos_class_self().description) (expected \(QOS_CLASS_BACKGROUND.description))")
@@ -337,12 +337,12 @@ class AsyncExample_OS_XTests: XCTestCase {
 		let block1 = Async.background {
 			// Heavy work
 			for i in 0...1000 {
-				println("A \(i)")
+				print("A \(i)")
 			}
 			expectation.fulfill()
 		}
 		let block2 = block1.background {
-			println("B – shouldn't be reached, since cancelled")
+			print("B – shouldn't be reached, since cancelled")
 			XCTFail("Shouldn't be reached, since cancelled")
 		}
 		
@@ -362,7 +362,7 @@ class AsyncExample_OS_XTests: XCTestCase {
 		let block = Async.background {
 			// Heavy work
 			for i in 0...100 {
-				println("A \(i)")
+				print("A \(i)")
 			}
 			XCTAssertEqual(++id, 1, "")
 		}
@@ -378,7 +378,7 @@ class AsyncExample_OS_XTests: XCTestCase {
 			XCTAssertEqual(++id, 1, "") // A
 			// Heavy work
 			for i in 0...10000 {
-				println("A \(i)")
+				print("A \(i)")
 			}
 			XCTAssertEqual(++id, 3, "") // C
 		}
@@ -405,9 +405,7 @@ class AsyncExample_OS_XTests: XCTestCase {
         let expectations = [expectation1, expectation2, expectation3]
         var count = 0
         Apply.userInteractive(3) { i in
-            if let expectation = expectations[Int(i)] {
-                expectation.fulfill()
-            }
+            expectations[i].fulfill()
             count++
         }
         assert(count == 3, "Wrong count")
@@ -421,9 +419,7 @@ class AsyncExample_OS_XTests: XCTestCase {
         let expectations = [expectation1, expectation2, expectation3]
         var count = 0
         Apply.userInitiated(3) { i in
-            if let expectation = expectations[Int(i)] {
-                expectation.fulfill()
-            }
+            expectations[i].fulfill()
             count++
         }
         assert(count == 3, "Wrong count")
@@ -437,9 +433,7 @@ class AsyncExample_OS_XTests: XCTestCase {
         let expectations = [expectation1, expectation2, expectation3]
         var count = 0
         Apply.utility(3) { i in
-            if let expectation = expectations[Int(i)] {
-                expectation.fulfill()
-            }
+            expectations[i].fulfill()
             count++
         }
         assert(count == 3, "Wrong count")
@@ -453,9 +447,7 @@ class AsyncExample_OS_XTests: XCTestCase {
         let expectations = [expectation1, expectation2, expectation3]
         var count = 0
         Apply.background(3) { i in
-            if let expectation = expectations[Int(i)] {
-                expectation.fulfill()
-            }
+            expectations[i].fulfill()
             count++
         }
         assert(count == 3, "Wrong count")
@@ -470,10 +462,8 @@ class AsyncExample_OS_XTests: XCTestCase {
         var count = 0
         let customQueue = dispatch_queue_create("CustomQueueConcurrentLabel", DISPATCH_QUEUE_CONCURRENT)
         Apply.customQueue(3, queue: customQueue) { i in
-            println(i)
-            if let expectation = expectations[Int(i)] {
-                expectation.fulfill()
-            }
+            print(i)
+            expectations[i].fulfill()
             count++
         }
         assert(count == 3, "Wrong count")
@@ -488,10 +478,8 @@ class AsyncExample_OS_XTests: XCTestCase {
         var count = 0
         let customQueue = dispatch_queue_create("CustomQueueSerialLabel", DISPATCH_QUEUE_SERIAL)
         Apply.customQueue(3, queue: customQueue) { i in
-            println(i)
-            if let expectation = expectations[Int(i)] {
-                expectation.fulfill()
-            }
+            print(i)
+            expectations[i].fulfill()
             count++
         }
         assert(count == 3, "Wrong count")
