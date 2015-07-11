@@ -68,170 +68,160 @@ public struct Async {
 
 // MARK: - Async – Static methods
 
-public extension Async { // Static methods
-
-	
-	/* dispatch_async() */
-
-	private static func async(block: dispatch_block_t, inQueue queue: dispatch_queue_t) -> Async {
-		// Create a new block (Qos Class) from block to allow adding a notification to it later (see matching regular Async methods)
-		// Create block with the "inherit" type
-		let _block = dispatch_block_create(DISPATCH_BLOCK_INHERIT_QOS_CLASS, block)
-		// Add block to queue
-		dispatch_async(queue, _block)
-		// Wrap block in a struct since dispatch_block_t can't be extended
-		return Async(_block)
-	}
-	static func main(block: dispatch_block_t) -> Async {
-		return Async.async(block, inQueue: GCD.mainQueue())
-	}
-	static func userInteractive(block: dispatch_block_t) -> Async {
-		return Async.async(block, inQueue: GCD.userInteractiveQueue())
-	}
-	static func userInitiated(block: dispatch_block_t) -> Async {
-		return Async.async(block, inQueue: GCD.userInitiatedQueue())
-	}
-	static func utility(block: dispatch_block_t) -> Async {
-		return Async.async(block, inQueue: GCD.utilityQueue())
-	}
-	static func background(block: dispatch_block_t) -> Async {
-		return Async.async(block, inQueue: GCD.backgroundQueue())
-	}
-	static func customQueue(queue: dispatch_queue_t, block: dispatch_block_t) -> Async {
-		return Async.async(block, inQueue: queue)
-	}
-
-
-	/* dispatch_after() */
-
-	private static func after(seconds: Double, block: dispatch_block_t, inQueue queue: dispatch_queue_t) -> Async {
-		let nanoSeconds = Int64(seconds * Double(NSEC_PER_SEC))
-		let time = dispatch_time(DISPATCH_TIME_NOW, nanoSeconds)
-		return at(time, block: block, inQueue: queue)
-	}
-	private static func at(time: dispatch_time_t, block: dispatch_block_t, inQueue queue: dispatch_queue_t) -> Async {
-		// See Async.async() for comments
-		let _block = dispatch_block_create(DISPATCH_BLOCK_INHERIT_QOS_CLASS, block)
-		dispatch_after(time, queue, _block)
-		return Async(_block)
-	}
-	static func main(after after: Double, block: dispatch_block_t) -> Async {
-		return Async.after(after, block: block, inQueue: GCD.mainQueue())
-	}
-	static func userInteractive(after after: Double, block: dispatch_block_t) -> Async {
-		return Async.after(after, block: block, inQueue: GCD.userInteractiveQueue())
-	}
-	static func userInitiated(after after: Double, block: dispatch_block_t) -> Async {
-		return Async.after(after, block: block, inQueue: GCD.userInitiatedQueue())
-	}
-	static func utility(after after: Double, block: dispatch_block_t) -> Async {
-		return Async.after(after, block: block, inQueue: GCD.utilityQueue())
-	}
-	static func background(after after: Double, block: dispatch_block_t) -> Async {
-		return Async.after(after, block: block, inQueue: GCD.backgroundQueue())
-	}
-	static func customQueue(after after: Double, queue: dispatch_queue_t, block: dispatch_block_t) -> Async {
-		return Async.after(after, block: block, inQueue: queue)
-	}
+extension Async {
+    
+    
+    /* async */
+    
+    public static func main(after after: Double? = nil, block: dispatch_block_t) -> Async {
+        return Async.async(after, block: block, queue: GCD.mainQueue())
+    }
+    public static func userInteractive(after after: Double? = nil, block: dispatch_block_t) -> Async {
+        return Async.async(after, block: block, queue: GCD.userInteractiveQueue())
+    }
+    public static func userInitiated(after after: Double? = nil, block: dispatch_block_t) -> Async {
+        return Async.async(after, block: block, queue: GCD.userInitiatedQueue())
+    }
+    public static func utility(after after: Double? = nil, block: dispatch_block_t) -> Async {
+        return Async.async(after, block: block, queue: GCD.utilityQueue())
+    }
+    public static func background(after after: Double? = nil, block: dispatch_block_t) -> Async {
+        return Async.async(after, block: block, queue: GCD.backgroundQueue())
+    }
+    public static func customQueue(queue: dispatch_queue_t, after: Double? = nil, block: dispatch_block_t) -> Async {
+        return Async.async(after, block: block, queue: queue)
+    }
+    
+    
+    /* Convenience */
+    
+    private static func async(seconds: Double? = nil, block chainingBlock: dispatch_block_t, queue: dispatch_queue_t) -> Async {
+        if let seconds = seconds {
+            return asyncAfter(seconds, block: chainingBlock, queue: queue)
+        }
+        return asyncNow(chainingBlock, queue: queue)
+    }
+    
+    
+    /* dispatch_async() */
+    
+    private static func asyncNow(block: dispatch_block_t, queue: dispatch_queue_t) -> Async {
+        // Create a new block (Qos Class) from block to allow adding a notification to it later (see matching regular Async methods)
+        // Create block with the "inherit" type
+        let _block = dispatch_block_create(DISPATCH_BLOCK_INHERIT_QOS_CLASS, block)
+        // Add block to queue
+        dispatch_async(queue, _block)
+        // Wrap block in a struct since dispatch_block_t can't be extended
+        return Async(_block)
+    }
+    
+    
+    /* dispatch_after() */
+    
+    private static func asyncAfter(seconds: Double, block: dispatch_block_t, queue: dispatch_queue_t) -> Async {
+        let nanoSeconds = Int64(seconds * Double(NSEC_PER_SEC))
+        let time = dispatch_time(DISPATCH_TIME_NOW, nanoSeconds)
+        return at(time, block: block, queue: queue)
+    }
+    private static func at(time: dispatch_time_t, block: dispatch_block_t, queue: dispatch_queue_t) -> Async {
+        // See Async.async() for comments
+        let _block = dispatch_block_create(DISPATCH_BLOCK_INHERIT_QOS_CLASS, block)
+        dispatch_after(time, queue, _block)
+        return Async(_block)
+    }
 }
 
 
 // MARK: - Async – Regualar methods matching static ones
 
-public extension Async {
-
-
-	/* dispatch_async() */
-	
-	private func chain(block chainingBlock: dispatch_block_t, runInQueue queue: dispatch_queue_t) -> Async {
-		// See Async.async() for comments
-		let _chainingBlock = dispatch_block_create(DISPATCH_BLOCK_INHERIT_QOS_CLASS, chainingBlock)
-		dispatch_block_notify(self.block, queue, _chainingBlock)
-		return Async(_chainingBlock)
-	}
-	
-	func main(chainingBlock: dispatch_block_t) -> Async {
-		return chain(block: chainingBlock, runInQueue: GCD.mainQueue())
-	}
-	func userInteractive(chainingBlock: dispatch_block_t) -> Async {
-		return chain(block: chainingBlock, runInQueue: GCD.userInteractiveQueue())
-	}
-	func userInitiated(chainingBlock: dispatch_block_t) -> Async {
-		return chain(block: chainingBlock, runInQueue: GCD.userInitiatedQueue())
-	}
-	func utility(chainingBlock: dispatch_block_t) -> Async {
-		return chain(block: chainingBlock, runInQueue: GCD.utilityQueue())
-	}
-	func background(chainingBlock: dispatch_block_t) -> Async {
-		return chain(block: chainingBlock, runInQueue: GCD.backgroundQueue())
-	}
-	func customQueue(queue: dispatch_queue_t, chainingBlock: dispatch_block_t) -> Async {
-		return chain(block: chainingBlock, runInQueue: queue)
-	}
-
-	
-	/* dispatch_after() */
-
-	private func after(seconds: Double, block chainingBlock: dispatch_block_t, runInQueue queue: dispatch_queue_t) -> Async {
-		
-		// Create a new block (Qos Class) from block to allow adding a notification to it later (see Async)
-		// Create block with the "inherit" type
-		let _chainingBlock = dispatch_block_create(DISPATCH_BLOCK_INHERIT_QOS_CLASS, chainingBlock)
-		
-		// Wrap block to be called when previous block is finished
-		let chainingWrapperBlock: dispatch_block_t = {
-			// Calculate time from now
-			let nanoSeconds = Int64(seconds * Double(NSEC_PER_SEC))
-			let time = dispatch_time(DISPATCH_TIME_NOW, nanoSeconds)
-			dispatch_after(time, queue, _chainingBlock)
-		}
-		// Create a new block (Qos Class) from block to allow adding a notification to it later (see Async)
-		// Create block with the "inherit" type
-		let _chainingWrapperBlock = dispatch_block_create(DISPATCH_BLOCK_INHERIT_QOS_CLASS, chainingWrapperBlock)
-		// Add block to queue *after* previous block is finished
-		dispatch_block_notify(self.block, queue, _chainingWrapperBlock)
-		// Wrap block in a struct since dispatch_block_t can't be extended
-		return Async(_chainingBlock)
-	}
-	func main(after after: Double, block: dispatch_block_t) -> Async {
-		return self.after(after, block: block, runInQueue: GCD.mainQueue())
-	}
-	func userInteractive(after after: Double, block: dispatch_block_t) -> Async {
-		return self.after(after, block: block, runInQueue: GCD.userInteractiveQueue())
-	}
-	func userInitiated(after after: Double, block: dispatch_block_t) -> Async {
-		return self.after(after, block: block, runInQueue: GCD.userInitiatedQueue())
-	}
-	func utility(after after: Double, block: dispatch_block_t) -> Async {
-		return self.after(after, block: block, runInQueue: GCD.utilityQueue())
-	}
-	func background(after after: Double, block: dispatch_block_t) -> Async {
-		return self.after(after, block: block, runInQueue: GCD.backgroundQueue())
-	}
-	func customQueue(after after: Double, queue: dispatch_queue_t, block: dispatch_block_t) -> Async {
-		return self.after(after, block: block, runInQueue: queue)
-	}
-
-
-	/* cancel */
-
-	func cancel() {
-		dispatch_block_cancel(block)
-	}
-	
-
-	/* wait */
-
-	/// If optional parameter forSeconds is not provided, use DISPATCH_TIME_FOREVER
-	func wait(seconds seconds: Double = 0.0) {
-		if seconds != 0.0 {
-			let nanoSeconds = Int64(seconds * Double(NSEC_PER_SEC))
-			let time = dispatch_time(DISPATCH_TIME_NOW, nanoSeconds)
-			dispatch_block_wait(block, time)
-		} else {
-			dispatch_block_wait(block, DISPATCH_TIME_FOREVER)
-		}
-	}
+extension Async {
+    
+    
+    /* chain */
+    
+    public func main(after after: Double? = nil, chainingBlock: dispatch_block_t) -> Async {
+        return chain(after, block: chainingBlock, queue: GCD.mainQueue())
+    }
+    public func userInteractive(after after: Double? = nil, chainingBlock: dispatch_block_t) -> Async {
+        return chain(after, block: chainingBlock, queue: GCD.userInteractiveQueue())
+    }
+    public func userInitiated(after after: Double? = nil, chainingBlock: dispatch_block_t) -> Async {
+        return chain(after, block: chainingBlock, queue: GCD.userInitiatedQueue())
+    }
+    public func utility(after after: Double? = nil, chainingBlock: dispatch_block_t) -> Async {
+        return chain(after, block: chainingBlock, queue: GCD.utilityQueue())
+    }
+    public func background(after after: Double? = nil, chainingBlock: dispatch_block_t) -> Async {
+        return chain(after, block: chainingBlock, queue: GCD.backgroundQueue())
+    }
+    public func customQueue(queue: dispatch_queue_t, after: Double? = nil, chainingBlock: dispatch_block_t) -> Async {
+        return chain(after, block: chainingBlock, queue: queue)
+    }
+    
+    
+    /* cancel */
+    
+    public func cancel() {
+        dispatch_block_cancel(block)
+    }
+    
+    
+    /* wait */
+    
+    /// If optional parameter forSeconds is not provided, it uses DISPATCH_TIME_FOREVER
+    public func wait(seconds seconds: Double = 0.0) {
+        if seconds != 0.0 {
+            let nanoSeconds = Int64(seconds * Double(NSEC_PER_SEC))
+            let time = dispatch_time(DISPATCH_TIME_NOW, nanoSeconds)
+            dispatch_block_wait(block, time)
+        } else {
+            dispatch_block_wait(block, DISPATCH_TIME_FOREVER)
+        }
+    }
+    
+    
+    /* Convenience */
+    
+    private func chain(seconds: Double? = nil, block chainingBlock: dispatch_block_t, queue: dispatch_queue_t) -> Async {
+        if let seconds = seconds {
+            return chainAfter(seconds, block: chainingBlock, queue: queue)
+        }
+        return chainNow(block: chainingBlock, queue: queue)
+    }
+    
+    
+    /* dispatch_async() */
+    
+    private func chainNow(block chainingBlock: dispatch_block_t, queue: dispatch_queue_t) -> Async {
+        // See Async.async() for comments
+        let _chainingBlock = dispatch_block_create(DISPATCH_BLOCK_INHERIT_QOS_CLASS, chainingBlock)
+        dispatch_block_notify(block, queue, _chainingBlock)
+        return Async(_chainingBlock)
+    }
+    
+    
+    /* dispatch_after() */
+    
+    private func chainAfter(seconds: Double, block chainingBlock: dispatch_block_t, queue: dispatch_queue_t) -> Async {
+        // Create a new block (Qos Class) from block to allow adding a notification to it later (see Async)
+        // Create block with the "inherit" type
+        let _chainingBlock = dispatch_block_create(DISPATCH_BLOCK_INHERIT_QOS_CLASS, chainingBlock)
+        
+        // Wrap block to be called when previous block is finished
+        let chainingWrapperBlock: dispatch_block_t = {
+            // Calculate time from now
+            let nanoSeconds = Int64(seconds * Double(NSEC_PER_SEC))
+            let time = dispatch_time(DISPATCH_TIME_NOW, nanoSeconds)
+            dispatch_after(time, queue, _chainingBlock)
+        }
+        // Create a new block (Qos Class) from block to allow adding a notification to it later (see Async)
+        // Create block with the "inherit" type
+        let _chainingWrapperBlock = dispatch_block_create(DISPATCH_BLOCK_INHERIT_QOS_CLASS, chainingWrapperBlock)
+        // Add block to queue *after* previous block is finished
+        dispatch_block_notify(self.block, queue, _chainingWrapperBlock)
+        // Wrap block in a struct since dispatch_block_t can't be extended
+        return Async(_chainingBlock)
+    }
 }
 
 
