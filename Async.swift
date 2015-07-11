@@ -130,7 +130,7 @@ public extension Async { // Static methods
 	static func background(#after: Double, block: dispatch_block_t) -> Async {
 		return Async.after(after, block: block, inQueue: GCD.backgroundQueue())
 	}
-	static func customQueue(#after: Double, queue: dispatch_queue_t, block: dispatch_block_t) -> Async {
+	static func customQueue(queue: dispatch_queue_t, after: Double, block: dispatch_block_t) -> Async {
 		return Async.after(after, block: block, inQueue: queue)
 	}
 }
@@ -208,7 +208,7 @@ public extension Async {
 	func background(#after: Double, block: dispatch_block_t) -> Async {
 		return self.after(after, block: block, runInQueue: GCD.backgroundQueue())
 	}
-	func customQueue(#after: Double, queue: dispatch_queue_t, block: dispatch_block_t) -> Async {
+	func customQueue(queue: dispatch_queue_t, after: Double, block: dispatch_block_t) -> Async {
 		return self.after(after, block: block, runInQueue: queue)
 	}
 

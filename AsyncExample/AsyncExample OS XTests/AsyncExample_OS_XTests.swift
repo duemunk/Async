@@ -267,7 +267,7 @@ class AsyncExample_OS_XTests: XCTestCase {
         let timeDelay = 1.0
         let upperTimeDelay = timeDelay + 0.2
         let customQueue = dispatch_queue_create("CustomQueueLabel", DISPATCH_QUEUE_CONCURRENT)
-        Async.customQueue(after: timeDelay, queue: customQueue) {
+        Async.customQueue(customQueue, after: timeDelay) {
             let timePassed = NSDate().timeIntervalSinceDate(date)
             XCTAssert(timePassed >= timeDelay, "Should wait \(timeDelay) seconds before firing")
             XCTAssert(timePassed < upperTimeDelay, "Shouldn't wait \(timePassed), but <\(upperTimeDelay) seconds before firing")
