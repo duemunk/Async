@@ -1,5 +1,5 @@
-Async [![](http://img.shields.io/badge/operator_overload-guilty-red.svg)](https://gist.github.com/duemunk/61e45932dbb1a2ca0954) [![](http://img.shields.io/badge/OS%20X-10.10%2B-blue.svg)]() [![](http://img.shields.io/badge/iOS-8.0%2B-blue.svg)]()
-=====
+# Async 
+[![](http://img.shields.io/badge/OS%20X-10.10%2B-blue.svg)]() [![](http://img.shields.io/badge/iOS-8.0%2B-blue.svg)]() [![](http://img.shields.io/badge/Swift-1.2-blue.svg)]() [![Carthage compatible](https://img.shields.io/badge/Carthage-compatible-4BC51D.svg)](https://github.com/Carthage/Carthage) [![CocoaPods compatible](https://img.shields.io/badge/CocoaPods-compatible-4BC51D.svg)](https://github.com/CocoaPods/CocoaPods) [![](http://img.shields.io/badge/operator_overload-guilty-red.svg)](https://gist.github.com/duemunk/61e45932dbb1a2ca0954)
 
 Syntactic sugar in Swift for asynchronous dispatches in Grand Central Dispatch ([GCD](https://developer.apple.com/library/prerelease/ios/documentation/Performance/Reference/GCD_libdispatch_Ref/index.html))
 
@@ -17,13 +17,17 @@ Instead of the familiar syntax for GCD:
 dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_BACKGROUND, 0), {
 	println("This is run on the background queue")
 	
-	dispatch_async(dispatch_get_main_queue(), 0), {
+	dispatch_async(dispatch_get_main_queue(), {
 		println("This is run on the main queue, after the previous block")
 	})
 })
 ```
 
-
+### Install
+#### CocoaPods
+```ruby
+pod 'Async', :git => 'https://github.com/duemunk/Async.git'
+```
 
 ### Benefits
 1. Less verbose code
@@ -133,6 +137,9 @@ dispatch_block_notify(_previousBlock, dispatchQueueForChainingBlock, _chainingBl
 ```
 
 The syntax part of the chaining works by having class methods on the `Async` object e.g. `Async.main {}` which returns a struct. The struct has matching methods e.g. `theStruct.main {}`.
+
+### Known bugs
+The moderne GCD queues doesn't work as expected on iOS Simulator. See issues [13](https://github.com/duemunk/Async/issues/13), [22](https://github.com/duemunk/Async/issues/22).
 
 ### Known improvements
 The ```dispatch_block_t``` can't be extended. Workaround used: Wrap ```dispatch_block_t``` in a struct that takes the block as a property.
