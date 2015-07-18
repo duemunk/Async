@@ -15,7 +15,7 @@
             <BuildableReference
                BuildableIdentifier = "primary"
                BlueprintIdentifier = "BF70E4E81ABF124A00B4FDD4"
-               BuildableName = "Async iOS.framework"
+               BuildableName = "Async.framework"
                BlueprintName = "Async iOS"
                ReferencedContainer = "container:Async.xcodeproj">
             </BuildableReference>
@@ -43,7 +43,7 @@
          <BuildableReference
             BuildableIdentifier = "primary"
             BlueprintIdentifier = "BF70E4E81ABF124A00B4FDD4"
-            BuildableName = "Async iOS.framework"
+            BuildableName = "Async.framework"
             BlueprintName = "Async iOS"
             ReferencedContainer = "container:Async.xcodeproj">
          </BuildableReference>
@@ -61,7 +61,7 @@
          <BuildableReference
             BuildableIdentifier = "primary"
             BlueprintIdentifier = "BF70E4E81ABF124A00B4FDD4"
-            BuildableName = "Async iOS.framework"
+            BuildableName = "Async.framework"
             BlueprintName = "Async iOS"
             ReferencedContainer = "container:Async.xcodeproj">
          </BuildableReference>
