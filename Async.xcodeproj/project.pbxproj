@@ -138,7 +138,7 @@
 		BF70E4E01ABF124A00B4FDD4 /* Project object */ = {
 			isa = PBXProject;
 			attributes = {
-				LastUpgradeCheck = 0620;
+				LastUpgradeCheck = 0630;
 				TargetAttributes = {
 					BF70E4E81ABF124A00B4FDD4 = {
 						CreatedOnToolsVersion = 6.2;
@@ -203,6 +203,7 @@
 		BF41E41C1AC5FB2400A1DDB2 /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
+				COMBINE_HIDPI_IMAGES = YES;
 				DEFINES_MODULE = YES;
 				DYLIB_COMPATIBILITY_VERSION = 1;
 				DYLIB_CURRENT_VERSION = 1;
@@ -220,6 +221,7 @@
 		BF41E41D1AC5FB2400A1DDB2 /* Release */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
+				COMBINE_HIDPI_IMAGES = YES;
 				DEFINES_MODULE = YES;
 				DYLIB_COMPATIBILITY_VERSION = 1;
 				DYLIB_CURRENT_VERSION = 1;
