@@ -26,7 +26,12 @@ dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_BACKGROUND, 0),
 ### Install
 #### CocoaPods
 ```ruby
+use_frameworks!
 pod 'Async', :git => 'https://github.com/duemunk/Async.git'
+```
+#### Carthage
+```ruby
+github “duemunk/Async”
 ```
 
 ### Benefits
