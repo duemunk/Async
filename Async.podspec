@@ -8,7 +8,7 @@ Pod::Spec.new do |s|
 
   s.osx.deployment_target = "10.10"
   s.ios.deployment_target = "8.0"
-  s.source   = { :git => "https://github.com/duemunk/Async.git", :tag => "1.3.1"}
+  s.source   = { :git => "https://github.com/duemunk/Async.git", :tag => "1.4"}
   s.source_files = "Source/*.swift"
   s.requires_arc = true
 end
