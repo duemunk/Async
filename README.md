@@ -1,4 +1,4 @@
-#### Swift 2.0 / Xcode 7.0
+#### Swift 2.0 (Xcode 7.0)
 There is a [bug](http://www.openradar.me/22437691) in Swift 2.0 that messes with chaining, so use this [fork](https://github.com/johncoates/Async) by [@johncoates](https://github.com/JohnCoates)
 
 #### Swift 2.1 (Xcode 7.1)
