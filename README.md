@@ -31,7 +31,7 @@ pod 'Async', :git => 'https://github.com/duemunk/Async.git'
 ```
 #### Carthage
 ```ruby
-github “duemunk/Async”
+github "duemunk/Async"
 ```
 
 ### Benefits
