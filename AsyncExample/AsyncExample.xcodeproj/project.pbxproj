@@ -373,7 +373,8 @@
 		4EF8306D1975950F00C5F0EE /* Project object */ = {
 			isa = PBXProject;
 			attributes = {
-				LastUpgradeCheck = 0600;
+				LastSwiftUpdateCheck = 0700;
+				LastUpgradeCheck = 0700;
 				ORGANIZATIONNAME = developmunk;
 				TargetAttributes = {
 					4EF8309A1975952B00C5F0EE = {
@@ -748,6 +749,7 @@
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
 				COPY_PHASE_STRIP = NO;
 				ENABLE_STRICT_OBJC_MSGSEND = YES;
+				ENABLE_TESTABILITY = YES;
 				GCC_C_LANGUAGE_STANDARD = gnu99;
 				GCC_DYNAMIC_NO_PIC = NO;
 				GCC_OPTIMIZATION_LEVEL = 0;
@@ -821,6 +823,7 @@
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/../Frameworks";
 				MACOSX_DEPLOYMENT_TARGET = 10.10;
 				OTHER_CODE_SIGN_FLAGS = "-deep";
+				PRODUCT_BUNDLE_IDENTIFIER = "dk.developmunk.${PRODUCT_NAME:rfc1034identifier}";
 				PRODUCT_NAME = "AsyncExample OS X";
 				PROVISIONING_PROFILE = "";
 				SDKROOT = macosx;
@@ -838,6 +841,7 @@
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/../Frameworks";
 				MACOSX_DEPLOYMENT_TARGET = 10.10;
 				OTHER_CODE_SIGN_FLAGS = "-deep";
+				PRODUCT_BUNDLE_IDENTIFIER = "dk.developmunk.${PRODUCT_NAME:rfc1034identifier}";
 				PRODUCT_NAME = "AsyncExample OS X";
 				PROVISIONING_PROFILE = "";
 				SDKROOT = macosx;
@@ -861,6 +865,7 @@
 				INFOPLIST_FILE = "AsyncExample OS XTests/Info.plist";
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/../Frameworks @loader_path/../Frameworks";
 				MACOSX_DEPLOYMENT_TARGET = 10.10;
+				PRODUCT_BUNDLE_IDENTIFIER = "dk.developmunk.${PRODUCT_NAME:rfc1034identifier}";
 				PRODUCT_NAME = "AsyncExample OS XTests";
 				SDKROOT = macosx;
 				TEST_HOST = "$(BUNDLE_LOADER)";
@@ -881,6 +886,7 @@
 				INFOPLIST_FILE = "AsyncExample OS XTests/Info.plist";
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/../Frameworks @loader_path/../Frameworks";
 				MACOSX_DEPLOYMENT_TARGET = 10.10;
+				PRODUCT_BUNDLE_IDENTIFIER = "dk.developmunk.${PRODUCT_NAME:rfc1034identifier}";
 				PRODUCT_NAME = "AsyncExample OS XTests";
 				SDKROOT = macosx;
 				TEST_HOST = "$(BUNDLE_LOADER)";
@@ -899,6 +905,7 @@
 				);
 				INFOPLIST_FILE = "AsyncExample iOS/Info.plist";
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
+				PRODUCT_BUNDLE_IDENTIFIER = "dk.developmunk.${PRODUCT_NAME:rfc1034identifier}";
 				PRODUCT_NAME = "AsyncExample iOS";
 			};
 			name = Debug;
@@ -911,6 +918,7 @@
 				ASSETCATALOG_COMPILER_LAUNCHIMAGE_NAME = LaunchImage;
 				INFOPLIST_FILE = "AsyncExample iOS/Info.plist";
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
+				PRODUCT_BUNDLE_IDENTIFIER = "dk.developmunk.${PRODUCT_NAME:rfc1034identifier}";
 				PRODUCT_NAME = "AsyncExample iOS";
 			};
 			name = Release;
@@ -930,6 +938,7 @@
 				);
 				INFOPLIST_FILE = "AsyncExample iOSTests/Info.plist";
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
+				PRODUCT_BUNDLE_IDENTIFIER = "dk.developmunk.${PRODUCT_NAME:rfc1034identifier}";
 				PRODUCT_NAME = "AsyncExample iOSTests";
 				TEST_HOST = "$(BUNDLE_LOADER)";
 			};
@@ -946,6 +955,7 @@
 				);
 				INFOPLIST_FILE = "AsyncExample iOSTests/Info.plist";
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
+				PRODUCT_BUNDLE_IDENTIFIER = "dk.developmunk.${PRODUCT_NAME:rfc1034identifier}";
 				PRODUCT_NAME = "AsyncExample iOSTests";
 				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/AsyncExample iOS.app/AsyncExample iOS";
 			};

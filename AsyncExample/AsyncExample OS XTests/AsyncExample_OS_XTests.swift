@@ -503,9 +503,7 @@ class AsyncExample_OS_XTests: XCTestCase {
         let expectations = [expectation1, expectation2, expectation3]
         var count = 0
         Apply.userInteractive(3) { i in
-            if let expectation = expectations[Int(i)] {
-                expectation.fulfill()
-            }
+            expectations[i].fulfill()
             count++
         }
         assert(count == 3, "Wrong count")
@@ -519,9 +517,7 @@ class AsyncExample_OS_XTests: XCTestCase {
         let expectations = [expectation1, expectation2, expectation3]
         var count = 0
         Apply.userInitiated(3) { i in
-            if let expectation = expectations[Int(i)] {
-                expectation.fulfill()
-            }
+            expectations[i].fulfill()
             count++
         }
         assert(count == 3, "Wrong count")
@@ -535,9 +531,7 @@ class AsyncExample_OS_XTests: XCTestCase {
         let expectations = [expectation1, expectation2, expectation3]
         var count = 0
         Apply.utility(3) { i in
-            if let expectation = expectations[Int(i)] {
-                expectation.fulfill()
-            }
+            expectations[i].fulfill()
             count++
         }
         assert(count == 3, "Wrong count")
@@ -551,9 +545,7 @@ class AsyncExample_OS_XTests: XCTestCase {
         let expectations = [expectation1, expectation2, expectation3]
         var count = 0
         Apply.background(3) { i in
-            if let expectation = expectations[Int(i)] {
-                expectation.fulfill()
-            }
+            expectations[i].fulfill()
             count++
         }
         assert(count == 3, "Wrong count")
@@ -568,10 +560,8 @@ class AsyncExample_OS_XTests: XCTestCase {
         var count = 0
         let customQueue = dispatch_queue_create("CustomQueueConcurrentLabel", DISPATCH_QUEUE_CONCURRENT)
         Apply.customQueue(3, queue: customQueue) { i in
-            println(i)
-            if let expectation = expectations[Int(i)] {
-                expectation.fulfill()
-            }
+            print(i)
+            expectations[i].fulfill()
             count++
         }
         assert(count == 3, "Wrong count")
@@ -586,10 +576,8 @@ class AsyncExample_OS_XTests: XCTestCase {
         var count = 0
         let customQueue = dispatch_queue_create("CustomQueueSerialLabel", DISPATCH_QUEUE_SERIAL)
         Apply.customQueue(3, queue: customQueue) { i in
-            println(i)
-            if let expectation = expectations[Int(i)] {
-                expectation.fulfill()
-            }
+            print(i)
+            expectations[i].fulfill()
             count++
         }
         assert(count == 3, "Wrong count")
