@@ -1,11 +1,3 @@
-#### Swift 2.0 (Xcode 7.0)
-There is a [bug](http://www.openradar.me/22437691) in Swift 2.0 that messes with chaining, so use this [fork](https://github.com/johncoates/Async) by [@johncoates](https://github.com/JohnCoates)
-
-#### Swift 2.1 (Xcode 7.1)
-Use [this branch](https://github.com/duemunk/Async/tree/feature/Swift_2.1).
-
----
-
 # Async 
 [![](http://img.shields.io/badge/OS%20X-10.10%2B-blue.svg)]() [![](http://img.shields.io/badge/iOS-8.0%2B-blue.svg)]() [![](http://img.shields.io/badge/Swift-2.1-blue.svg)]() [![Carthage compatible](https://img.shields.io/badge/Carthage-compatible-4BC51D.svg)](https://github.com/Carthage/Carthage) [![CocoaPods compatible](https://img.shields.io/badge/CocoaPods-compatible-4BC51D.svg)](https://github.com/CocoaPods/CocoaPods) [![](http://img.shields.io/badge/operator_overload-nope-green.svg)](https://gist.github.com/duemunk/61e45932dbb1a2ca0954)
 
