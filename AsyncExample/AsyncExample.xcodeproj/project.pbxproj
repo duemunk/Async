@@ -18,10 +18,10 @@
 		4EF830D01975954B00C5F0EE /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 4EF830CE1975954B00C5F0EE /* Main.storyboard */; };
 		4EF830D21975954B00C5F0EE /* Images.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 4EF830D11975954B00C5F0EE /* Images.xcassets */; };
 		4EF830DE1975954B00C5F0EE /* AsyncExample_iOSTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4EF830DD1975954B00C5F0EE /* AsyncExample_iOSTests.swift */; };
-		72282301BFD7E2BB4AA1309F /* Pods_AsyncExample_iOSTests.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 76DDD79EAA8680CE401A386D /* Pods_AsyncExample_iOSTests.framework */; settings = {ATTRIBUTES = (Weak, ); }; };
-		C90C15849889382761E3FD5A /* Pods_AsyncExample_iOS.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = A13081942C4D8FB570C25DDF /* Pods_AsyncExample_iOS.framework */; settings = {ATTRIBUTES = (Weak, ); }; };
-		D8E24989018415549D167C6A /* Pods_AsyncExample_OS_XTests.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 056E375A6123F9ACCB521884 /* Pods_AsyncExample_OS_XTests.framework */; settings = {ATTRIBUTES = (Weak, ); }; };
-		E772C2A2DF4D105B41721E82 /* Pods_AsyncExample_OS_X.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 8133477C03A5390A01BB8F00 /* Pods_AsyncExample_OS_X.framework */; settings = {ATTRIBUTES = (Weak, ); }; };
+		72282301BFD7E2BB4AA1309F /* Pods_AsyncExample_iOSTests.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 76DDD79EAA8680CE401A386D /* Pods_AsyncExample_iOSTests.framework */; };
+		C90C15849889382761E3FD5A /* Pods_AsyncExample_iOS.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = A13081942C4D8FB570C25DDF /* Pods_AsyncExample_iOS.framework */; };
+		D8E24989018415549D167C6A /* Pods_AsyncExample_OS_XTests.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 056E375A6123F9ACCB521884 /* Pods_AsyncExample_OS_XTests.framework */; };
+		E772C2A2DF4D105B41721E82 /* Pods_AsyncExample_OS_X.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 8133477C03A5390A01BB8F00 /* Pods_AsyncExample_OS_X.framework */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */

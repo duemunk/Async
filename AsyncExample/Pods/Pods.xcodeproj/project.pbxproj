@@ -771,7 +771,7 @@
 			};
 			name = Debug;
 		};
-		2A64AE09AC4ADD08125B26048B290611 /* Debug */ = {
+		44EA40962D73F68BF53CB5068D3DD171 /* Debug */ = {
 			isa = XCBuildConfiguration;
 			baseConfigurationReference = 2F3659069B28EE7AA95C224D32BE1F1E /* Pods-AsyncExample OS X.debug.xcconfig */;
 			buildSettings = {
@@ -786,6 +786,7 @@
 				INFOPLIST_FILE = "Target Support Files/Pods-AsyncExample OS X/Info.plist";
 				INSTALL_PATH = "$(LOCAL_LIBRARY_DIR)/Frameworks";
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/../Frameworks @loader_path/Frameworks";
+				MACH_O_TYPE = staticlib;
 				MACOSX_DEPLOYMENT_TARGET = 10.10;
 				MODULEMAP_FILE = "Target Support Files/Pods-AsyncExample OS X/Pods-AsyncExample OS X.modulemap";
 				MTL_ENABLE_DEBUG_INFO = YES;
@@ -800,36 +801,6 @@
 				VERSION_INFO_PREFIX = "";
 			};
 			name = Debug;
-		};
-		3F202636758AADCD5EBDF29EF5BB6BBC /* Release */ = {
-			isa = XCBuildConfiguration;
-			baseConfigurationReference = 78C8DB576A1BD7C98022041143BA5D70 /* Pods-AsyncExample OS XTests.release.xcconfig */;
-			buildSettings = {
-				COMBINE_HIDPI_IMAGES = YES;
-				CURRENT_PROJECT_VERSION = 1;
-				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
-				DEFINES_MODULE = YES;
-				DYLIB_COMPATIBILITY_VERSION = 1;
-				DYLIB_CURRENT_VERSION = 1;
-				DYLIB_INSTALL_NAME_BASE = "@rpath";
-				ENABLE_STRICT_OBJC_MSGSEND = YES;
-				FRAMEWORK_VERSION = A;
-				INFOPLIST_FILE = "Target Support Files/Pods-AsyncExample OS XTests/Info.plist";
-				INSTALL_PATH = "$(LOCAL_LIBRARY_DIR)/Frameworks";
-				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/../Frameworks @loader_path/Frameworks";
-				MACOSX_DEPLOYMENT_TARGET = 10.10;
-				MODULEMAP_FILE = "Target Support Files/Pods-AsyncExample OS XTests/Pods-AsyncExample OS XTests.modulemap";
-				MTL_ENABLE_DEBUG_INFO = NO;
-				OTHER_LDFLAGS = "";
-				OTHER_LIBTOOLFLAGS = "";
-				PODS_ROOT = "$(SRCROOT)";
-				PRODUCT_NAME = Pods_AsyncExample_OS_XTests;
-				SDKROOT = macosx;
-				SKIP_INSTALL = YES;
-				VERSIONING_SYSTEM = "apple-generic";
-				VERSION_INFO_PREFIX = "";
-			};
-			name = Release;
 		};
 		47911FFFFC5029E7D809375302142F4D /* Release */ = {
 			isa = XCBuildConfiguration;
@@ -859,36 +830,7 @@
 			};
 			name = Release;
 		};
-		4DDF215FE2498F8FC8C8F6354211FD25 /* Release */ = {
-			isa = XCBuildConfiguration;
-			baseConfigurationReference = 5BEA389B358CAE16034F4860861DAC8A /* Pods-AsyncExample iOSTests.release.xcconfig */;
-			buildSettings = {
-				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
-				CURRENT_PROJECT_VERSION = 1;
-				DEFINES_MODULE = YES;
-				DYLIB_COMPATIBILITY_VERSION = 1;
-				DYLIB_CURRENT_VERSION = 1;
-				DYLIB_INSTALL_NAME_BASE = "@rpath";
-				ENABLE_STRICT_OBJC_MSGSEND = YES;
-				INFOPLIST_FILE = "Target Support Files/Pods-AsyncExample iOSTests/Info.plist";
-				INSTALL_PATH = "$(LOCAL_LIBRARY_DIR)/Frameworks";
-				IPHONEOS_DEPLOYMENT_TARGET = 8.0;
-				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
-				MODULEMAP_FILE = "Target Support Files/Pods-AsyncExample iOSTests/Pods-AsyncExample iOSTests.modulemap";
-				MTL_ENABLE_DEBUG_INFO = NO;
-				OTHER_LDFLAGS = "";
-				OTHER_LIBTOOLFLAGS = "";
-				PODS_ROOT = "$(SRCROOT)";
-				PRODUCT_NAME = Pods_AsyncExample_iOSTests;
-				SDKROOT = iphoneos;
-				SKIP_INSTALL = YES;
-				TARGETED_DEVICE_FAMILY = "1,2";
-				VERSIONING_SYSTEM = "apple-generic";
-				VERSION_INFO_PREFIX = "";
-			};
-			name = Release;
-		};
-		616E6E7BAA1127F588264627C8B5807D /* Release */ = {
+		4E874F43F093E69A7CB0048B499FB326 /* Release */ = {
 			isa = XCBuildConfiguration;
 			baseConfigurationReference = 2791CE914D95AA55F3BB5A7318BA8CAF /* Pods-AsyncExample OS X.release.xcconfig */;
 			buildSettings = {
@@ -904,6 +846,7 @@
 				INFOPLIST_FILE = "Target Support Files/Pods-AsyncExample OS X/Info.plist";
 				INSTALL_PATH = "$(LOCAL_LIBRARY_DIR)/Frameworks";
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/../Frameworks @loader_path/Frameworks";
+				MACH_O_TYPE = staticlib;
 				MACOSX_DEPLOYMENT_TARGET = 10.10;
 				MODULEMAP_FILE = "Target Support Files/Pods-AsyncExample OS X/Pods-AsyncExample OS X.modulemap";
 				MTL_ENABLE_DEBUG_INFO = NO;
@@ -917,6 +860,37 @@
 				VERSION_INFO_PREFIX = "";
 			};
 			name = Release;
+		};
+		62BC716BAEB4257390388358B231F303 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			baseConfigurationReference = 7663F032636E815BB6EE9B02C588FCAC /* Pods-AsyncExample OS XTests.debug.xcconfig */;
+			buildSettings = {
+				COMBINE_HIDPI_IMAGES = YES;
+				CURRENT_PROJECT_VERSION = 1;
+				DEFINES_MODULE = YES;
+				DYLIB_COMPATIBILITY_VERSION = 1;
+				DYLIB_CURRENT_VERSION = 1;
+				DYLIB_INSTALL_NAME_BASE = "@rpath";
+				ENABLE_STRICT_OBJC_MSGSEND = YES;
+				FRAMEWORK_VERSION = A;
+				INFOPLIST_FILE = "Target Support Files/Pods-AsyncExample OS XTests/Info.plist";
+				INSTALL_PATH = "$(LOCAL_LIBRARY_DIR)/Frameworks";
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/../Frameworks @loader_path/Frameworks";
+				MACH_O_TYPE = staticlib;
+				MACOSX_DEPLOYMENT_TARGET = 10.10;
+				MODULEMAP_FILE = "Target Support Files/Pods-AsyncExample OS XTests/Pods-AsyncExample OS XTests.modulemap";
+				MTL_ENABLE_DEBUG_INFO = YES;
+				OTHER_LDFLAGS = "";
+				OTHER_LIBTOOLFLAGS = "";
+				PODS_ROOT = "$(SRCROOT)";
+				PRODUCT_NAME = Pods_AsyncExample_OS_XTests;
+				SDKROOT = macosx;
+				SKIP_INSTALL = YES;
+				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
+				VERSIONING_SYSTEM = "apple-generic";
+				VERSION_INFO_PREFIX = "";
+			};
+			name = Debug;
 		};
 		68FFEBF853705F646A2E5D0E814442D3 /* Release */ = {
 			isa = XCBuildConfiguration;
@@ -945,12 +919,13 @@
 			};
 			name = Release;
 		};
-		860C130F5B7D2688D0B751DD79619FA1 /* Debug */ = {
+		7CEAA8C0E237196D4A47281E0C0C8327 /* Release */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = 7663F032636E815BB6EE9B02C588FCAC /* Pods-AsyncExample OS XTests.debug.xcconfig */;
+			baseConfigurationReference = 78C8DB576A1BD7C98022041143BA5D70 /* Pods-AsyncExample OS XTests.release.xcconfig */;
 			buildSettings = {
 				COMBINE_HIDPI_IMAGES = YES;
 				CURRENT_PROJECT_VERSION = 1;
+				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
 				DEFINES_MODULE = YES;
 				DYLIB_COMPATIBILITY_VERSION = 1;
 				DYLIB_CURRENT_VERSION = 1;
@@ -960,24 +935,24 @@
 				INFOPLIST_FILE = "Target Support Files/Pods-AsyncExample OS XTests/Info.plist";
 				INSTALL_PATH = "$(LOCAL_LIBRARY_DIR)/Frameworks";
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/../Frameworks @loader_path/Frameworks";
+				MACH_O_TYPE = staticlib;
 				MACOSX_DEPLOYMENT_TARGET = 10.10;
 				MODULEMAP_FILE = "Target Support Files/Pods-AsyncExample OS XTests/Pods-AsyncExample OS XTests.modulemap";
-				MTL_ENABLE_DEBUG_INFO = YES;
+				MTL_ENABLE_DEBUG_INFO = NO;
 				OTHER_LDFLAGS = "";
 				OTHER_LIBTOOLFLAGS = "";
 				PODS_ROOT = "$(SRCROOT)";
 				PRODUCT_NAME = Pods_AsyncExample_OS_XTests;
 				SDKROOT = macosx;
 				SKIP_INSTALL = YES;
-				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
 				VERSIONING_SYSTEM = "apple-generic";
 				VERSION_INFO_PREFIX = "";
 			};
-			name = Debug;
+			name = Release;
 		};
-		8BDF235D17E32A9198BA03421F98CD14 /* Debug */ = {
+		82BE37E83120B0D26763E30991F2C556 /* Debug */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = 62163600E5EB17410F26FCB16A32125C /* Pods-AsyncExample iOSTests.debug.xcconfig */;
+			baseConfigurationReference = 10B1368C34213CE213D65C5EA006F0AA /* Pods-AsyncExample iOS.debug.xcconfig */;
 			buildSettings = {
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
 				CURRENT_PROJECT_VERSION = 1;
@@ -986,16 +961,17 @@
 				DYLIB_CURRENT_VERSION = 1;
 				DYLIB_INSTALL_NAME_BASE = "@rpath";
 				ENABLE_STRICT_OBJC_MSGSEND = YES;
-				INFOPLIST_FILE = "Target Support Files/Pods-AsyncExample iOSTests/Info.plist";
+				INFOPLIST_FILE = "Target Support Files/Pods-AsyncExample iOS/Info.plist";
 				INSTALL_PATH = "$(LOCAL_LIBRARY_DIR)/Frameworks";
 				IPHONEOS_DEPLOYMENT_TARGET = 8.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
-				MODULEMAP_FILE = "Target Support Files/Pods-AsyncExample iOSTests/Pods-AsyncExample iOSTests.modulemap";
+				MACH_O_TYPE = staticlib;
+				MODULEMAP_FILE = "Target Support Files/Pods-AsyncExample iOS/Pods-AsyncExample iOS.modulemap";
 				MTL_ENABLE_DEBUG_INFO = YES;
 				OTHER_LDFLAGS = "";
 				OTHER_LIBTOOLFLAGS = "";
 				PODS_ROOT = "$(SRCROOT)";
-				PRODUCT_NAME = Pods_AsyncExample_iOSTests;
+				PRODUCT_NAME = Pods_AsyncExample_iOS;
 				SDKROOT = iphoneos;
 				SKIP_INSTALL = YES;
 				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
@@ -1072,9 +1048,9 @@
 			};
 			name = Release;
 		};
-		9187F8A5AC6AAF34321BCCF8315F224F /* Debug */ = {
+		A979D2E8023BFA6EA35B4EFBC7ED2D1B /* Debug */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = 10B1368C34213CE213D65C5EA006F0AA /* Pods-AsyncExample iOS.debug.xcconfig */;
+			baseConfigurationReference = 62163600E5EB17410F26FCB16A32125C /* Pods-AsyncExample iOSTests.debug.xcconfig */;
 			buildSettings = {
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
 				CURRENT_PROJECT_VERSION = 1;
@@ -1083,16 +1059,17 @@
 				DYLIB_CURRENT_VERSION = 1;
 				DYLIB_INSTALL_NAME_BASE = "@rpath";
 				ENABLE_STRICT_OBJC_MSGSEND = YES;
-				INFOPLIST_FILE = "Target Support Files/Pods-AsyncExample iOS/Info.plist";
+				INFOPLIST_FILE = "Target Support Files/Pods-AsyncExample iOSTests/Info.plist";
 				INSTALL_PATH = "$(LOCAL_LIBRARY_DIR)/Frameworks";
 				IPHONEOS_DEPLOYMENT_TARGET = 8.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
-				MODULEMAP_FILE = "Target Support Files/Pods-AsyncExample iOS/Pods-AsyncExample iOS.modulemap";
+				MACH_O_TYPE = staticlib;
+				MODULEMAP_FILE = "Target Support Files/Pods-AsyncExample iOSTests/Pods-AsyncExample iOSTests.modulemap";
 				MTL_ENABLE_DEBUG_INFO = YES;
 				OTHER_LDFLAGS = "";
 				OTHER_LIBTOOLFLAGS = "";
 				PODS_ROOT = "$(SRCROOT)";
-				PRODUCT_NAME = Pods_AsyncExample_iOS;
+				PRODUCT_NAME = Pods_AsyncExample_iOSTests;
 				SDKROOT = iphoneos;
 				SKIP_INSTALL = YES;
 				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
@@ -1193,6 +1170,66 @@
 			};
 			name = Debug;
 		};
+		C81D4B3E57982A449F55E25356F1B2D7 /* Release */ = {
+			isa = XCBuildConfiguration;
+			baseConfigurationReference = 288152AC0AC56C6CB78FE9621EE3BF50 /* Pods-AsyncExample iOS.release.xcconfig */;
+			buildSettings = {
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
+				CURRENT_PROJECT_VERSION = 1;
+				DEFINES_MODULE = YES;
+				DYLIB_COMPATIBILITY_VERSION = 1;
+				DYLIB_CURRENT_VERSION = 1;
+				DYLIB_INSTALL_NAME_BASE = "@rpath";
+				ENABLE_STRICT_OBJC_MSGSEND = YES;
+				INFOPLIST_FILE = "Target Support Files/Pods-AsyncExample iOS/Info.plist";
+				INSTALL_PATH = "$(LOCAL_LIBRARY_DIR)/Frameworks";
+				IPHONEOS_DEPLOYMENT_TARGET = 8.0;
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
+				MACH_O_TYPE = staticlib;
+				MODULEMAP_FILE = "Target Support Files/Pods-AsyncExample iOS/Pods-AsyncExample iOS.modulemap";
+				MTL_ENABLE_DEBUG_INFO = NO;
+				OTHER_LDFLAGS = "";
+				OTHER_LIBTOOLFLAGS = "";
+				PODS_ROOT = "$(SRCROOT)";
+				PRODUCT_NAME = Pods_AsyncExample_iOS;
+				SDKROOT = iphoneos;
+				SKIP_INSTALL = YES;
+				TARGETED_DEVICE_FAMILY = "1,2";
+				VERSIONING_SYSTEM = "apple-generic";
+				VERSION_INFO_PREFIX = "";
+			};
+			name = Release;
+		};
+		E7EEEBEF35EFBA119D9D4EFEED5097B7 /* Release */ = {
+			isa = XCBuildConfiguration;
+			baseConfigurationReference = 5BEA389B358CAE16034F4860861DAC8A /* Pods-AsyncExample iOSTests.release.xcconfig */;
+			buildSettings = {
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
+				CURRENT_PROJECT_VERSION = 1;
+				DEFINES_MODULE = YES;
+				DYLIB_COMPATIBILITY_VERSION = 1;
+				DYLIB_CURRENT_VERSION = 1;
+				DYLIB_INSTALL_NAME_BASE = "@rpath";
+				ENABLE_STRICT_OBJC_MSGSEND = YES;
+				INFOPLIST_FILE = "Target Support Files/Pods-AsyncExample iOSTests/Info.plist";
+				INSTALL_PATH = "$(LOCAL_LIBRARY_DIR)/Frameworks";
+				IPHONEOS_DEPLOYMENT_TARGET = 8.0;
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
+				MACH_O_TYPE = staticlib;
+				MODULEMAP_FILE = "Target Support Files/Pods-AsyncExample iOSTests/Pods-AsyncExample iOSTests.modulemap";
+				MTL_ENABLE_DEBUG_INFO = NO;
+				OTHER_LDFLAGS = "";
+				OTHER_LIBTOOLFLAGS = "";
+				PODS_ROOT = "$(SRCROOT)";
+				PRODUCT_NAME = Pods_AsyncExample_iOSTests;
+				SDKROOT = iphoneos;
+				SKIP_INSTALL = YES;
+				TARGETED_DEVICE_FAMILY = "1,2";
+				VERSIONING_SYSTEM = "apple-generic";
+				VERSION_INFO_PREFIX = "";
+			};
+			name = Release;
+		};
 		F006AC0594C14EED265AAEFABF0B040C /* Debug */ = {
 			isa = XCBuildConfiguration;
 			baseConfigurationReference = A74E546646E75AAFB0D7076A547CF30B /* Pods-AsyncExample iOSTests-Async.xcconfig */;
@@ -1220,35 +1257,6 @@
 				VERSION_INFO_PREFIX = "";
 			};
 			name = Debug;
-		};
-		FDBCF9F586B827D0352F07982B6D8447 /* Release */ = {
-			isa = XCBuildConfiguration;
-			baseConfigurationReference = 288152AC0AC56C6CB78FE9621EE3BF50 /* Pods-AsyncExample iOS.release.xcconfig */;
-			buildSettings = {
-				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
-				CURRENT_PROJECT_VERSION = 1;
-				DEFINES_MODULE = YES;
-				DYLIB_COMPATIBILITY_VERSION = 1;
-				DYLIB_CURRENT_VERSION = 1;
-				DYLIB_INSTALL_NAME_BASE = "@rpath";
-				ENABLE_STRICT_OBJC_MSGSEND = YES;
-				INFOPLIST_FILE = "Target Support Files/Pods-AsyncExample iOS/Info.plist";
-				INSTALL_PATH = "$(LOCAL_LIBRARY_DIR)/Frameworks";
-				IPHONEOS_DEPLOYMENT_TARGET = 8.0;
-				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
-				MODULEMAP_FILE = "Target Support Files/Pods-AsyncExample iOS/Pods-AsyncExample iOS.modulemap";
-				MTL_ENABLE_DEBUG_INFO = NO;
-				OTHER_LDFLAGS = "";
-				OTHER_LIBTOOLFLAGS = "";
-				PODS_ROOT = "$(SRCROOT)";
-				PRODUCT_NAME = Pods_AsyncExample_iOS;
-				SDKROOT = iphoneos;
-				SKIP_INSTALL = YES;
-				TARGETED_DEVICE_FAMILY = "1,2";
-				VERSIONING_SYSTEM = "apple-generic";
-				VERSION_INFO_PREFIX = "";
-			};
-			name = Release;
 		};
 		FFE5994334A2997CA31C4148D82BE6FF /* Release */ = {
 			isa = XCBuildConfiguration;
@@ -1284,8 +1292,8 @@
 		0D70E02BC78ED52510E512C4C38066FE /* Build configuration list for PBXNativeTarget "Pods-AsyncExample OS X" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
-				2A64AE09AC4ADD08125B26048B290611 /* Debug */,
-				616E6E7BAA1127F588264627C8B5807D /* Release */,
+				44EA40962D73F68BF53CB5068D3DD171 /* Debug */,
+				4E874F43F093E69A7CB0048B499FB326 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;
@@ -1329,8 +1337,8 @@
 		5FD6ECDDE807330D99F9C434E76880FB /* Build configuration list for PBXNativeTarget "Pods-AsyncExample OS XTests" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
-				860C130F5B7D2688D0B751DD79619FA1 /* Debug */,
-				3F202636758AADCD5EBDF29EF5BB6BBC /* Release */,
+				62BC716BAEB4257390388358B231F303 /* Debug */,
+				7CEAA8C0E237196D4A47281E0C0C8327 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;
@@ -1347,8 +1355,8 @@
 		BDECBE7C903D13F578E7709485CA12FF /* Build configuration list for PBXNativeTarget "Pods-AsyncExample iOS" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
-				9187F8A5AC6AAF34321BCCF8315F224F /* Debug */,
-				FDBCF9F586B827D0352F07982B6D8447 /* Release */,
+				82BE37E83120B0D26763E30991F2C556 /* Debug */,
+				C81D4B3E57982A449F55E25356F1B2D7 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;
@@ -1356,8 +1364,8 @@
 		EE7527E27A5B0808A51C48AD8FD18A31 /* Build configuration list for PBXNativeTarget "Pods-AsyncExample iOSTests" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
-				8BDF235D17E32A9198BA03421F98CD14 /* Debug */,
-				4DDF215FE2498F8FC8C8F6354211FD25 /* Release */,
+				A979D2E8023BFA6EA35B4EFBC7ED2D1B /* Debug */,
+				E7EEEBEF35EFBA119D9D4EFEED5097B7 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;

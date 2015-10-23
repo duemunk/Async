@@ -1,5 +1,5 @@
 PODS:
-  - Async (1.4.0)
+  - Async (1.4.2)
 
 DEPENDENCIES:
   - Async (from `../`)
@@ -9,6 +9,6 @@ EXTERNAL SOURCES:
     :path: ../
 
 SPEC CHECKSUMS:
-  Async: 4221a3bed9b180d95dd01fb07256443124514375
+  Async: 662cc65a93a6edd5f50632c8f6134bc21ec6b732
 
-COCOAPODS: 0.39.0.beta.5
+COCOAPODS: 0.39.0
