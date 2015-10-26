@@ -18,11 +18,10 @@ script:
 - xctool clean build -project Async.xcodeproj -scheme "Async OSX" -sdk macosx ONLY_ACTIVE_ARCH=NO
 
 # CocoaPods
-- xctool clean build -workspace AsyncExample/AsyncExample.xcworkspace -scheme "AsyncExample iOS" -sdk iphonesimulator ONLY_ACTIVE_ARCH=NO
-- xctool clean build -workspace AsyncExample/AsyncExample.xcworkspace -scheme "AsyncExample OSX" -sdk macosx ONLY_ACTIVE_ARCH=NO
+- xctool clean build -workspace AsyncPodsExample/AsyncPodsExample.xcworkspace -scheme "AsyncExample iOS" -sdk iphonesimulator ONLY_ACTIVE_ARCH=NO
+- xctool clean build -workspace AsyncPodsExample/AsyncPodsExample.xcworkspace -scheme "AsyncExample OS X" -sdk macosx ONLY_ACTIVE_ARCH=NO
 
-# Tests
-- xctool clean build test -project AsyncTest/Async.xcodeproj -scheme "AsynciOS" -sdk iphonesimulator ONLY_ACTIVE_ARCH=NO
+# Tests (OS X only, since simulator doesn't play nice with GCD)
 - xctool clean build test -project AsyncTest/Async.xcodeproj -scheme "AsyncOSX" -sdk macosx ONLY_ACTIVE_ARCH=NO
 
 after_success:
