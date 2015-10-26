@@ -12,10 +12,18 @@ before_install:
 - brew outdated xctool || brew upgrade xctool
 
 script:
+
 # Carthage
 - xctool clean build -project Async.xcodeproj -scheme "Async iOS" -sdk iphonesimulator ONLY_ACTIVE_ARCH=NO
-# CocoaPods + Tests
-- xctool clean build test -workspace AsyncExample/AsyncExample.xcworkspace -scheme "AsyncExample iOS" -sdk iphonesimulator ONLY_ACTIVE_ARCH=NO
+- xctool clean build -project Async.xcodeproj -scheme "Async OSX" -sdk macosx ONLY_ACTIVE_ARCH=NO
+
+# CocoaPods
+- xctool clean build -workspace AsyncExample/AsyncExample.xcworkspace -scheme "AsyncExample iOS" -sdk iphonesimulator ONLY_ACTIVE_ARCH=NO
+- xctool clean build -workspace AsyncExample/AsyncExample.xcworkspace -scheme "AsyncExample OSX" -sdk macosx ONLY_ACTIVE_ARCH=NO
+
+# Tests
+- xctool clean build test -project AsyncTest/Async.xcodeproj -scheme "AsynciOS" -sdk iphonesimulator ONLY_ACTIVE_ARCH=NO
+- xctool clean build test -project AsyncTest/Async.xcodeproj -scheme "AsyncOSX" -sdk macosx ONLY_ACTIVE_ARCH=NO
 
 after_success:
 - bash <(curl -s https://codecov.io/bash)
