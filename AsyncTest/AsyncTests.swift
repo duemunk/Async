@@ -186,7 +186,6 @@ class AsyncTests: XCTestCase {
         let queue = dispatch_get_global_queue(QOS_CLASS_BACKGROUND, 0)
         dispatch_after(time, queue, {
             let timePassed = NSDate().timeIntervalSinceDate(date)
-            print("\(timePassed)")
             XCTAssert(timePassed >= timeDelay, "Should wait \(timeDelay) seconds before firing")
             XCTAssert(timePassed < upperTimeDelay, "Shouldn't wait \(timePassed), but <\(upperTimeDelay) seconds before firing")
             XCTAssertEqual(qos_class_self(), QOS_CLASS_BACKGROUND, "On \(qos_class_self().description) (expected \(QOS_CLASS_BACKGROUND.description))")
@@ -447,7 +446,6 @@ class AsyncTests: XCTestCase {
             expectation.fulfill()
         }
         let block2 = block1.background {
-            print("Shouldn't be reached, since cancelled")
             XCTFail("Shouldn't be reached, since cancelled")
         }
 
@@ -563,7 +561,6 @@ class AsyncTests: XCTestCase {
         var count = 0
         let customQueue = dispatch_queue_create("CustomQueueConcurrentLabel", DISPATCH_QUEUE_CONCURRENT)
         Apply.customQueue(3, queue: customQueue) { i in
-            print(i)
             expectations[i].fulfill()
             count++
         }
@@ -579,7 +576,6 @@ class AsyncTests: XCTestCase {
         var count = 0
         let customQueue = dispatch_queue_create("CustomQueueSerialLabel", DISPATCH_QUEUE_SERIAL)
         Apply.customQueue(3, queue: customQueue) { i in
-            print(i)
             expectations[i].fulfill()
             count++
         }
