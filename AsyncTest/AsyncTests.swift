@@ -45,7 +45,7 @@ class AsyncTests: XCTestCase {
         let expectation = expectationWithDescription("Expected on main queue")
         var calledStuffAfterSinceAsync = false
         Async.main {
-            XCTAssertEqual(qos_class_self(), qos_class_main(), "On \(qos_class_self().description) (expexted \(qos_class_main().description))")
+            XCTAssertEqual(qos_class_self(), qos_class_main(), "On \(qos_class_self().description) (expected \(qos_class_main().description))")
             XCTAssert(calledStuffAfterSinceAsync, "Should be async")
             expectation.fulfill()
         }
@@ -140,7 +140,7 @@ class AsyncTests: XCTestCase {
         let expectation = expectationWithDescription("Expected On \(qos_class_self().description) (expected \(QOS_CLASS_USER_INTERACTIVE.description))")
         var id = 0
         Async.main {
-            XCTAssertEqual(qos_class_self(), qos_class_main(), "On \(qos_class_self().description) (expexted \(qos_class_main().description))")
+            XCTAssertEqual(qos_class_self(), qos_class_main(), "On \(qos_class_self().description) (expected \(qos_class_main().description))")
             XCTAssertEqual(++id, 1, "Count main queue")
         }.userInteractive {
             XCTAssertEqual(qos_class_self(), QOS_CLASS_USER_INTERACTIVE, "On \(qos_class_self().description) (expected \(QOS_CLASS_USER_INTERACTIVE.description))")
