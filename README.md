@@ -158,9 +158,6 @@ Apply.background(100) { i in
 ```
 Note that this function returns after the block has been run all 100 times i.e. it is not asynchronous. For asynchronous behaviour, wrap it in a an `Async` block like `Async.main{ Apply.background(100) { ... } }`.
 
-### Legacy support
-For support of iOS 7 and OS X 10.9 check out [Async.legacy](https://github.com/josephlord/Async.legacy). [Joseph Lord](https://github.com/josephlord) works hard to have as high feature parity with **Async** as possible.
-
 ### License
 The MIT License (MIT)
 
