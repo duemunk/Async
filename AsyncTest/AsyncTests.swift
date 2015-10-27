@@ -93,7 +93,7 @@ class AsyncTests: XCTestCase {
         let expectation = expectationWithDescription("Expected custom queue")
         let customQueue = dispatch_queue_create("CustomQueueLabel", DISPATCH_QUEUE_CONCURRENT)
         Async.customQueue(customQueue) {
-            #if (arch(i386) || arch(x86_64)) && os(iOS) // Simulator
+            #if (arch(i386) || arch(x86_64)) && (os(iOS) || os(tvOS)) // Simulator
                 let expectedCustomQueueType = qos_class_main()
             #else
                 let expectedCustomQueueType = QOS_CLASS_USER_INITIATED
@@ -108,7 +108,7 @@ class AsyncTests: XCTestCase {
         let expectation = expectationWithDescription("Expected custom queue")
         let customQueue = dispatch_queue_create("CustomQueueLabel", DISPATCH_QUEUE_SERIAL)
         Async.customQueue(customQueue) {
-            #if (arch(i386) || arch(x86_64)) && os(iOS) // Simulator
+            #if (arch(i386) || arch(x86_64)) && (os(iOS) || os(tvOS)) // Simulator
                 let expectedCustomQueueType = qos_class_main()
             #else
                 let expectedCustomQueueType = QOS_CLASS_USER_INITIATED

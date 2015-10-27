@@ -1,0 +1,6 @@
+framework module Pods_AsyncExample_tvOS {
+  umbrella header "Pods-AsyncExample tvOS-umbrella.h"
+
+  export *
+  module * { export * }
+}
