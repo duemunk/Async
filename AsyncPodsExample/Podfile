@@ -5,6 +5,11 @@ target 'AsyncExample iOS' do
     use_frameworks!
     pod 'AsyncSwift', :path => '../'
 end
+target 'AsyncExample tvOS' do
+    platform :tvos, '9.0'
+    use_frameworks!
+    pod 'AsyncSwift', :path => '../'
+end
 target 'AsyncExample OS X' do
     platform :osx, '10.10'
     use_frameworks!
