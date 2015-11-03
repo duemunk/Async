@@ -6,9 +6,9 @@ DEPENDENCIES:
 
 EXTERNAL SOURCES:
   AsyncSwift:
-    :path: ../
+    :path: "../"
 
 SPEC CHECKSUMS:
-  AsyncSwift: 37e47aa60a817f135f5d3aa7b135481f9ea01be2
+  AsyncSwift: 6803cec0ec61aa7f572765fbd15ff2e5497090f5
 
 COCOAPODS: 0.39.0
