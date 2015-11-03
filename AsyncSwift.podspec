@@ -12,4 +12,5 @@ Pod::Spec.new do |s|
   s.source   = { :git => "https://github.com/duemunk/Async.git", :tag => "1.5.0"}
   s.source_files = "Source/*.swift"
   s.requires_arc = true
+  s.module_name = 'Async'
 end
