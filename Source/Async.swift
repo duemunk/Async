@@ -33,13 +33,13 @@ import Foundation
 // MARK: - DSL for GCD queues
 
 /**
-`GCD` is an empty class with convenience static functions to get `dispatch_queue_t` of different quality of service classes, as provided by `dispatch_get_global_queue`.
+`GCD` is an empty struct with convenience static functions to get `dispatch_queue_t` of different quality of service classes, as provided by `dispatch_get_global_queue`.
 
     let utilityQueue = GCD.utilityQueue()
 
 - SeeAlso: Grand Central Dispatch
 */
-private class GCD {
+private struct GCD {
 
     /**
      Convenience function for `dispatch_get_main_queue()`.
@@ -49,7 +49,7 @@ private class GCD {
 
      - SeeAlso: dispatch_get_main_queue
      */
-    class func mainQueue() -> dispatch_queue_t {
+    static func mainQueue() -> dispatch_queue_t {
         return dispatch_get_main_queue()
         // Don't ever use dispatch_get_global_queue(qos_class_main(), 0) re https://gist.github.com/duemunk/34babc7ca8150ff81844
     }
@@ -62,7 +62,7 @@ private class GCD {
      
      - SeeAlso: dispatch_get_global_queue
     */
-    class func userInteractiveQueue() -> dispatch_queue_t {
+    static func userInteractiveQueue() -> dispatch_queue_t {
         return dispatch_get_global_queue(QOS_CLASS_USER_INTERACTIVE, 0)
     }
 
@@ -74,7 +74,7 @@ private class GCD {
 
      - SeeAlso: dispatch_get_global_queue
      */
-    class func userInitiatedQueue() -> dispatch_queue_t {
+    static func userInitiatedQueue() -> dispatch_queue_t {
         return dispatch_get_global_queue(QOS_CLASS_USER_INITIATED, 0)
     }
 
@@ -86,7 +86,7 @@ private class GCD {
 
      - SeeAlso: dispatch_get_global_queue
      */
-    class func utilityQueue() -> dispatch_queue_t {
+    static func utilityQueue() -> dispatch_queue_t {
         return dispatch_get_global_queue(QOS_CLASS_UTILITY, 0)
     }
 
@@ -98,7 +98,7 @@ private class GCD {
 
      - SeeAlso: dispatch_get_global_queue
      */
-    class func backgroundQueue() -> dispatch_queue_t {
+    static func backgroundQueue() -> dispatch_queue_t {
         return dispatch_get_global_queue(QOS_CLASS_BACKGROUND, 0)
     }
 }
