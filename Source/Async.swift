@@ -164,17 +164,20 @@ private struct GCD {
 */
 public struct Async {
 
+
+    // MARK: - Private properties and init
+
+    /**
+    Private property to hold internally on to a `dispatch_block_t`
+    */
     private let block: dispatch_block_t
 
+    /**
+     Private init that takes a `dispatch_block_t`
+    */
     private init(_ block: dispatch_block_t) {
         self.block = block
     }
-}
-
-
-// MARK: - Async – Static methods
-
-extension Async {
 
 
     // MARK: - Public static methods
