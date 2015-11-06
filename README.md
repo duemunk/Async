@@ -158,7 +158,7 @@ Apply.background(100) { i in
 	// Do stuff e.g. println(i)
 }
 ```
-Note that this function returns after the block has been run all 100 times i.e. it is not asynchronous. For asynchronous behaviour, wrap it in a an `Async` block like `Async.main{ Apply.background(100) { ... } }`.
+Note that this function returns after the block has been run all 100 times i.e. it is not asynchronous. For asynchronous behaviour, wrap it in a an `Async` block like `Async.background { Apply.background(100) { ... } }`.
 
 ### License
 The MIT License (MIT)
