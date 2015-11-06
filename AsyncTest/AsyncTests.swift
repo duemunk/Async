@@ -21,7 +21,9 @@ class AsyncTests: XCTestCase {
         super.tearDown()
     }
 
-    // Allowed error for
+    // Typical testing time delay. Must be bigger than `timeMargin`
+    let timeDelay = 0.3
+    // Allowed error for timeDelay
     let timeMargin = 0.2
 
     /* GCD */
@@ -37,7 +39,7 @@ class AsyncTests: XCTestCase {
             XCTAssertEqual(currentQos, qos, "On \(currentQos.description) (expected \(qos.description))")
             expectation.fulfill()
         }
-        waitForExpectationsWithTimeout(1, handler: nil)
+        waitForExpectationsWithTimeout(timeMargin, handler: nil)
     }
 
 
@@ -47,12 +49,16 @@ class AsyncTests: XCTestCase {
         let expectation = expectationWithDescription("Expected on main queue")
         var calledStuffAfterSinceAsync = false
         Async.main {
-            XCTAssertEqual(qos_class_self(), qos_class_main(), "On \(qos_class_self().description) (expected \(qos_class_main().description))")
+            #if (arch(i386) || arch(x86_64)) && (os(iOS) || os(tvOS)) // Simulator
+                XCTAssert(NSThread.isMainThread(), "Should be on main thread (simulator)")
+            #else
+                XCTAssertEqual(qos_class_self(), qos_class_main(), "On \(qos_class_self().description) (expected \(qos_class_main().description))")
+            #endif
             XCTAssert(calledStuffAfterSinceAsync, "Should be async")
             expectation.fulfill()
         }
         calledStuffAfterSinceAsync = true
-        waitForExpectationsWithTimeout(1, handler: nil)
+        waitForExpectationsWithTimeout(timeMargin, handler: nil)
     }
 
     func testAsyncUserInteractive() {
@@ -61,7 +67,7 @@ class AsyncTests: XCTestCase {
             XCTAssertEqual(qos_class_self(), QOS_CLASS_USER_INTERACTIVE, "On \(qos_class_self().description) (expected \(QOS_CLASS_USER_INTERACTIVE.description))")
             expectation.fulfill()
         }
-        waitForExpectationsWithTimeout(1, handler: nil)
+        waitForExpectationsWithTimeout(timeMargin, handler: nil)
     }
 
     func testAsyncUserInitiated() {
@@ -70,7 +76,7 @@ class AsyncTests: XCTestCase {
             XCTAssertEqual(qos_class_self(), QOS_CLASS_USER_INITIATED, "On \(qos_class_self().description) (expected \(QOS_CLASS_USER_INITIATED.description))")
             expectation.fulfill()
         }
-        waitForExpectationsWithTimeout(1, handler: nil)
+        waitForExpectationsWithTimeout(timeMargin, handler: nil)
     }
 
     func testAsyncUtility() {
@@ -79,7 +85,7 @@ class AsyncTests: XCTestCase {
             XCTAssertEqual(qos_class_self(), QOS_CLASS_UTILITY, "On \(qos_class_self().description) (expected \(QOS_CLASS_UTILITY.description))")
             expectation.fulfill()
         }
-        waitForExpectationsWithTimeout(1, handler: nil)
+        waitForExpectationsWithTimeout(timeMargin, handler: nil)
     }
 
     func testAsyncBackground() {
@@ -88,37 +94,33 @@ class AsyncTests: XCTestCase {
             XCTAssertEqual(qos_class_self(), QOS_CLASS_BACKGROUND, "On \(qos_class_self().description) (expected \(QOS_CLASS_BACKGROUND.description))")
             expectation.fulfill()
         }
-        waitForExpectationsWithTimeout(1, handler: nil)
+        waitForExpectationsWithTimeout(timeMargin, handler: nil)
     }
 
     func testAsyncCustomQueueConcurrent() {
         let expectation = expectationWithDescription("Expected custom queue")
         let customQueue = dispatch_queue_create("CustomQueueLabel", DISPATCH_QUEUE_CONCURRENT)
         Async.customQueue(customQueue) {
-            #if (arch(i386) || arch(x86_64)) && (os(iOS) || os(tvOS)) // Simulator
-                let expectedCustomQueueType = qos_class_main()
-            #else
-                let expectedCustomQueueType = QOS_CLASS_USER_INITIATED
-            #endif
-            XCTAssertEqual(qos_class_self(), expectedCustomQueueType, "On \(qos_class_self().description) (expected \(expectedCustomQueueType.description))")
+            let currentClass = qos_class_self()
+            let isValidClass = currentClass == qos_class_main() || currentClass == QOS_CLASS_USER_INITIATED
+            XCTAssert(isValidClass, "On \(qos_class_self().description) (expected \(qos_class_main().description) || \(QOS_CLASS_USER_INITIATED.description))")
+            // TODO: Test for current queue label. dispatch_get_current_queue is unavailable in Swift, so we cant' use the return value from and pass it to dispatch_queue_get_label.
             expectation.fulfill()
         }
-        waitForExpectationsWithTimeout(1, handler: nil)
+        waitForExpectationsWithTimeout(timeMargin, handler: nil)
     }
 
     func testAsyncCustomQueueSerial() {
         let expectation = expectationWithDescription("Expected custom queue")
         let customQueue = dispatch_queue_create("CustomQueueLabel", DISPATCH_QUEUE_SERIAL)
         Async.customQueue(customQueue) {
-            #if (arch(i386) || arch(x86_64)) && (os(iOS) || os(tvOS)) // Simulator
-                let expectedCustomQueueType = qos_class_main()
-            #else
-                let expectedCustomQueueType = QOS_CLASS_USER_INITIATED
-            #endif
-            XCTAssertEqual(qos_class_self(), expectedCustomQueueType, "On \(qos_class_self().description) (expected \(expectedCustomQueueType.description))")
+            let currentClass = qos_class_self()
+            let isValidClass = currentClass == qos_class_main() || currentClass == QOS_CLASS_USER_INITIATED
+            XCTAssert(isValidClass, "On \(qos_class_self().description) (expected \(qos_class_main().description) || \(QOS_CLASS_USER_INITIATED.description))")
+            // TODO: Test for current queue label. dispatch_get_current_queue is unavailable in Swift, so we cant' use the return value from and pass it to dispatch_queue_get_label.
             expectation.fulfill()
         }
-        waitForExpectationsWithTimeout(1, handler: nil)
+        waitForExpectationsWithTimeout(timeMargin, handler: nil)
     }
 
 
@@ -135,14 +137,18 @@ class AsyncTests: XCTestCase {
             XCTAssert(wasInBackground, "Was in background first")
             expectation.fulfill()
         }
-        waitForExpectationsWithTimeout(1, handler: nil)
+        waitForExpectationsWithTimeout(timeMargin*2, handler: nil)
     }
 
     func testChaining() {
         let expectation = expectationWithDescription("Expected On \(qos_class_self().description) (expected \(QOS_CLASS_USER_INTERACTIVE.description))")
         var id = 0
         Async.main {
-            XCTAssertEqual(qos_class_self(), qos_class_main(), "On \(qos_class_self().description) (expected \(qos_class_main().description))")
+            #if (arch(i386) || arch(x86_64)) && (os(iOS) || os(tvOS)) // Simulator
+                XCTAssert(NSThread.isMainThread(), "Should be on main thread (simulator)")
+            #else
+                XCTAssertEqual(qos_class_self(), qos_class_main(), "On \(qos_class_self().description) (expected \(qos_class_main().description))")
+            #endif
             XCTAssertEqual(++id, 1, "Count main queue")
         }.userInteractive {
             XCTAssertEqual(qos_class_self(), QOS_CLASS_USER_INTERACTIVE, "On \(qos_class_self().description) (expected \(QOS_CLASS_USER_INTERACTIVE.description))")
@@ -158,7 +164,7 @@ class AsyncTests: XCTestCase {
             XCTAssertEqual(++id, 5, "Count background queue")
             expectation.fulfill()
         }
-        waitForExpectationsWithTimeout(1, handler: nil)
+        waitForExpectationsWithTimeout(timeMargin*5, handler: nil)
     }
 
     func testAsyncCustomQueueChaining() {
@@ -168,11 +174,11 @@ class AsyncTests: XCTestCase {
         let otherCustomQueue = dispatch_queue_create("OtherCustomQueueLabel", DISPATCH_QUEUE_SERIAL)
         Async.customQueue(customQueue) {
             XCTAssertEqual(++id, 1, "Count custom queue")
-            }.customQueue(otherCustomQueue) {
-                XCTAssertEqual(++id, 2, "Count other custom queue")
-                expectation.fulfill()
+        }.customQueue(otherCustomQueue) {
+            XCTAssertEqual(++id, 2, "Count other custom queue")
+            expectation.fulfill()
         }
-        waitForExpectationsWithTimeout(1, handler: nil)
+        waitForExpectationsWithTimeout(timeMargin*2, handler: nil)
     }
 
 
@@ -182,99 +188,81 @@ class AsyncTests: XCTestCase {
 
         let expectation = expectationWithDescription("Expected after time")
         let date = NSDate()
-        let timeDelay = 1.0
         let lowerTimeDelay = timeDelay - timeMargin
-        let upperTimeDelay = timeDelay + timeMargin
         let time = dispatch_time(DISPATCH_TIME_NOW, Int64(timeDelay * Double(NSEC_PER_SEC)))
         let queue = dispatch_get_global_queue(QOS_CLASS_BACKGROUND, 0)
         dispatch_after(time, queue, {
             let timePassed = NSDate().timeIntervalSinceDate(date)
             XCTAssert(timePassed >= lowerTimeDelay, "Should wait \(timePassed) >= \(lowerTimeDelay) seconds before firing")
-            XCTAssert(timePassed < upperTimeDelay, "Shouldn't wait \(timePassed), but <\(upperTimeDelay) seconds before firing")
             XCTAssertEqual(qos_class_self(), QOS_CLASS_BACKGROUND, "On \(qos_class_self().description) (expected \(QOS_CLASS_BACKGROUND.description))")
             expectation.fulfill()
         })
-        waitForExpectationsWithTimeout(timeDelay*2, handler: nil)
+        waitForExpectationsWithTimeout(timeDelay + timeMargin, handler: nil)
     }
 
     func testAfterMain() {
         let expectation = expectationWithDescription("Expected after time")
         let date = NSDate()
-            let timeDelay = 1.0
         let lowerTimeDelay = timeDelay - timeMargin
-        let upperTimeDelay = timeDelay + timeMargin
         Async.main(after: timeDelay) {
             let timePassed = NSDate().timeIntervalSinceDate(date)
             XCTAssert(timePassed >= lowerTimeDelay, "Should wait \(timePassed) >= \(lowerTimeDelay) seconds before firing")
-            XCTAssert(timePassed < upperTimeDelay, "Shouldn't wait \(timePassed), but <\(upperTimeDelay) seconds before firing")
             XCTAssertEqual(qos_class_self(), qos_class_main(), "On main queue")
             expectation.fulfill()
         }
-        waitForExpectationsWithTimeout(timeDelay*2, handler: nil)
+        waitForExpectationsWithTimeout(timeDelay + timeMargin, handler: nil)
     }
 
     func testAfterUserInteractive() {
         let expectation = expectationWithDescription("Expected after time")
         let date = NSDate()
-        let timeDelay = 1.0
         let lowerTimeDelay = timeDelay - timeMargin
-        let upperTimeDelay = timeDelay + timeMargin
         Async.userInteractive(after: timeDelay) {
             let timePassed = NSDate().timeIntervalSinceDate(date)
             XCTAssert(timePassed >= lowerTimeDelay, "Should wait \(timePassed) >= \(lowerTimeDelay) seconds before firing")
-            XCTAssert(timePassed < upperTimeDelay, "Shouldn't wait \(timePassed), but <\(upperTimeDelay) seconds before firing")
             XCTAssertEqual(qos_class_self(), QOS_CLASS_USER_INTERACTIVE, "On user interactive queue")
             expectation.fulfill()
         }
-        waitForExpectationsWithTimeout(timeDelay*2, handler: nil)
+        waitForExpectationsWithTimeout(timeDelay + timeMargin, handler: nil)
     }
 
     func testAfterUserInitated() {
         let expectation = expectationWithDescription("Expected after time")
         let date = NSDate()
-        let timeDelay = 1.0
         let lowerTimeDelay = timeDelay - timeMargin
-        let upperTimeDelay = timeDelay + timeMargin
         Async.userInitiated(after: timeDelay) {
             let timePassed = NSDate().timeIntervalSinceDate(date)
             XCTAssert(timePassed >= lowerTimeDelay, "Should wait \(timePassed) >= \(lowerTimeDelay) seconds before firing")
-            XCTAssert(timePassed < upperTimeDelay, "Shouldn't wait \(timePassed), but <\(upperTimeDelay) seconds before firing")
             XCTAssertEqual(qos_class_self(), QOS_CLASS_USER_INITIATED, "On user initiated queue")
             expectation.fulfill()
         }
-        waitForExpectationsWithTimeout(timeDelay*2, handler: nil)
+        waitForExpectationsWithTimeout(timeDelay + timeMargin, handler: nil)
     }
 
     func testAfterUtility() {
         let expectation = expectationWithDescription("Expected after time")
         let date = NSDate()
-        let timeDelay = 1.0
         let lowerTimeDelay = timeDelay - timeMargin
-        let upperTimeDelay = timeDelay + timeMargin
         Async.utility(after: timeDelay) {
             let timePassed = NSDate().timeIntervalSinceDate(date)
             XCTAssert(timePassed >= lowerTimeDelay, "Should wait \(timePassed) >= \(lowerTimeDelay) seconds before firing")
-            XCTAssert(timePassed < upperTimeDelay, "Shouldn't wait \(timePassed), but <\(upperTimeDelay) seconds before firing")
             XCTAssertEqual(qos_class_self(), QOS_CLASS_UTILITY, "On utility queue")
             expectation.fulfill()
         }
-        waitForExpectationsWithTimeout(timeDelay*2, handler: nil)
+        waitForExpectationsWithTimeout(timeDelay + timeMargin, handler: nil)
     }
 
     func testAfterBackground() {
         let expectation = expectationWithDescription("Expected after time")
         let date = NSDate()
-        let timeDelay = 1.0
         let lowerTimeDelay = timeDelay - timeMargin
-        let upperTimeDelay = timeDelay + timeMargin
         Async.background(after: timeDelay) {
             let timePassed = NSDate().timeIntervalSinceDate(date)
             XCTAssert(timePassed >= lowerTimeDelay, "Should wait \(timePassed) >= \(lowerTimeDelay) seconds before firing")
-            XCTAssert(timePassed < upperTimeDelay, "Shouldn't wait \(timePassed), but <\(upperTimeDelay) seconds before firing")
             XCTAssertEqual(qos_class_self(), QOS_CLASS_BACKGROUND, "On background queue")
             expectation.fulfill()
         }
-        waitForExpectationsWithTimeout(timeDelay*2, handler: nil)
+        waitForExpectationsWithTimeout(timeDelay + timeMargin, handler: nil)
     }
 
     func testAfterCustomQueue() {
@@ -282,27 +270,24 @@ class AsyncTests: XCTestCase {
         let date = NSDate()
         let timeDelay = 1.0
         let lowerTimeDelay = timeDelay - timeMargin
-        let upperTimeDelay = timeDelay + timeMargin
         let customQueue = dispatch_queue_create("CustomQueueLabel", DISPATCH_QUEUE_CONCURRENT)
         Async.customQueue(customQueue, after: timeDelay) {
             let timePassed = NSDate().timeIntervalSinceDate(date)
             XCTAssert(timePassed >= lowerTimeDelay, "Should wait \(timePassed) >= \(lowerTimeDelay) seconds before firing")
-            XCTAssert(timePassed < upperTimeDelay, "Shouldn't wait \(timePassed), but <\(upperTimeDelay) seconds before firing")
             expectation.fulfill()
         }
-        waitForExpectationsWithTimeout(timeDelay*2, handler: nil)
+        waitForExpectationsWithTimeout(timeDelay + timeMargin, handler: nil)
     }
 
     func testAfterChainedMix() {
         let expectation = expectationWithDescription("Expected after time")
         let date1 = NSDate()
         var date2 = NSDate()
-        let timeDelay1 = 1.1
+        let timeDelay1 = timeDelay
         let lowerTimeDelay1 = timeDelay1 - timeMargin
         let upperTimeDelay1 = timeDelay1 + timeMargin
-        let timeDelay2 = 1.2
+        let timeDelay2 = timeDelay
         let lowerTimeDelay2 = timeDelay2 - timeMargin
-        let upperTimeDelay2 = timeDelay2 + timeMargin
         var id = 0
         Async.userInteractive(after: timeDelay1) {
             XCTAssertEqual(++id, 1, "First after")
@@ -318,23 +303,21 @@ class AsyncTests: XCTestCase {
 
             let timePassed = NSDate().timeIntervalSinceDate(date2)
             XCTAssert(timePassed >= lowerTimeDelay2, "Should wait \(timePassed) >= \(lowerTimeDelay2) seconds before firing")
-            XCTAssert(timePassed < upperTimeDelay2, "Shouldn't wait \(timePassed), but <\(upperTimeDelay2) seconds before firing")
             XCTAssertEqual(qos_class_self(), QOS_CLASS_UTILITY, "On \(qos_class_self().description) (expected \(QOS_CLASS_UTILITY.description))")
             expectation.fulfill()
         }
-        waitForExpectationsWithTimeout((timeDelay1 + timeDelay2) * 2, handler: nil)
+        waitForExpectationsWithTimeout((timeDelay1 + timeDelay2) + timeMargin*2, handler: nil)
     }
 
     func testAfterChainedUserInteractive() {
         let expectation = expectationWithDescription("Expected after time")
         let date1 = NSDate()
         var date2 = NSDate()
-        let timeDelay1 = 1.1
+        let timeDelay1 = timeDelay
         let lowerTimeDelay1 = timeDelay1 - timeMargin
         let upperTimeDelay1 = timeDelay1 + timeMargin
-        let timeDelay2 = 1.2
+        let timeDelay2 = timeDelay
         let lowerTimeDelay2 = timeDelay2 - timeMargin
-        let upperTimeDelay2 = timeDelay2 + timeMargin
         var id = 0
         Async.userInteractive(after: timeDelay1) {
             XCTAssertEqual(++id, 1, "First after")
@@ -350,23 +333,21 @@ class AsyncTests: XCTestCase {
 
             let timePassed = NSDate().timeIntervalSinceDate(date2)
             XCTAssert(timePassed >= lowerTimeDelay2, "Should wait \(timePassed) >= \(lowerTimeDelay2) seconds before firing")
-            XCTAssert(timePassed < upperTimeDelay2, "Shouldn't wait \(timePassed), but <\(upperTimeDelay2) seconds before firing")
             XCTAssertEqual(qos_class_self(), QOS_CLASS_USER_INTERACTIVE, "On \(qos_class_self().description) (expected \(QOS_CLASS_USER_INTERACTIVE.description))")
             expectation.fulfill()
         }
-        waitForExpectationsWithTimeout((timeDelay1 + timeDelay2) * 2, handler: nil)
+        waitForExpectationsWithTimeout((timeDelay1 + timeDelay2) + timeMargin*2, handler: nil)
     }
 
     func testAfterChainedUserInitiated() {
         let expectation = expectationWithDescription("Expected after time")
         let date1 = NSDate()
         var date2 = NSDate()
-        let timeDelay1 = 1.1
+        let timeDelay1 = timeDelay
         let lowerTimeDelay1 = timeDelay1 - timeMargin
         let upperTimeDelay1 = timeDelay1 + timeMargin
-        let timeDelay2 = 1.2
+        let timeDelay2 = timeDelay
         let lowerTimeDelay2 = timeDelay2 - timeMargin
-        let upperTimeDelay2 = timeDelay2 + timeMargin
         var id = 0
         Async.userInitiated(after: timeDelay1) {
             XCTAssertEqual(++id, 1, "First after")
@@ -382,23 +363,21 @@ class AsyncTests: XCTestCase {
 
             let timePassed = NSDate().timeIntervalSinceDate(date2)
             XCTAssert(timePassed >= lowerTimeDelay2, "Should wait \(timePassed) >= \(lowerTimeDelay2) seconds before firing")
-            XCTAssert(timePassed < upperTimeDelay2, "Shouldn't wait \(timePassed), but <\(upperTimeDelay2) seconds before firing")
             XCTAssertEqual(qos_class_self(), QOS_CLASS_USER_INITIATED, "On \(qos_class_self().description) (expected \(QOS_CLASS_USER_INITIATED.description))")
             expectation.fulfill()
         }
-        waitForExpectationsWithTimeout((timeDelay1 + timeDelay2) * 2, handler: nil)
+        waitForExpectationsWithTimeout((timeDelay1 + timeDelay2) + timeMargin*2, handler: nil)
     }
 
     func testAfterChainedUtility() {
         let expectation = expectationWithDescription("Expected after time")
         let date1 = NSDate()
         var date2 = NSDate()
-        let timeDelay1 = 1.1
+        let timeDelay1 = timeDelay
         let lowerTimeDelay1 = timeDelay1 - timeMargin
         let upperTimeDelay1 = timeDelay1 + timeMargin
-        let timeDelay2 = 1.2
+        let timeDelay2 = timeDelay
         let lowerTimeDelay2 = timeDelay2 - timeMargin
-        let upperTimeDelay2 = timeDelay2 + timeMargin
         var id = 0
         Async.utility(after: timeDelay1) {
             XCTAssertEqual(++id, 1, "First after")
@@ -414,7 +393,6 @@ class AsyncTests: XCTestCase {
 
             let timePassed = NSDate().timeIntervalSinceDate(date2)
             XCTAssert(timePassed >= lowerTimeDelay2, "Should wait \(timePassed) >= \(lowerTimeDelay2) seconds before firing")
-            XCTAssert(timePassed < upperTimeDelay2, "Shouldn't wait \(timePassed), but <\(upperTimeDelay2) seconds before firing")
             XCTAssertEqual(qos_class_self(), QOS_CLASS_UTILITY, "On \(qos_class_self().description) (expected \(QOS_CLASS_UTILITY.description))")
             expectation.fulfill()
         }
@@ -425,12 +403,11 @@ class AsyncTests: XCTestCase {
         let expectation = expectationWithDescription("Expected after time")
         let date1 = NSDate()
         var date2 = NSDate()
-        let timeDelay1 = 1.1
+        let timeDelay1 = timeDelay
         let lowerTimeDelay1 = timeDelay1 - timeMargin
         let upperTimeDelay1 = timeDelay1 + timeMargin
-        let timeDelay2 = 1.2
+        let timeDelay2 = timeDelay
         let lowerTimeDelay2 = timeDelay2 - timeMargin
-        let upperTimeDelay2 = timeDelay2 + timeMargin
         var id = 0
         Async.background(after: timeDelay1) {
             XCTAssertEqual(++id, 1, "First after")
@@ -446,11 +423,10 @@ class AsyncTests: XCTestCase {
 
             let timePassed = NSDate().timeIntervalSinceDate(date2)
             XCTAssert(timePassed >= lowerTimeDelay2, "Should wait \(timePassed) >= \(lowerTimeDelay2) seconds before firing")
-            XCTAssert(timePassed < upperTimeDelay2, "Shouldn't wait \(timePassed), but <\(upperTimeDelay2) seconds before firing")
             XCTAssertEqual(qos_class_self(), QOS_CLASS_BACKGROUND, "On \(qos_class_self().description) (expected \(QOS_CLASS_BACKGROUND.description))")
             expectation.fulfill()
         }
-        waitForExpectationsWithTimeout((timeDelay1 + timeDelay2) * 2, handler: nil)
+        waitForExpectationsWithTimeout((timeDelay1 + timeDelay2) + timeMargin*2, handler: nil)
     }
 
 
@@ -460,20 +436,20 @@ class AsyncTests: XCTestCase {
         let expectation = expectationWithDescription("Block1 should run")
 
         let block1 = Async.background {
-            // Heavy work
-            self.work(.Medium)
+            // Some work
+            NSThread.sleepForTimeInterval(0.3)
             expectation.fulfill()
         }
         let block2 = block1.background {
             XCTFail("Shouldn't be reached, since cancelled")
         }
 
-        Async.main(after: 0.01) {
+        Async.main(after: 0.1) {
             block1.cancel() // First block is _not_ cancelled
             block2.cancel() // Second block _is_ cancelled
         }
 
-        waitForExpectationsWithTimeout(20, handler: nil)
+        waitForExpectationsWithTimeout(0.3 + 0.1 + timeMargin, handler: nil)
     }
 
 
@@ -482,8 +458,8 @@ class AsyncTests: XCTestCase {
     func testWait() {
         var id = 0
         let block = Async.background {
-            // Heavy work
-            self.work(.Light)
+            // Some work
+            NSThread.sleepForTimeInterval(0.1)
             XCTAssertEqual(++id, 1, "")
         }
         XCTAssertEqual(id, 0, "")
@@ -494,21 +470,18 @@ class AsyncTests: XCTestCase {
 
     func testWaitMax() {
         var id = 0
-        let block = Async.background {
-            XCTAssertEqual(++id, 1, "") // A
-            // Heavy work
-            self.work(.Heavy)
-            XCTAssertEqual(++id, 3, "") // C
-        }
-        XCTAssertEqual(id, 0, "")
-
         let date = NSDate()
-        let timeDelay = 0.2
-        let upperTimeDelay = timeDelay + 0.2
-
+        let upperTimeDelay = timeDelay + timeMargin
+        let block = Async.background {
+            XCTAssertEqual(++id, 1, "The id should be 1") // A
+            // Some work that takes longer than we want to wait for
+            NSThread.sleepForTimeInterval(self.timeDelay + self.timeMargin)
+            ++id // C
+        }
+        XCTAssertEqual(id, 0, "The id should be 0, since block is send to background")
+        // Wait
         block.wait(seconds: timeDelay)
-
-        XCTAssertEqual(++id, 2, "") // B
+        XCTAssertEqual(++id, 2, "The id should be 2, since the block has begun running") // B
         let timePassed = NSDate().timeIntervalSinceDate(date)
         XCTAssert(timePassed < upperTimeDelay, "Shouldn't wait \(upperTimeDelay) seconds before firing")
     }
@@ -600,28 +573,5 @@ class AsyncTests: XCTestCase {
         }
         assert(count == 3, "Wrong count")
         waitForExpectationsWithTimeout(1, handler: nil)
-    }
-}
-
-
-extension AsyncTests {
-
-    // Just a mininally printing workload
-    private func dumbFibonachi(n: Int) -> Int {
-        if n < 3 { return 1 }
-        return dumbFibonachi(n-1) + dumbFibonachi(n-2)
-    }
-
-    private enum WorkWeight: Int {
-        case Light = 20, Medium = 200, Heavy = 2000
-    }
-
-    private func work(weight: WorkWeight) {
-        var fibonachiResult: [Int] = []
-        // Heavy work
-        for _ in 0...15 {
-            fibonachiResult = [Int](count: weight.rawValue, repeatedValue: 15).map { return dumbFibonachi($0) }
-        }
-        let _ = fibonachiResult // Prevents optimiser removing fibonachi calls
     }
 }
