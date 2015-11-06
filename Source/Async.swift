@@ -180,7 +180,7 @@ public struct Async {
     }
 
 
-    // MARK: - Public static methods
+    // MARK: - Static methods
 
     /**
     Sends the a block to be run asynchronously on the main thread.
@@ -345,7 +345,7 @@ public struct Async {
     }
 
 
-    // MARK: - Async – Regular methods (matches static ones)
+    // MARK: - Instance methods (matches static ones)
 
     /**
     Sends the a block to be run asynchronously on the main thread, after the current block has finished.
@@ -437,6 +437,8 @@ public struct Async {
         return chain(after, block: chainingBlock, queue: queue)
     }
 
+    // MARK: - Instance methods
+
     /**
      Convenience function to call `dispatch_block_cancel()` on the encapsulated block.
      Cancels the current block, if it hasn't already begun running to GCD.
@@ -480,7 +482,7 @@ public struct Async {
         }
     }
 
-    // MARK: Private regular methods
+    // MARK: Private instance methods
 
     /**
     Convenience for `chainNow()` or `chainAfter()` depending on if the parameter `seconds` is passed or nil.
