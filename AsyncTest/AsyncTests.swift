@@ -449,7 +449,7 @@ class AsyncTests: XCTestCase {
             block2.cancel() // Second block _is_ cancelled
         }
 
-        waitForExpectationsWithTimeout(0.3 + 0.1 + timeMargin, handler: nil)
+        waitForExpectationsWithTimeout(0.3 + 0.1 + timeMargin*2, handler: nil)
     }
 
 
