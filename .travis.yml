@@ -5,7 +5,7 @@ language: objective-c
 script:
 
 # Carthage
-- xctool build -project Async.xcodeproj -scheme "Async iOS"
+# - xctool build -project Async.xcodeproj -scheme "Async iOS"
 - xctool build -project Async.xcodeproj -scheme "Async OSX"
 
 # CocoaPods
