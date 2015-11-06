@@ -631,6 +631,9 @@ public struct Apply {
 
 // MARK: - Extension for `qos_class_t`
 
+/**
+Extension to add description string for each quality of service class.
+*/
 public extension qos_class_t {
 
     /**
