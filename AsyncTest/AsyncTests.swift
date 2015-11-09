@@ -437,7 +437,7 @@ class AsyncTests: XCTestCase {
 
         let block1 = Async.background {
             // Some work
-            NSThread.sleepForTimeInterval(0.3)
+            NSThread.sleepForTimeInterval(0.2)
             expectation.fulfill()
         }
         let block2 = block1.background {
@@ -449,7 +449,7 @@ class AsyncTests: XCTestCase {
             block2.cancel() // Second block _is_ cancelled
         }
 
-        waitForExpectationsWithTimeout(0.3 + 0.1 + timeMargin*2, handler: nil)
+        waitForExpectationsWithTimeout(0.2 + 0.1 + timeMargin*3, handler: nil)
     }
 
 
