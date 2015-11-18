@@ -1,4 +1,4 @@
-framework module AsyncSwift {
+framework module Async {
   umbrella header "Pods-AsyncExample OS X-AsyncSwift-umbrella.h"
 
   export *

@@ -2,27 +2,18 @@ osx_image: xcode7.1
 
 language: objective-c
 
-env:
-   global:
-   - LANG=en_US.UTF-8
-
-
-before_install:
-- brew update
-- brew outdated xctool || brew upgrade xctool
-
 script:
 
 # Carthage
-- xctool clean build -project Async.xcodeproj -scheme "Async iOS" -sdk iphonesimulator ONLY_ACTIVE_ARCH=NO
-- xctool clean build -project Async.xcodeproj -scheme "Async OSX" -sdk macosx ONLY_ACTIVE_ARCH=NO
+# - xctool build -project Async.xcodeproj -scheme "Async iOS"
+- xctool build -project Async.xcodeproj -scheme "Async OSX"
 
 # CocoaPods
 #- xctool clean build -workspace AsyncPodsExample/AsyncPodsExample.xcworkspace -scheme "AsyncExample iOS" -sdk iphonesimulator ONLY_ACTIVE_ARCH=NO
 #- xctool clean build -workspace AsyncPodsExample/AsyncPodsExample.xcworkspace -scheme "AsyncExample OS X" -sdk macosx ONLY_ACTIVE_ARCH=NO
 
 # Tests (OS X only, since simulator doesn't play nice with GCD)
-- xctool clean build test -project AsyncTest/Async.xcodeproj -scheme "AsyncOSX" -sdk macosx ONLY_ACTIVE_ARCH=NO
+- xctool build test -project AsyncTest/Async.xcodeproj -scheme "AsyncOSX"
 
 after_success:
 - bash <(curl -s https://codecov.io/bash)
