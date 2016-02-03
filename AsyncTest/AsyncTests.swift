@@ -574,4 +574,5 @@ class AsyncTests: XCTestCase {
         assert(count == 3, "Wrong count")
         waitForExpectationsWithTimeout(1, handler: nil)
     }
+
 }

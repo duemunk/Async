@@ -1,4 +1,4 @@
-# Async 
+# Async
 [![](http://img.shields.io/badge/OS%20X-10.10%2B-blue.svg)]() [![](http://img.shields.io/badge/iOS-8.0%2B-blue.svg)]() [![](http://img.shields.io/badge/tvOS-9.0%2B-blue.svg)]() [![](http://img.shields.io/badge/Swift-2.1-blue.svg)]() [![](https://travis-ci.org/duemunk/Async.svg)](https://travis-ci.org/duemunk/Async) [![Carthage compatible](https://img.shields.io/badge/Carthage-compatible-4BC51D.svg)](https://github.com/Carthage/Carthage) [![CocoaPods compatible](https://img.shields.io/badge/CocoaPods-compatible-4BC51D.svg)](https://github.com/CocoaPods/CocoaPods) [![](http://img.shields.io/badge/operator_overload-nope-green.svg)](https://gist.github.com/duemunk/61e45932dbb1a2ca0954)
 
 
@@ -18,11 +18,24 @@ Instead of the familiar syntax for GCD:
 ```swift
 dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_BACKGROUND, 0), {
 	print("This is run on the background queue")
-	
+
 	dispatch_async(dispatch_get_main_queue(), {
 		print("This is run on the main queue, after the previous block")
 	})
 })
+```
+
+**AsyncGroup** sugar looks like this:
+```swift
+let group = AsyncGroup()
+group.background {
+    print("This is run on the background queue")
+}
+group.background {
+    print("This is also run on the background queue in parallel")
+}
+group.wait()
+print("Both asynchronous blocks are complete")
 ```
 
 ### Install
@@ -110,7 +123,7 @@ let block1 = Async.background {
 let block2 = block1.background {
 	print("B – shouldn't be reached, since cancelled")
 }
-Async.main { 
+Async.main {
 	// Cancel async to allow block1 to begin
 	block1.cancel() // First block is _not_ cancelled
 	block2.cancel() // Second block _is_ cancelled
@@ -151,14 +164,72 @@ Modern GCD queues don't work as expected in the iOS Simulator. See issues [13](h
 ### Known improvements
 The ```dispatch_block_t``` can't be extended. Workaround used: Wrap ```dispatch_block_t``` in a struct that takes the block as a property.
 
-### Bonus stuff
-There is also a wrapper for [`dispatch_apply()`](https://developer.apple.com/library/mac/documentation/Performance/Reference/GCD_libdispatch_Ref/index.html#//apple_ref/c/func/dispatch_apply)  for quick parallelisation of a `for` loop. 
+### Apply
+There is also a wrapper for [`dispatch_apply()`](https://developer.apple.com/library/mac/documentation/Performance/Reference/GCD_libdispatch_Ref/index.html#//apple_ref/c/func/dispatch_apply)  for quick parallelisation of a `for` loop.
 ```swift
 Apply.background(100) { i in
 	// Do stuff e.g. print(i)
 }
 ```
 Note that this function returns after the block has been run all 100 times i.e. it is not asynchronous. For asynchronous behaviour, wrap it in a an `Async` block like `Async.background { Apply.background(100) { ... } }`.
+
+### AsyncGroup
+**AsyncGroup** facilitates working with groups of asynchronous blocks.
+
+Multiple dispatch blocks with GCD:
+```swift
+let group = AsyncGroup()
+group.background {
+    // Run on background queue
+}
+group.utility {
+    // Run on utility queue, in parallel to the previous block
+}
+group.wait()
+```
+All modern queue classes:
+```swift
+group.main {}
+group.userInteractive {}
+group.userInitiated {}
+group.utility {}
+group.background {}
+```
+Custom queues:
+```swift
+let customQueue = dispatch_queue_create("Label", DISPATCH_QUEUE_CONCURRENT)
+group.customQueue(customQueue) {}
+```
+Wait for group to finish:
+```swift
+let group = AsyncGroup()
+group.background {
+    // Do stuff
+}
+group.background {
+    // Do other stuff in parallel
+}
+// Wait for both to finish
+group.wait()
+// Do rest of stuff
+```
+Custom asynchronous operations:
+```swift
+let group = AsyncGroup()
+group.enter()
+dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0)) {
+    // Do stuff
+    group.leave()
+}
+group.enter()
+dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0)) {
+    // Do other stuff in parallel
+    group.leave()
+}
+// Wait for both to finish
+group.wait()
+// Do rest of stuff
+```
 
 ### License
 The MIT License (MIT)
