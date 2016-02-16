@@ -686,7 +686,7 @@ public struct AsyncGroup {
     /**
      Private init that takes a `dispatch_group_t`
      */
-    init() {
+    public init() {
         group = dispatch_group_create()
     }
 
