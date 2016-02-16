@@ -28,6 +28,9 @@
 		4EE7A27E1BDE467100C957BA /* AsyncTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4EE7A2511BDE41B600C957BA /* AsyncTests.swift */; };
 		4EE7A27F1BDE468E00C957BA /* Async.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4EE7A24F1BDE418400C957BA /* Async.swift */; };
 		4EE7A2801BDE468F00C957BA /* Async.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4EE7A24F1BDE418400C957BA /* Async.swift */; };
+		9524933A1C61C3A500EEF97A /* AsyncGroupTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 952493391C61C3A500EEF97A /* AsyncGroupTests.swift */; };
+		9524933B1C61C3A500EEF97A /* AsyncGroupTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 952493391C61C3A500EEF97A /* AsyncGroupTests.swift */; };
+		9524933C1C61C3A500EEF97A /* AsyncGroupTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 952493391C61C3A500EEF97A /* AsyncGroupTests.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -81,6 +84,7 @@
 		4EE7A2511BDE41B600C957BA /* AsyncTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AsyncTests.swift; sourceTree = "<group>"; };
 		4EE7A25E1BDE466A00C957BA /* AsynciOS.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = AsynciOS.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		4EE7A2711BDE466A00C957BA /* AsynciOSTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = AsynciOSTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
+		952493391C61C3A500EEF97A /* AsyncGroupTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AsyncGroupTests.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -154,6 +158,7 @@
 			children = (
 				4EE7A24F1BDE418400C957BA /* Async.swift */,
 				4EE7A2511BDE41B600C957BA /* AsyncTests.swift */,
+				952493391C61C3A500EEF97A /* AsyncGroupTests.swift */,
 				4EE7A20F1BDE415200C957BA /* AsynciOS */,
 				4EE7A2241BDE415200C957BA /* AsynciOSTests */,
 				4EE7A2351BDE417600C957BA /* AsyncOSX */,
@@ -449,6 +454,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				4EC98A651BE02E6700A2EB40 /* AsyncTests.swift in Sources */,
+				9524933C1C61C3A500EEF97A /* AsyncGroupTests.swift in Sources */,
 				4EC98A671BE02E6B00A2EB40 /* Async.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -467,6 +473,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				4EE7A2591BDE42D700C957BA /* Async.swift in Sources */,
+				9524933A1C61C3A500EEF97A /* AsyncGroupTests.swift in Sources */,
 				4EE7A2531BDE41B600C957BA /* AsyncTests.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -486,6 +493,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				4EE7A27E1BDE467100C957BA /* AsyncTests.swift in Sources */,
+				9524933B1C61C3A500EEF97A /* AsyncGroupTests.swift in Sources */,
 				4EE7A2801BDE468F00C957BA /* Async.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
