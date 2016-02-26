@@ -8,20 +8,18 @@
 
 /* Begin PBXBuildFile section */
 		1494B6E51BDF2B33008A4949 /* Async.swift in Sources */ = {isa = PBXBuildFile; fileRef = BF70E5051ABF12BC00B4FDD4 /* Async.swift */; };
-		14CD47231BDF23E3008F83EC /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = BF70E5141ABF135D00B4FDD4 /* Foundation.framework */; };
+		8DD82CD81C81148B002F5A7D /* Async.swift in Sources */ = {isa = PBXBuildFile; fileRef = BF70E5051ABF12BC00B4FDD4 /* Async.swift */; };
 		BF41E4161AC5FB2400A1DDB2 /* Async.swift in Sources */ = {isa = PBXBuildFile; fileRef = BF70E5051ABF12BC00B4FDD4 /* Async.swift */; };
-		BF41E4181AC5FB2400A1DDB2 /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = BF70E5141ABF135D00B4FDD4 /* Foundation.framework */; };
 		BF70E5061ABF12BC00B4FDD4 /* Async.swift in Sources */ = {isa = PBXBuildFile; fileRef = BF70E5051ABF12BC00B4FDD4 /* Async.swift */; };
-		BF70E5151ABF135D00B4FDD4 /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = BF70E5141ABF135D00B4FDD4 /* Foundation.framework */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
 		14CD471B1BDF23B9008F83EC /* Async.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Async.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		8DD82CD01C81141B002F5A7D /* Async.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Async.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		BF41E41E1AC5FB2400A1DDB2 /* Async.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Async.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		BF70E4E91ABF124A00B4FDD4 /* Async.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Async.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		BF70E5051ABF12BC00B4FDD4 /* Async.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = Async.swift; path = Source/Async.swift; sourceTree = SOURCE_ROOT; };
 		BF70E5071ABF131400B4FDD4 /* Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; name = Info.plist; path = Source/Info.plist; sourceTree = SOURCE_ROOT; };
-		BF70E5141ABF135D00B4FDD4 /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = System/Library/Frameworks/Foundation.framework; sourceTree = SDKROOT; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -29,7 +27,13 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				14CD47231BDF23E3008F83EC /* Foundation.framework in Frameworks */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		8DD82CCC1C81141B002F5A7D /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -37,7 +41,6 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				BF41E4181AC5FB2400A1DDB2 /* Foundation.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -45,7 +48,6 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				BF70E5151ABF135D00B4FDD4 /* Foundation.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -55,7 +57,6 @@
 		BF70E4DF1ABF124A00B4FDD4 = {
 			isa = PBXGroup;
 			children = (
-				BF70E5141ABF135D00B4FDD4 /* Foundation.framework */,
 				BF70E4EB1ABF124A00B4FDD4 /* Async */,
 				BF70E4EA1ABF124A00B4FDD4 /* Products */,
 			);
@@ -67,6 +68,7 @@
 				BF70E4E91ABF124A00B4FDD4 /* Async.framework */,
 				BF41E41E1AC5FB2400A1DDB2 /* Async.framework */,
 				14CD471B1BDF23B9008F83EC /* Async.framework */,
+				8DD82CD01C81141B002F5A7D /* Async.framework */,
 			);
 			name = Products;
 			sourceTree = "<group>";
@@ -92,6 +94,13 @@
 
 /* Begin PBXHeadersBuildPhase section */
 		14CD47181BDF23B9008F83EC /* Headers */ = {
+			isa = PBXHeadersBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		8DD82CCD1C81141B002F5A7D /* Headers */ = {
 			isa = PBXHeadersBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
@@ -131,6 +140,24 @@
 			name = "Async tvOS";
 			productName = Async;
 			productReference = 14CD471B1BDF23B9008F83EC /* Async.framework */;
+			productType = "com.apple.product-type.framework";
+		};
+		8DD82CCF1C81141B002F5A7D /* Async watchOS */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = 8DD82CD51C81141B002F5A7D /* Build configuration list for PBXNativeTarget "Async watchOS" */;
+			buildPhases = (
+				8DD82CCB1C81141B002F5A7D /* Sources */,
+				8DD82CCC1C81141B002F5A7D /* Frameworks */,
+				8DD82CCD1C81141B002F5A7D /* Headers */,
+				8DD82CCE1C81141B002F5A7D /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+			);
+			name = "Async watchOS";
+			productName = Async;
+			productReference = 8DD82CD01C81141B002F5A7D /* Async.framework */;
 			productType = "com.apple.product-type.framework";
 		};
 		BF41E4141AC5FB2400A1DDB2 /* Async OSX */ = {
@@ -181,6 +208,9 @@
 					14CD471A1BDF23B9008F83EC = {
 						CreatedOnToolsVersion = 7.1;
 					};
+					8DD82CCF1C81141B002F5A7D = {
+						CreatedOnToolsVersion = 7.2.1;
+					};
 					BF70E4E81ABF124A00B4FDD4 = {
 						CreatedOnToolsVersion = 6.2;
 					};
@@ -201,12 +231,20 @@
 				BF70E4E81ABF124A00B4FDD4 /* Async iOS */,
 				BF41E4141AC5FB2400A1DDB2 /* Async OSX */,
 				14CD471A1BDF23B9008F83EC /* Async tvOS */,
+				8DD82CCF1C81141B002F5A7D /* Async watchOS */,
 			);
 		};
 /* End PBXProject section */
 
 /* Begin PBXResourcesBuildPhase section */
 		14CD47191BDF23B9008F83EC /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		8DD82CCE1C81141B002F5A7D /* Resources */ = {
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
@@ -235,6 +273,14 @@
 			buildActionMask = 2147483647;
 			files = (
 				1494B6E51BDF2B33008A4949 /* Async.swift in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		8DD82CCB1C81141B002F5A7D /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				8DD82CD81C81148B002F5A7D /* Async.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -296,6 +342,50 @@
 				SKIP_INSTALL = YES;
 				TARGETED_DEVICE_FAMILY = 3;
 				TVOS_DEPLOYMENT_TARGET = 9.0;
+			};
+			name = Release;
+		};
+		8DD82CD61C81141B002F5A7D /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				APPLICATION_EXTENSION_API_ONLY = YES;
+				DEBUG_INFORMATION_FORMAT = dwarf;
+				DEFINES_MODULE = YES;
+				DYLIB_COMPATIBILITY_VERSION = 1;
+				DYLIB_CURRENT_VERSION = 1;
+				DYLIB_INSTALL_NAME_BASE = "@rpath";
+				GCC_NO_COMMON_BLOCKS = YES;
+				INFOPLIST_FILE = "$(SRCROOT)/Source/Info.plist";
+				INSTALL_PATH = "$(LOCAL_LIBRARY_DIR)/Frameworks";
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
+				PRODUCT_BUNDLE_IDENTIFIER = dk.developmunk.Async;
+				PRODUCT_NAME = Async;
+				SDKROOT = watchos;
+				SKIP_INSTALL = YES;
+				TARGETED_DEVICE_FAMILY = 4;
+				WATCHOS_DEPLOYMENT_TARGET = 2.1;
+			};
+			name = Debug;
+		};
+		8DD82CD71C81141B002F5A7D /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				APPLICATION_EXTENSION_API_ONLY = YES;
+				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
+				DEFINES_MODULE = YES;
+				DYLIB_COMPATIBILITY_VERSION = 1;
+				DYLIB_CURRENT_VERSION = 1;
+				DYLIB_INSTALL_NAME_BASE = "@rpath";
+				GCC_NO_COMMON_BLOCKS = YES;
+				INFOPLIST_FILE = "$(SRCROOT)/Source/Info.plist";
+				INSTALL_PATH = "$(LOCAL_LIBRARY_DIR)/Frameworks";
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
+				PRODUCT_BUNDLE_IDENTIFIER = dk.developmunk.Async;
+				PRODUCT_NAME = Async;
+				SDKROOT = watchos;
+				SKIP_INSTALL = YES;
+				TARGETED_DEVICE_FAMILY = 4;
+				WATCHOS_DEPLOYMENT_TARGET = 2.1;
 			};
 			name = Release;
 		};
@@ -468,6 +558,14 @@
 			);
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;
+		};
+		8DD82CD51C81141B002F5A7D /* Build configuration list for PBXNativeTarget "Async watchOS" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				8DD82CD61C81141B002F5A7D /* Debug */,
+				8DD82CD71C81141B002F5A7D /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
 		};
 		BF41E41B1AC5FB2400A1DDB2 /* Build configuration list for PBXNativeTarget "Async OSX" */ = {
 			isa = XCConfigurationList;
