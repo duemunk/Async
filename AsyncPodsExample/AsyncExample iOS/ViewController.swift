@@ -101,6 +101,21 @@ class ViewController: UIViewController {
 			block2.cancel() // Second block _is_ cancelled
 		}
 		*/
+        
+        //AsyncGroup
+        /*
+        let group = AsyncGroup()
+        group.background{
+            print("A: This is run on the \(qos_class_self().description) (expected \(QOS_CLASS_BACKGROUND.description))")
+            sleep(5)
+        }
+        group.background{
+            print("B: This is run on the \(qos_class_self().description) (expected \(QOS_CLASS_BACKGROUND.description))")
+            sleep(5)
+        }
+        group.notify{
+            print("This is run on the \(qos_class_self().description) (expected \(qos_class_main().description))")
+        }*/
 	}
 }
 
