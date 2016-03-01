@@ -186,7 +186,6 @@ group.background {
 group.utility {
     // Run on utility queue, in parallel to the previous block
 }
-group.wait()
 ```
 All modern queue classes:
 ```swift
@@ -228,7 +227,8 @@ group.notify {
 }
 //we can specify the custom queue where the block will be run
 /*
- group.notify(customQueue) {
+let customQueue = dispatch_queue_create("customQueue", DISPATCH_QUEUE_CONCURRENT)
+group.notify(customQueue) {
  	print("Both asynchronous blocks are complete on custom queue")
 }
 */
