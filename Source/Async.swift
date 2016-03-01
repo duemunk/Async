@@ -810,8 +810,8 @@ public struct AsyncGroup {
      Sends the a block to be run on a custom queue once all blocks associated
      with the group have completed
      
-     - parameter queue: Custom queue where the block will be run.
-     - parameter block: The block that is to be passed to be run on the queue
+     - parameter queue: Custom queue where the block will be run. Default value is main queue.
+     - parameter block: The block that is to be passed to be run on the queue.
      */
     public func notify(queue: dispatch_queue_t = GCD.mainQueue(), block: dispatch_block_t){
         dispatch_group_notify(group, queue, block)

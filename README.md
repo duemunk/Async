@@ -34,8 +34,9 @@ group.background {
 group.background {
     print("This is also run on the background queue in parallel")
 }
-group.wait()
-print("Both asynchronous blocks are complete")
+group.notify {
+	print("Both asynchronous blocks are complete")
+}
 ```
 
 ### Install
@@ -212,6 +213,25 @@ group.background {
 // Wait for both to finish
 group.wait()
 // Do rest of stuff
+```
+Non-blocking alternative
+```swift
+let group = AsyncGroup()
+group.background {
+    // Do stuff
+}
+group.background {
+    // Do other stuff in parallel
+}
+group.notify {
+	print("Both asynchronous blocks are complete on main queue")
+}
+//we can specify the custom queue where the block will be run
+/*
+ group.notify(customQueue) {
+ 	print("Both asynchronous blocks are complete on custom queue")
+}
+*/
 ```
 Custom asynchronous operations:
 ```swift
