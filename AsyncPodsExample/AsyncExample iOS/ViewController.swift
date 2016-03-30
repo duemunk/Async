@@ -113,7 +113,7 @@ class ViewController: UIViewController {
             print("B: This is run on the \(qos_class_self().description) (expected \(QOS_CLASS_BACKGROUND.description))")
             sleep(5)
         }
-        group.notify{
+        group.notifyOnMainQueue{
             print("This is run on the \(qos_class_self().description) (expected \(qos_class_main().description))")
         }*/
 	}
