@@ -29,85 +29,38 @@
 
 import Foundation
 
-
 // MARK: - DSL for GCD queues
 
 /**
-`GCD` is an empty struct with convenience static functions to get `dispatch_queue_t` of different quality of service classes, as provided by `dispatch_get_global_queue`.
+ `GCD` is a convenience enum with cases to get `DispatchQueue` of different quality of service classes, as provided by `DispatchQueue.global` or `DispatchQueue` for main thread or a specific custom queue.
 
-let utilityQueue = GCD.utilityQueue()
+ let mainQueue = GCD.main
+ let utilityQueue = GCD.utility
+ let customQueue = GCD.custom(queue: aDispatchQueue)
 
-- SeeAlso: Grand Central Dispatch
-*/
-private struct GCD {
+ - SeeAlso: Grand Central Dispatch
+ */
+private enum GCD {
+    case main, userInteractive, userInitiated, utility, background, custom(queue: DispatchQueue)
 
-    /**
-     Convenience function for `dispatch_get_main_queue()`.
-     Returns the default queue that is bound to the main thread.
-
-     - Returns: The main queue. This queue is created automatically on behalf of the main thread before main() is called.
-
-     - SeeAlso: dispatch_get_main_queue
-     */
-    static func mainQueue() -> dispatch_queue_t {
-        return dispatch_get_main_queue()
-        // Don't ever use dispatch_get_global_queue(qos_class_main(), 0) re https://gist.github.com/duemunk/34babc7ca8150ff81844
-    }
-
-    /**
-     Convenience function for dispatch_get_global_queue, with the parameter QOS_CLASS_USER_INTERACTIVE
-     Returns a system-defined global concurrent queue with the specified quality of service class.
-
-     - Returns: The global concurrent queue with quality of service class QOS_CLASS_USER_INTERACTIVE.
-
-     - SeeAlso: dispatch_get_global_queue
-     */
-    static func userInteractiveQueue() -> dispatch_queue_t {
-        return dispatch_get_global_queue(QOS_CLASS_USER_INTERACTIVE, 0)
-    }
-
-    /**
-     Convenience function for dispatch_get_global_queue, with the parameter QOS_CLASS_USER_INITIATED
-     Returns a system-defined global concurrent queue with the specified quality of service class.
-
-     - Returns: The global concurrent queue with quality of service class QOS_CLASS_USER_INITIATED.
-
-     - SeeAlso: dispatch_get_global_queue
-     */
-    static func userInitiatedQueue() -> dispatch_queue_t {
-        return dispatch_get_global_queue(QOS_CLASS_USER_INITIATED, 0)
-    }
-
-    /**
-     Convenience function for dispatch_get_global_queue, with the parameter QOS_CLASS_UTILITY
-     Returns a system-defined global concurrent queue with the specified quality of service class.
-
-     - Returns: The global concurrent queue with quality of service class QOS_CLASS_UTILITY.
-
-     - SeeAlso: dispatch_get_global_queue
-     */
-    static func utilityQueue() -> dispatch_queue_t {
-        return dispatch_get_global_queue(QOS_CLASS_UTILITY, 0)
-    }
-
-    /**
-     Convenience function for dispatch_get_global_queue, with the parameter QOS_CLASS_BACKGROUND
-     Returns a system-defined global concurrent queue with the specified quality of service class.
-
-     - Returns: The global concurrent queue with quality of service class QOS_CLASS_BACKGROUND.
-
-     - SeeAlso: dispatch_get_global_queue
-     */
-    static func backgroundQueue() -> dispatch_queue_t {
-        return dispatch_get_global_queue(QOS_CLASS_BACKGROUND, 0)
+    var queue: DispatchQueue {
+        switch self {
+        case .main: return .main
+        case .userInteractive: return .global(attributes: .qosUserInteractive)
+        case .userInitiated: return .global(attributes: .qosUserInitiated)
+        case .utility: return .global(attributes: .qosUtility)
+        case .background: return .global(attributes: .qosBackground)
+        case .custom(let queue): return queue
+        }
     }
 }
+
 
 
 // MARK: - Async – Struct
 
 /**
-The **Async** struct is the main part of the Async.framework. Handles a internally `dispatch_block_t`.
+The **Async** struct is the main part of the Async.framework. Handles an internally `@convention(block) () -> Swift.Void`.
 
 Chainable dispatch blocks with GCD:
 
@@ -167,14 +120,14 @@ public struct Async {
     // MARK: - Private properties and init
 
     /**
-     Private property to hold internally on to a `dispatch_block_t`
+     Private property to hold internally on to a `@convention(block) () -> Swift.Void`
     */
-    private let block: dispatch_block_t
+    private let block: DispatchWorkItem
 
     /**
-     Private init that takes a `dispatch_block_t`
+     Private init that takes a `@convention(block) () -> Swift.Void`
      */
-    private init(_ block: dispatch_block_t) {
+    private init(_ block: DispatchWorkItem) {
         self.block = block
     }
 
@@ -192,8 +145,9 @@ public struct Async {
 
     - SeeAlso: Has parity with non-static method
     */
-    public static func main(after after: Double? = nil, block: dispatch_block_t) -> Async {
-        return Async.async(after, block: block, queue: GCD.mainQueue())
+    @discardableResult
+    public static func main(after seconds: Double? = nil, block: @convention(block) () -> Swift.Void) -> Async {
+        return Async.async(after: seconds, block: block, queue: .main)
     }
 
     /**
@@ -207,8 +161,9 @@ public struct Async {
 
      - SeeAlso: Has parity with non-static method
      */
-    public static func userInteractive(after after: Double? = nil, block: dispatch_block_t) -> Async {
-        return Async.async(after, block: block, queue: GCD.userInteractiveQueue())
+    @discardableResult
+    public static func userInteractive(after seconds: Double? = nil, block: @convention(block) () -> Swift.Void) -> Async {
+        return Async.async(after: seconds, block: block, queue: .userInteractive)
     }
 
     /**
@@ -222,8 +177,9 @@ public struct Async {
 
      - SeeAlso: Has parity with non-static method
      */
-    public static func userInitiated(after after: Double? = nil, block: dispatch_block_t) -> Async {
-        return Async.async(after, block: block, queue: GCD.userInitiatedQueue())
+    @discardableResult
+    public static func userInitiated(after seconds: Double? = nil, block: @convention(block) () -> Swift.Void) -> Async {
+        return Async.async(after: seconds, block: block, queue: .userInitiated)
     }
 
     /**
@@ -237,8 +193,9 @@ public struct Async {
 
      - SeeAlso: Has parity with non-static method
      */
-    public static func utility(after after: Double? = nil, block: dispatch_block_t) -> Async {
-        return Async.async(after, block: block, queue: GCD.utilityQueue())
+    @discardableResult
+    public static func utility(after seconds: Double? = nil, block: @convention(block) () -> Swift.Void) -> Async {
+        return Async.async(after: seconds, block: block, queue: .utility)
     }
 
     /**
@@ -252,8 +209,9 @@ public struct Async {
 
      - SeeAlso: Has parity with non-static method
      */
-    public static func background(after after: Double? = nil, block: dispatch_block_t) -> Async {
-        return Async.async(after, block: block, queue: GCD.backgroundQueue())
+    @discardableResult
+    public static func background(after seconds: Double? = nil, block: @convention(block) () -> Swift.Void) -> Async {
+        return Async.async(after: seconds, block: block, queue: .background)
     }
 
     /**
@@ -267,29 +225,13 @@ public struct Async {
 
      - SeeAlso: Has parity with non-static method
      */
-    public static func customQueue(queue: dispatch_queue_t, after: Double? = nil, block: dispatch_block_t) -> Async {
-        return Async.async(after, block: block, queue: queue)
+    @discardableResult
+    public static func custom(queue: DispatchQueue, after seconds: Double? = nil, block: @convention(block) () -> Swift.Void) -> Async {
+        return Async.async(after: seconds, block: block, queue: .custom(queue: queue))
     }
 
 
     // MARK: - Private static methods
-
-    /**
-    Convenience for `asyncNow()` or `asyncAfter()` depending on if the parameter `seconds` is passed or nil.
-
-    - parameters:
-        - seconds: After how many seconds the block should be run.
-        - block: The block that is to be passed to be run on the `queue`
-        - queue: The queue on which the `block` is run.
-
-    - returns: An `Async` struct which encapsulates the `dispatch_block_t`
-    */
-    private static func async(seconds: Double? = nil, block chainingBlock: dispatch_block_t, queue: dispatch_queue_t) -> Async {
-        if let seconds = seconds {
-            return asyncAfter(seconds, block: chainingBlock, queue: queue)
-        }
-        return asyncNow(chainingBlock, queue: queue)
-    }
 
     /**
      Convenience for dispatch_async(). Encapsulates the block in a "true" GCD block using DISPATCH_BLOCK_INHERIT_QOS_CLASS.
@@ -298,49 +240,20 @@ public struct Async {
          - block: The block that is to be passed to be run on the `queue`
          - queue: The queue on which the `block` is run.
 
-     - returns: An `Async` struct which encapsulates the `dispatch_block_t`
+     - returns: An `Async` struct which encapsulates the `@convention(block) () -> Swift.Void`
      */
-    private static func asyncNow(block: dispatch_block_t, queue: dispatch_queue_t) -> Async {
-        // Create a new block (Qos Class) from block to allow adding a notification to it later (see matching regular Async methods)
-        // Create block with the "inherit" type
-        let _block = dispatch_block_create(DISPATCH_BLOCK_INHERIT_QOS_CLASS, block)
-        // Add block to queue
-        dispatch_async(queue, _block)
-        // Wrap block in a struct since dispatch_block_t can't be extended
-        return Async(_block)
-    }
+    private static func async(after seconds: Double? = nil, block: @convention(block) () -> Swift.Void, queue: GCD) -> Async {
+        let dispatchWorkItem = DispatchWorkItem(block: block)
 
-    /**
-     Convenience for dispatch_after(). Encapsulates the block in a "true" GCD block using DISPATCH_BLOCK_INHERIT_QOS_CLASS.
+        if let seconds = seconds {
+            let time = DispatchTime.now() + seconds
+            queue.queue.after(when: time, execute: dispatchWorkItem)
+        } else {
+            queue.queue.async(execute: dispatchWorkItem)
+        }
 
-     - parameters:
-         - seconds: After how many seconds the block should be run.
-         - block: The block that is to be passed to be run on the `queue`
-         - queue: The queue on which the `block` is run.
-
-     - returns: An `Async` struct which encapsulates the `dispatch_block_t`
-     */
-    private static func asyncAfter(seconds: Double, block: dispatch_block_t, queue: dispatch_queue_t) -> Async {
-        let nanoSeconds = Int64(seconds * Double(NSEC_PER_SEC))
-        let time = dispatch_time(DISPATCH_TIME_NOW, nanoSeconds)
-        return at(time, block: block, queue: queue)
-    }
-
-    /**
-     Convenience for dispatch_after(). Encapsulates the block in a "true" GCD block using DISPATCH_BLOCK_INHERIT_QOS_CLASS.
-
-     - parameters:
-         - time: The specific time (`dispatch_time_t`) the block should be run.
-         - block: The block that is to be passed to be run on the `queue`
-         - queue: The queue on which the `block` is run.
-
-     - returns: An `Async` struct which encapsulates the `dispatch_block_t`
-     */
-    private static func at(time: dispatch_time_t, block: dispatch_block_t, queue: dispatch_queue_t) -> Async {
-        // See Async.async() for comments
-        let _block = dispatch_block_create(DISPATCH_BLOCK_INHERIT_QOS_CLASS, block)
-        dispatch_after(time, queue, _block)
-        return Async(_block)
+        // Wrap block in a struct since @convention(block) () -> Swift.Void can't be extended
+        return Async(dispatchWorkItem)
     }
 
 
@@ -357,8 +270,9 @@ public struct Async {
 
     - SeeAlso: Has parity with static method
     */
-    public func main(after after: Double? = nil, chainingBlock: dispatch_block_t) -> Async {
-        return chain(after, block: chainingBlock, queue: GCD.mainQueue())
+    @discardableResult
+    public func main(after seconds: Double? = nil, chainingBlock: @convention(block) () -> Swift.Void) -> Async {
+        return chain(after: seconds, block: chainingBlock, queue: .main)
     }
 
     /**
@@ -372,8 +286,9 @@ public struct Async {
 
      - SeeAlso: Has parity with static method
      */
-    public func userInteractive(after after: Double? = nil, chainingBlock: dispatch_block_t) -> Async {
-        return chain(after, block: chainingBlock, queue: GCD.userInteractiveQueue())
+    @discardableResult
+    public func userInteractive(after seconds: Double? = nil, chainingBlock: @convention(block) () -> Swift.Void) -> Async {
+        return chain(after: seconds, block: chainingBlock, queue: .userInteractive)
     }
 
     /**
@@ -387,8 +302,9 @@ public struct Async {
 
      - SeeAlso: Has parity with static method
      */
-    public func userInitiated(after after: Double? = nil, chainingBlock: dispatch_block_t) -> Async {
-        return chain(after, block: chainingBlock, queue: GCD.userInitiatedQueue())
+    @discardableResult
+    public func userInitiated(after seconds: Double? = nil, chainingBlock: @convention(block) () -> Swift.Void) -> Async {
+        return chain(after: seconds, block: chainingBlock, queue: .userInitiated)
     }
 
     /**
@@ -402,8 +318,9 @@ public struct Async {
 
      - SeeAlso: Has parity with static method
      */
-    public func utility(after after: Double? = nil, chainingBlock: dispatch_block_t) -> Async {
-        return chain(after, block: chainingBlock, queue: GCD.utilityQueue())
+    @discardableResult
+    public func utility(after seconds: Double? = nil, chainingBlock: @convention(block) () -> Swift.Void) -> Async {
+        return chain(after: seconds, block: chainingBlock, queue: .utility)
     }
 
     /**
@@ -417,8 +334,9 @@ public struct Async {
 
      - SeeAlso: Has parity with static method
      */
-    public func background(after after: Double? = nil, chainingBlock: dispatch_block_t) -> Async {
-        return chain(after, block: chainingBlock, queue: GCD.backgroundQueue())
+    @discardableResult
+    public func background(after seconds: Double? = nil, chainingBlock: @convention(block) () -> Swift.Void) -> Async {
+        return chain(after: seconds, block: chainingBlock, queue: .background)
     }
 
     /**
@@ -432,8 +350,9 @@ public struct Async {
 
      - SeeAlso: Has parity with static method
      */
-    public func customQueue(queue: dispatch_queue_t, after: Double? = nil, chainingBlock: dispatch_block_t) -> Async {
-        return chain(after, block: chainingBlock, queue: queue)
+    @discardableResult
+    public func custom(queue: DispatchQueue, after seconds: Double? = nil, chainingBlock: @convention(block) () -> Swift.Void) -> Async {
+        return chain(after: seconds, block: chainingBlock, queue: .custom(queue: queue))
     }
 
     // MARK: - Instance methods
@@ -458,7 +377,7 @@ public struct Async {
 
     */
     public func cancel() {
-        dispatch_block_cancel(block)
+        block.cancel()
     }
 
 
@@ -471,34 +390,16 @@ public struct Async {
 
      - SeeAlso: dispatch_block_wait, DISPATCH_TIME_FOREVER
      */
-    public func wait(seconds seconds: Double! = nil) {
-        if seconds != nil {
-            let nanoSeconds = Int64(seconds * Double(NSEC_PER_SEC))
-            let time = dispatch_time(DISPATCH_TIME_NOW, nanoSeconds)
-            dispatch_block_wait(block, time)
-        } else {
-            dispatch_block_wait(block, DISPATCH_TIME_FOREVER)
-        }
+    @discardableResult
+    public func wait(seconds: Double? = nil) -> DispatchTimeoutResult {
+        let timeout = seconds
+            .flatMap { DispatchTime.now() + $0 }
+            ?? .distantFuture
+        return block.wait(timeout: timeout)
     }
+
 
     // MARK: Private instance methods
-
-    /**
-    Convenience for `chainNow()` or `chainAfter()` depending on if the parameter `seconds` is passed or nil.
-
-    - parameters:
-        - seconds: After how many seconds the block should be run.
-        - block: The block that is to be passed to be run on the `queue`
-        - queue: The queue on which the `block` is run.
-
-    - returns: An `Async` struct which encapsulates the `dispatch_block_t`, which is called when the current block has finished + any given amount of seconds.
-    */
-    private func chain(seconds: Double? = nil, block chainingBlock: dispatch_block_t, queue: dispatch_queue_t) -> Async {
-        if let seconds = seconds {
-            return chainAfter(seconds, block: chainingBlock, queue: queue)
-        }
-        return chainNow(block: chainingBlock, queue: queue)
-    }
 
     /**
      Convenience for `dispatch_block_notify()` to
@@ -507,47 +408,26 @@ public struct Async {
          - block: The block that is to be passed to be run on the `queue`
          - queue: The queue on which the `block` is run.
 
-     - returns: An `Async` struct which encapsulates the `dispatch_block_t`, which is called when the current block has finished.
+     - returns: An `Async` struct which encapsulates the `@convention(block) () -> Swift.Void`, which is called when the current block has finished.
 
      - SeeAlso: dispatch_block_notify, dispatch_block_create
      */
-    private func chainNow(block chainingBlock: dispatch_block_t, queue: dispatch_queue_t) -> Async {
-        // See Async.async() for comments
-        let _chainingBlock = dispatch_block_create(DISPATCH_BLOCK_INHERIT_QOS_CLASS, chainingBlock)
-        dispatch_block_notify(block, queue, _chainingBlock)
-        return Async(_chainingBlock)
-    }
+    private func chain(after seconds: Double? = nil, block chainingBlock: @convention(block) () -> Swift.Void, queue: GCD) -> Async {
+        let dispatchWorkItem = DispatchWorkItem(block: chainingBlock)
 
-
-    /**
-     Convenience for dispatch_after(). Encapsulates the block in a "true" GCD block using DISPATCH_BLOCK_INHERIT_QOS_CLASS.
-
-     - parameters:
-         - seconds: After how many seconds the block should be run.
-         - block: The block that is to be passed to be run on the `queue`
-         - queue: The queue on which the `block` is run.
-
-     - returns: An `Async` struct which encapsulates the `dispatch_block_t`, which is called when the current block has finished + the given amount of seconds.
-     */
-    private func chainAfter(seconds: Double, block chainingBlock: dispatch_block_t, queue: dispatch_queue_t) -> Async {
-        // Create a new block (Qos Class) from block to allow adding a notification to it later (see Async)
-        // Create block with the "inherit" type
-        let _chainingBlock = dispatch_block_create(DISPATCH_BLOCK_INHERIT_QOS_CLASS, chainingBlock)
-
-        // Wrap block to be called when previous block is finished
-        let chainingWrapperBlock: dispatch_block_t = {
-            // Calculate time from now
-            let nanoSeconds = Int64(seconds * Double(NSEC_PER_SEC))
-            let time = dispatch_time(DISPATCH_TIME_NOW, nanoSeconds)
-            dispatch_after(time, queue, _chainingBlock)
+        if let seconds = seconds {
+            block.notify(queue: DispatchQueue.main) {
+                let time = DispatchTime.now() + seconds
+                queue.queue.after(when: time, execute: dispatchWorkItem)
+            }
+        } else {
+            block.notify(queue: DispatchQueue.main) {
+                queue.queue.async(execute: dispatchWorkItem)
+            }
         }
-        // Create a new block (Qos Class) from block to allow adding a notification to it later (see Async)
-        // Create block with the "inherit" type
-        let _chainingWrapperBlock = dispatch_block_create(DISPATCH_BLOCK_INHERIT_QOS_CLASS, chainingWrapperBlock)
-        // Add block to queue *after* previous block is finished
-        dispatch_block_notify(self.block, queue, _chainingWrapperBlock)
-        // Wrap block in a struct since dispatch_block_t can't be extended
-        return Async(_chainingBlock)
+
+        // See Async.async() for comments
+        return Async(dispatchWorkItem)
     }
 }
 
@@ -580,8 +460,11 @@ public struct Apply {
          - iterations: How many times the block should be run. Index provided to block goes from `0..<iterations`
          - block: The block that is to be passed to be run on a .
      */
-    public static func userInteractive(iterations: Int, block: Int -> ()) {
-        dispatch_apply(iterations, GCD.userInteractiveQueue(), block)
+    public static func userInteractive(_ iterations: Int, block: (Int) -> ()) {
+//        let dispatchWorkItem = DispatchWorkItem(qos: .userInteractive, block: block)
+//        DispatchQueue.concurrentPerform(iterations: iterations, execute: dispatchWorkItem)
+        // TODO: Find workable API for apply on non-main queue
+        DispatchQueue.concurrentPerform(iterations: iterations, execute: block)
     }
 
     /**
@@ -591,8 +474,8 @@ public struct Apply {
          - iterations: How many times the block should be run. Index provided to block goes from `0..<iterations`
          - block: The block that is to be passed to be run on a .
      */
-    public static func userInitiated(iterations: Int, block: Int -> ()) {
-        dispatch_apply(iterations, GCD.userInitiatedQueue(), block)
+    public static func userInitiated(_ iterations: Int, block: (Int) -> ()) {
+        DispatchQueue.concurrentPerform(iterations: iterations, execute: block)
     }
 
     /**
@@ -602,8 +485,8 @@ public struct Apply {
          - iterations: How many times the block should be run. Index provided to block goes from `0..<iterations`
          - block: The block that is to be passed to be run on a .
      */
-    public static func utility(iterations: Int, block: Int -> ()) {
-        dispatch_apply(iterations, GCD.utilityQueue(), block)
+    public static func utility(_ iterations: Int, block: (Int) -> ()) {
+        DispatchQueue.concurrentPerform(iterations: iterations, execute: block)
     }
 
     /**
@@ -613,8 +496,8 @@ public struct Apply {
          - iterations: How many times the block should be run. Index provided to block goes from `0..<iterations`
          - block: The block that is to be passed to be run on a .
      */
-    public static func background(iterations: Int, block: Int -> ()) {
-        dispatch_apply(iterations, GCD.backgroundQueue(), block)
+    public static func background(_ iterations: Int, block: (Int) -> ()) {
+        DispatchQueue.concurrentPerform(iterations: iterations, execute: block)
     }
 
     /**
@@ -624,8 +507,8 @@ public struct Apply {
          - iterations: How many times the block should be run. Index provided to block goes from `0..<iterations`
          - block: The block that is to be passed to be run on a .
      */
-    public static func customQueue(iterations: Int, queue: dispatch_queue_t, block: Int -> ()) {
-        dispatch_apply(iterations, queue, block)
+    public static func custom(queue: DispatchQueue, iterations: Int, block: (Int) -> ()) {
+        DispatchQueue.concurrentPerform(iterations: iterations, execute: block)
     }
 }
 
@@ -679,15 +562,15 @@ public struct AsyncGroup {
     // MARK: - Private properties and init
 
     /**
-     Private property to hold internally on to a `dispatch_group_t`
+     Private property to internally on to a `dispatch_group_t`
     */
-    var group: dispatch_group_t
+    private var group: DispatchGroup
 
     /**
      Private init that takes a `dispatch_group_t`
      */
     public init() {
-        group = dispatch_group_create()
+        group = DispatchGroup()
     }
 
 
@@ -700,8 +583,8 @@ public struct AsyncGroup {
 
      - SeeAlso: dispatch_group_async, dispatch_group_create
      */
-    private func async(block block: dispatch_block_t, queue: dispatch_queue_t) {
-        dispatch_group_async(group, queue, block)
+    private func async(block: @convention(block) () -> Swift.Void, queue: GCD) {
+        queue.queue.async(group: group, execute: block)
     }
 
     /**
@@ -710,7 +593,7 @@ public struct AsyncGroup {
      - SeeAlso: dispatch_group_enter, dispatch_group_leave
      */
     public func enter() {
-        dispatch_group_enter(group)
+        group.enter()
     }
 
     /**
@@ -719,7 +602,7 @@ public struct AsyncGroup {
      - SeeAlso: dispatch_group_enter, dispatch_group_leave
      */
     public func leave() {
-        dispatch_group_leave(group)
+        group.leave()
     }
 
 
@@ -731,8 +614,8 @@ public struct AsyncGroup {
     - parameters:
         - block: The block that is to be passed to be run on the main queue
     */
-    public func main(block: dispatch_block_t) {
-        async(block: block, queue: GCD.mainQueue())
+    public func main(_ block: @convention(block) () -> Swift.Void) {
+        async(block: block, queue: .main)
     }
 
     /**
@@ -741,8 +624,8 @@ public struct AsyncGroup {
      - parameters:
         - block: The block that is to be passed to be run on the queue
      */
-    public func userInteractive(block: dispatch_block_t) {
-        async(block: block, queue: GCD.userInteractiveQueue())
+    public func userInteractive(_ block: @convention(block) () -> Swift.Void) {
+        async(block: block, queue: .userInteractive)
     }
 
     /**
@@ -751,8 +634,8 @@ public struct AsyncGroup {
      - parameters:
         - block: The block that is to be passed to be run on the queue
      */
-    public func userInitiated(block: dispatch_block_t) {
-        async(block: block, queue: GCD.userInitiatedQueue())
+    public func userInitiated(_ block: @convention(block) () -> Swift.Void) {
+        async(block: block, queue: .userInitiated)
     }
 
     /**
@@ -762,8 +645,8 @@ public struct AsyncGroup {
      - parameters:
         - block: The block that is to be passed to be run on the queue
      */
-    public func utility(block: dispatch_block_t) {
-        async(block: block, queue: GCD.utilityQueue())
+    public func utility(_ block: @convention(block) () -> Swift.Void) {
+        async(block: block, queue: .utility)
     }
 
     /**
@@ -772,8 +655,8 @@ public struct AsyncGroup {
      - parameters:
          - block: The block that is to be passed to be run on the queue
      */
-    public func background(block: dispatch_block_t) {
-        async(block: block, queue: GCD.backgroundQueue())
+    public func background(_ block: @convention(block) () -> Swift.Void) {
+        async(block: block, queue: .background)
     }
 
     /**
@@ -783,8 +666,8 @@ public struct AsyncGroup {
          - queue: Custom queue where the block will be run.
          - block: The block that is to be passed to be run on the queue
      */
-    public func customQueue(queue: dispatch_queue_t, block: dispatch_block_t) {
-        async(block: block, queue: queue)
+    public func custom(queue: DispatchQueue, block: @convention(block) () -> Swift.Void) {
+        async(block: block, queue: .custom(queue: queue))
     }
 
     /**
@@ -796,16 +679,15 @@ public struct AsyncGroup {
 
      - SeeAlso: dispatch_group_wait, DISPATCH_TIME_FOREVER
      */
-    public func wait(seconds seconds: Double! = nil) {
-        if seconds != nil {
-            let nanoSeconds = Int64(seconds * Double(NSEC_PER_SEC))
-            let time = dispatch_time(DISPATCH_TIME_NOW, nanoSeconds)
-            dispatch_group_wait(group, time)
+    @discardableResult
+    public func wait(seconds: Double? = nil) -> DispatchTimeoutResult {
+        if let seconds = seconds {
+            let time = DispatchTime.now() + seconds
+            return group.wait(timeout: time)
         } else {
-            dispatch_group_wait(group, DISPATCH_TIME_FOREVER)
+            return group.wait(timeout: DispatchTime.distantFuture)
         }
     }
-
 }
 
 
@@ -829,6 +711,29 @@ public extension qos_class_t {
             case QOS_CLASS_UTILITY: return "Utility"
             case QOS_CLASS_BACKGROUND: return "Background"
             case QOS_CLASS_UNSPECIFIED: return "Unspecified"
+            default: return "Unknown"
+            }
+        }
+    }
+}
+
+
+// MARK: - Extension for `DispatchQueue.GlobalAttributes`
+
+/**
+ Extension to add description string for each quality of service class.
+ */
+public extension DispatchQueue.GlobalAttributes {
+
+    var description: String {
+        get {
+            switch self {
+            case DispatchQueue.GlobalAttributes(rawValue: UInt64(qos_class_main().rawValue)): return "Main"
+            case DispatchQueue.GlobalAttributes.qosUserInteractive: return "User Interactive"
+            case DispatchQueue.GlobalAttributes.qosUserInitiated: return "User Initiated"
+            case DispatchQueue.GlobalAttributes.qosDefault: return "Default"
+            case DispatchQueue.GlobalAttributes.qosUtility: return "Utility"
+            case DispatchQueue.GlobalAttributes.qosBackground: return "Background"
             default: return "Unknown"
             }
         }

@@ -342,23 +342,33 @@
 				TargetAttributes = {
 					4EC98A471BE02E5E00A2EB40 = {
 						CreatedOnToolsVersion = 7.1;
+						DevelopmentTeam = PFQ4698325;
+						DevelopmentTeamName = "Tobias Due Munk";
+						LastSwiftMigration = 0800;
 					};
 					4EC98A571BE02E5E00A2EB40 = {
 						CreatedOnToolsVersion = 7.1;
+						LastSwiftMigration = 0800;
 						TestTargetID = 4EC98A471BE02E5E00A2EB40;
 					};
 					4EE7A2331BDE417600C957BA = {
 						CreatedOnToolsVersion = 7.1;
+						LastSwiftMigration = 0800;
 					};
 					4EE7A2411BDE417700C957BA = {
 						CreatedOnToolsVersion = 7.1;
+						LastSwiftMigration = 0800;
 						TestTargetID = 4EE7A2331BDE417600C957BA;
 					};
 					4EE7A25D1BDE466A00C957BA = {
 						CreatedOnToolsVersion = 7.1;
+						DevelopmentTeam = PFQ4698325;
+						DevelopmentTeamName = "Tobias Due Munk";
+						LastSwiftMigration = 0800;
 					};
 					4EE7A2701BDE466A00C957BA = {
 						CreatedOnToolsVersion = 7.1;
+						LastSwiftMigration = 0800;
 						TestTargetID = 4EE7A25D1BDE466A00C957BA;
 					};
 				};
@@ -564,6 +574,7 @@
 				PRODUCT_BUNDLE_IDENTIFIER = dk.developmunk.AsynctvOS;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SDKROOT = appletvos;
+				SWIFT_VERSION = 3.0;
 				TARGETED_DEVICE_FAMILY = 3;
 				TVOS_DEPLOYMENT_TARGET = 9.0;
 			};
@@ -579,6 +590,7 @@
 				PRODUCT_BUNDLE_IDENTIFIER = dk.developmunk.AsynctvOS;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SDKROOT = appletvos;
+				SWIFT_VERSION = 3.0;
 				TARGETED_DEVICE_FAMILY = 3;
 				TVOS_DEPLOYMENT_TARGET = 9.0;
 			};
@@ -593,6 +605,7 @@
 				PRODUCT_BUNDLE_IDENTIFIER = dk.developmunk.AsynctvOSTests;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SDKROOT = appletvos;
+				SWIFT_VERSION = 3.0;
 				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/AsynctvOS.app/AsynctvOS";
 				TVOS_DEPLOYMENT_TARGET = 9.0;
 			};
@@ -607,6 +620,7 @@
 				PRODUCT_BUNDLE_IDENTIFIER = dk.developmunk.AsynctvOSTests;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SDKROOT = appletvos;
+				SWIFT_VERSION = 3.0;
 				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/AsynctvOS.app/AsynctvOS";
 				TVOS_DEPLOYMENT_TARGET = 9.0;
 			};
@@ -705,6 +719,7 @@
 				PRODUCT_BUNDLE_IDENTIFIER = dk.developmunk.AsyncOSX;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SDKROOT = macosx;
+				SWIFT_VERSION = 3.0;
 			};
 			name = Debug;
 		};
@@ -720,6 +735,7 @@
 				PRODUCT_BUNDLE_IDENTIFIER = dk.developmunk.AsyncOSX;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SDKROOT = macosx;
+				SWIFT_VERSION = 3.0;
 			};
 			name = Release;
 		};
@@ -735,6 +751,7 @@
 				PRODUCT_BUNDLE_IDENTIFIER = dk.developmunk.AsyncOSXTests;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SDKROOT = macosx;
+				SWIFT_VERSION = 3.0;
 				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/AsyncOSX.app/Contents/MacOS/AsyncOSX";
 			};
 			name = Debug;
@@ -751,6 +768,7 @@
 				PRODUCT_BUNDLE_IDENTIFIER = dk.developmunk.AsyncOSXTests;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SDKROOT = macosx;
+				SWIFT_VERSION = 3.0;
 				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/AsyncOSX.app/Contents/MacOS/AsyncOSX";
 			};
 			name = Release;
@@ -764,6 +782,7 @@
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = dk.developmunk.AsynciOS;
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_VERSION = 3.0;
 			};
 			name = Debug;
 		};
@@ -776,6 +795,7 @@
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = dk.developmunk.AsynciOS;
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_VERSION = 3.0;
 			};
 			name = Release;
 		};
@@ -788,6 +808,7 @@
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = dk.developmunk.AsynciOSTests;
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_VERSION = 3.0;
 				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/AsynciOS.app/AsynciOS";
 			};
 			name = Debug;
@@ -801,6 +822,7 @@
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = dk.developmunk.AsynciOSTests;
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_VERSION = 3.0;
 				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/AsynciOS.app/AsynciOS";
 			};
 			name = Release;
