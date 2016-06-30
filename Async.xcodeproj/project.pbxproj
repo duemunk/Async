@@ -363,7 +363,7 @@
 				SDKROOT = watchos;
 				SKIP_INSTALL = YES;
 				TARGETED_DEVICE_FAMILY = 4;
-				WATCHOS_DEPLOYMENT_TARGET = 2.1;
+				WATCHOS_DEPLOYMENT_TARGET = 2.0;
 			};
 			name = Debug;
 		};
@@ -385,7 +385,7 @@
 				SDKROOT = watchos;
 				SKIP_INSTALL = YES;
 				TARGETED_DEVICE_FAMILY = 4;
-				WATCHOS_DEPLOYMENT_TARGET = 2.1;
+				WATCHOS_DEPLOYMENT_TARGET = 2.0;
 			};
 			name = Release;
 		};
@@ -566,6 +566,7 @@
 				8DD82CD71C81141B002F5A7D /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 		BF41E41B1AC5FB2400A1DDB2 /* Build configuration list for PBXNativeTarget "Async OSX" */ = {
 			isa = XCConfigurationList;
