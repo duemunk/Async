@@ -705,12 +705,12 @@ public extension qos_class_t {
         get {
             switch self {
             case qos_class_main(): return "Main"
-            case QOS_CLASS_USER_INTERACTIVE: return "User Interactive"
-            case QOS_CLASS_USER_INITIATED: return "User Initiated"
-            case QOS_CLASS_DEFAULT: return "Default"
-            case QOS_CLASS_UTILITY: return "Utility"
-            case QOS_CLASS_BACKGROUND: return "Background"
-            case QOS_CLASS_UNSPECIFIED: return "Unspecified"
+            case qos_class_t(rawValue: UInt32(DispatchQueueAttributes.qosUserInteractive.rawValue)): return "User Interactive"
+            case qos_class_t(rawValue: UInt32(DispatchQueueAttributes.qosUserInitiated.rawValue)): return "User Initiated"
+            case qos_class_t(rawValue: UInt32(DispatchQueueAttributes.qosDefault.rawValue)): return "Default"
+            case qos_class_t(rawValue: UInt32(DispatchQueueAttributes.qosUtility.rawValue)): return "Utility"
+            case qos_class_t(rawValue: UInt32(DispatchQueueAttributes.qosBackground.rawValue)): return "Background"
+            case qos_class_t(rawValue: UInt32(DispatchQueueAttributes.noQoS.rawValue)): return "Unspecified"
             default: return "Unknown"
             }
         }
