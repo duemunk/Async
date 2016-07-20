@@ -213,6 +213,7 @@
 					};
 					BF70E4E81ABF124A00B4FDD4 = {
 						CreatedOnToolsVersion = 6.2;
+						LastSwiftMigration = 0800;
 					};
 				};
 			};
@@ -527,6 +528,7 @@
 				PRODUCT_BUNDLE_IDENTIFIER = "dk.developmunk.$(PRODUCT_NAME:rfc1034identifier)";
 				PRODUCT_NAME = Async;
 				SKIP_INSTALL = YES;
+				SWIFT_VERSION = 3.0;
 			};
 			name = Debug;
 		};
@@ -544,6 +546,7 @@
 				PRODUCT_BUNDLE_IDENTIFIER = "dk.developmunk.$(PRODUCT_NAME:rfc1034identifier)";
 				PRODUCT_NAME = Async;
 				SKIP_INSTALL = YES;
+				SWIFT_VERSION = 3.0;
 			};
 			name = Release;
 		};
@@ -566,6 +569,7 @@
 				8DD82CD71C81141B002F5A7D /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 		BF41E41B1AC5FB2400A1DDB2 /* Build configuration list for PBXNativeTarget "Async OSX" */ = {
 			isa = XCConfigurationList;
