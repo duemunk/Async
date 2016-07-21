@@ -1,0 +1,6 @@
+framework module Async {
+  umbrella header "AsyncSwift-tvOS-umbrella.h"
+
+  export *
+  module * { export * }
+}

@@ -17,7 +17,7 @@
   },
   "source": {
     "git": "https://github.com/duemunk/Async.git",
-    "tag": "1.7.3"
+    "tag": "1.7.2"
   },
   "source_files": "Source/*.swift",
   "requires_arc": true,
