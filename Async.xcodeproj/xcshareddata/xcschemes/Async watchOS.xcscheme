@@ -15,7 +15,7 @@
             <BuildableReference
                BuildableIdentifier = "primary"
                BlueprintIdentifier = "8DD82CCF1C81141B002F5A7D"
-               BuildableName = "Async watchOS.framework"
+               BuildableName = "Async.framework"
                BlueprintName = "Async watchOS"
                ReferencedContainer = "container:Async.xcodeproj">
             </BuildableReference>
@@ -46,7 +46,7 @@
          <BuildableReference
             BuildableIdentifier = "primary"
             BlueprintIdentifier = "8DD82CCF1C81141B002F5A7D"
-            BuildableName = "Async watchOS.framework"
+            BuildableName = "Async.framework"
             BlueprintName = "Async watchOS"
             ReferencedContainer = "container:Async.xcodeproj">
          </BuildableReference>
@@ -64,7 +64,7 @@
          <BuildableReference
             BuildableIdentifier = "primary"
             BlueprintIdentifier = "8DD82CCF1C81141B002F5A7D"
-            BuildableName = "Async watchOS.framework"
+            BuildableName = "Async.framework"
             BlueprintName = "Async watchOS"
             ReferencedContainer = "container:Async.xcodeproj">
          </BuildableReference>

@@ -1,6 +1,6 @@
 Pod::Spec.new do |s|
   s.name        = "AsyncSwift"
-  s.version     = "1.7.2"
+  s.version     = "1.7.3"
   s.summary     = "Syntactic sugar in Swift for asynchronous dispatches in Grand Central Dispatch"
   s.homepage    = "https://github.com/duemunk/Async"
   s.license     = { :type => "MIT" }
