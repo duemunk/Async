@@ -278,6 +278,7 @@
 					};
 					4EF830C51975954B00C5F0EE = {
 						CreatedOnToolsVersion = 6.0;
+						LastSwiftMigration = 0800;
 					};
 				};
 			};
@@ -698,6 +699,7 @@
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = "dk.developmunk.${PRODUCT_NAME:rfc1034identifier}";
 				PRODUCT_NAME = "AsyncExample iOS";
+				SWIFT_VERSION = 3.0;
 			};
 			name = Debug;
 		};
@@ -711,6 +713,7 @@
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = "dk.developmunk.${PRODUCT_NAME:rfc1034identifier}";
 				PRODUCT_NAME = "AsyncExample iOS";
+				SWIFT_VERSION = 3.0;
 			};
 			name = Release;
 		};
