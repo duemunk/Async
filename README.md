@@ -6,6 +6,7 @@
 Syntactic sugar in Swift for asynchronous dispatches in Grand Central Dispatch ([GCD](https://developer.apple.com/library/prerelease/ios/documentation/Performance/Reference/GCD_libdispatch_Ref/index.html))
 
 **Async** sugar looks like this:
+
 ```swift
 Async.background {
 	print("This is run on the background queue")
@@ -15,6 +16,7 @@ Async.background {
 ```
 
 Instead of the familiar syntax for GCD:
+
 ```swift
 dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_BACKGROUND, 0), {
 	print("This is run on the background queue")
@@ -26,6 +28,7 @@ dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_BACKGROUND, 0),
 ```
 
 **AsyncGroup** sugar looks like this:
+
 ```swift
 let group = AsyncGroup()
 group.background {
@@ -34,8 +37,9 @@ group.background {
 group.background {
     print("This is also run on the background queue in parallel")
 }
-group.wait()
-print("Both asynchronous blocks are complete")
+group.notifyOnMainQueue {
+	print("Both asynchronous blocks are complete")
+}
 ```
 
 ### Install
@@ -55,6 +59,7 @@ github "duemunk/Async"
 
 ### Things you can do
 Supports the modern queue classes:
+
 ```swift
 Async.main {}
 Async.userInteractive {}
@@ -64,6 +69,7 @@ Async.background {}
 ```
 
 Chain as many blocks as you want:
+
 ```swift
 Async.userInitiated {
 	// 1
@@ -77,6 +83,7 @@ Async.userInitiated {
 ```
 
 Store reference for later chaining:
+
 ```swift
 let backgroundBlock = Async.background {
 	print("This is run on the background queue")
@@ -91,6 +98,7 @@ backgroundBlock.main {
 ```
 
 Custom queues:
+
 ```swift
 let customQueue = dispatch_queue_create("CustomQueueLabel", DISPATCH_QUEUE_CONCURRENT)
 let otherCustomQueue = dispatch_queue_create("OtherCustomQueueLabel", DISPATCH_QUEUE_CONCURRENT)
@@ -102,6 +110,7 @@ Async.customQueue(customQueue) {
 ```
 
 Dispatch block after delay:
+
 ```swift
 let seconds = 0.5
 Async.main(after: seconds) {
@@ -112,6 +121,7 @@ Async.main(after: seconds) {
 ```
 
 Cancel blocks that aren't already dispatched:
+
 ```swift
 // Cancel blocks not yet dispatched
 let block1 = Async.background {
@@ -143,6 +153,7 @@ block.wait()
 
 ### How does it work
 The way it work is by using the new notification API for GCD introduced in OS X 10.10 and iOS 8. Each chaining block is called when the previous queue has finished.
+
 ```swift
 let previousBlock = {}
 let chainingBlock = {}
@@ -166,6 +177,7 @@ The ```dispatch_block_t``` can't be extended. Workaround used: Wrap ```dispatch_
 
 ### Apply
 There is also a wrapper for [`dispatch_apply()`](https://developer.apple.com/library/mac/documentation/Performance/Reference/GCD_libdispatch_Ref/index.html#//apple_ref/c/func/dispatch_apply)  for quick parallelisation of a `for` loop.
+
 ```swift
 Apply.background(100) { i in
 	// Do stuff e.g. print(i)
@@ -177,6 +189,7 @@ Note that this function returns after the block has been run all 100 times i.e. 
 **AsyncGroup** facilitates working with groups of asynchronous blocks.
 
 Multiple dispatch blocks with GCD:
+
 ```swift
 let group = AsyncGroup()
 group.background {
@@ -185,9 +198,9 @@ group.background {
 group.utility {
     // Run on utility queue, in parallel to the previous block
 }
-group.wait()
 ```
 All modern queue classes:
+
 ```swift
 group.main {}
 group.userInteractive {}
@@ -196,11 +209,14 @@ group.utility {}
 group.background {}
 ```
 Custom queues:
+
 ```swift
 let customQueue = dispatch_queue_create("Label", DISPATCH_QUEUE_CONCURRENT)
 group.customQueue(customQueue) {}
 ```
+
 Wait for group to finish:
+
 ```swift
 let group = AsyncGroup()
 group.background {
@@ -213,7 +229,41 @@ group.background {
 group.wait()
 // Do rest of stuff
 ```
+Non-blocking alternative for group to finish:
+
+```swift
+let group = AsyncGroup()
+group.background {
+    // Do stuff
+}
+group.background {
+    // Do other stuff in parallel
+}
+group.notifyOnMainQueue {
+	print("Both asynchronous blocks are complete on main queue")
+}
+```
+
+All modern queue classes:
+
+```swift
+group.notifyOnMainQueue {}
+group.notifyOnUserInteractiveQueue {}
+group.notifyOnUserInitiatedQueue {}
+group.notifyOnUtilityQueue {}
+group.notifyOnBackgroundQueue {}
+```
+
+Custom queues:
+
+```swift
+let customQueue = dispatch_queue_create("customQueue", DISPATCH_QUEUE_CONCURRENT)
+group.notifyOnQueue(customQueue) {
+ 	print("Both asynchronous blocks are complete on custom queue")
+}
+```
 Custom asynchronous operations:
+
 ```swift
 let group = AsyncGroup()
 group.enter()
@@ -227,6 +277,7 @@ dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0)) {
     group.leave()
 }
 // Wait for both to finish
+// You also can use the Non-blocking alternative
 group.wait()
 // Do rest of stuff
 ```
@@ -252,3 +303,4 @@ FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE AUTHORS OR
 COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER LIABILITY, WHETHER
 IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN
 CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
+

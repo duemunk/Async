@@ -805,7 +805,68 @@ public struct AsyncGroup {
             dispatch_group_wait(group, DISPATCH_TIME_FOREVER)
         }
     }
-
+    
+    /**
+     Sends the a block to be run on a custom queue once all blocks associated
+     with the group have completed
+     
+     - parameter queue: Custom queue where the block will be run.
+     - parameter block: The block that is to be passed to be run on the queue.
+     */
+    public func notifyOnQueue(queue: dispatch_queue_t, block: dispatch_block_t) {
+        dispatch_group_notify(group, queue, block)
+    }
+    
+    /**
+     Sends the a block to be run on the main queue once all blocks associated
+     with the group have completed
+     
+     - parameter block: The block that is to be passed to be run on the queue.
+     */
+    public func notifyOnMainQueue(block: dispatch_block_t) {
+        notifyOnQueue(GCD.mainQueue(), block: block)
+    }
+    
+    /**
+     Sends the a block to be run on the userInteractiveQueue queue once all blocks associated
+     with the group have completed
+     
+     - parameter block: The block that is to be passed to be run on the queue.
+     */
+    public func notifyOnUserInteractiveQueue(block: dispatch_block_t) {
+        notifyOnQueue(GCD.userInteractiveQueue(), block: block)
+    }
+    
+    /**
+     Sends the a block to be run on the userInitiated queue once all blocks associated
+     with the group have completed
+     
+     - parameter block: The block that is to be passed to be run on the queue.
+     */
+    public func notifyOnUserInitiatedQueue(block: dispatch_block_t) {
+        notifyOnQueue(GCD.userInitiatedQueue(), block: block)
+    }
+    
+    /**
+     Sends the a block to be run on the utility queue once all blocks associated
+     with the group have completed
+     
+     - parameter block: The block that is to be passed to be run on the queue.
+     */
+    public func notifyOnUtilityQueue(block: dispatch_block_t) {
+        notifyOnQueue(GCD.utilityQueue(), block: block)
+    }
+    
+    /**
+     Sends the a block to be run on the background queue once all blocks associated
+     with the group have completed
+     
+     - parameter block: The block that is to be passed to be run on the queue.
+     */
+    public func notifyOnBackgroundQueue(block: dispatch_block_t) {
+        notifyOnQueue(GCD.backgroundQueue(), block: block)
+    }
+    
 }
 
 
