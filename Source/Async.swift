@@ -46,10 +46,10 @@ private enum GCD {
     var queue: DispatchQueue {
         switch self {
         case .main: return .main
-        case .userInteractive: return .global(attributes: .qosUserInteractive)
-        case .userInitiated: return .global(attributes: .qosUserInitiated)
-        case .utility: return .global(attributes: .qosUtility)
-        case .background: return .global(attributes: .qosBackground)
+        case .userInteractive: return .global(qos: .userInteractive)
+        case .userInitiated: return .global(qos: .userInitiated)
+        case .utility: return .global(qos: .utility)
+        case .background: return .global(qos: .background)
         case .custom(let queue): return queue
         }
     }
@@ -247,7 +247,7 @@ public struct Async {
 
         if let seconds = seconds {
             let time = DispatchTime.now() + seconds
-            queue.queue.after(when: time, execute: dispatchWorkItem)
+            queue.queue.asyncAfter(deadline: time, execute: dispatchWorkItem)
         } else {
             queue.queue.async(execute: dispatchWorkItem)
         }
@@ -418,7 +418,7 @@ public struct Async {
         if let seconds = seconds {
             block.notify(queue: DispatchQueue.main) {
                 let time = DispatchTime.now() + seconds
-                queue.queue.after(when: time, execute: dispatchWorkItem)
+                queue.queue.asyncAfter(deadline: time, execute: dispatchWorkItem)
             }
         } else {
             block.notify(queue: DispatchQueue.main) {
@@ -703,14 +703,15 @@ public extension qos_class_t {
      */
     var description: String {
         get {
+            
             switch self {
             case qos_class_main(): return "Main"
-            case qos_class_t(rawValue: UInt32(DispatchQueueAttributes.qosUserInteractive.rawValue)): return "User Interactive"
-            case qos_class_t(rawValue: UInt32(DispatchQueueAttributes.qosUserInitiated.rawValue)): return "User Initiated"
-            case qos_class_t(rawValue: UInt32(DispatchQueueAttributes.qosDefault.rawValue)): return "Default"
-            case qos_class_t(rawValue: UInt32(DispatchQueueAttributes.qosUtility.rawValue)): return "Utility"
-            case qos_class_t(rawValue: UInt32(DispatchQueueAttributes.qosBackground.rawValue)): return "Background"
-            case qos_class_t(rawValue: UInt32(DispatchQueueAttributes.noQoS.rawValue)): return "Unspecified"
+            case DispatchQoS.QoSClass.userInteractive.rawValue: return "User Interactive"
+            case DispatchQoS.QoSClass.userInitiated.rawValue: return "User Initiated"
+            case DispatchQoS.QoSClass.default.rawValue: return "Default"
+            case DispatchQoS.QoSClass.utility.rawValue: return "Utility"
+            case DispatchQoS.QoSClass.background.rawValue: return "Background"
+            case DispatchQoS.QoSClass.unspecified.rawValue: return "Unspecified"
             default: return "Unknown"
             }
         }
@@ -723,17 +724,17 @@ public extension qos_class_t {
 /**
  Extension to add description string for each quality of service class.
  */
-public extension DispatchQueue.GlobalAttributes {
+public extension DispatchQoS {
 
     var description: String {
         get {
             switch self {
-            case DispatchQueue.GlobalAttributes(rawValue: UInt64(qos_class_main().rawValue)): return "Main"
-            case DispatchQueue.GlobalAttributes.qosUserInteractive: return "User Interactive"
-            case DispatchQueue.GlobalAttributes.qosUserInitiated: return "User Initiated"
-            case DispatchQueue.GlobalAttributes.qosDefault: return "Default"
-            case DispatchQueue.GlobalAttributes.qosUtility: return "Utility"
-            case DispatchQueue.GlobalAttributes.qosBackground: return "Background"
+            case DispatchQoS(qosClass: DispatchQoS.QoSClass(rawValue: qos_class_main())!, relativePriority: Int(QOS_MIN_RELATIVE_PRIORITY)): return "Main"
+            case DispatchQoS.userInteractive: return "User Interactive"
+            case DispatchQoS.userInitiated: return "User Initiated"
+            case DispatchQoS.default: return "Default"
+            case DispatchQoS.utility: return "Utility"
+            case DispatchQoS.background: return "Background"
             default: return "Unknown"
             }
         }
