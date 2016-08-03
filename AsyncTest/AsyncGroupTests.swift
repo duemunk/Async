@@ -17,53 +17,53 @@ class AsyncGroupTests: XCTestCase {
     let timeMargin = 0.2
 
     func testMainGroup() {
-        let expectation = self.expectation(withDescription: "Expected on main queue")
+        let expectation = self.expectation(description: "Expected on main queue")
         let group = AsyncGroup()
         group.main {
             XCTAssertEqual(qos_class_self(), qos_class_main())
             expectation.fulfill()
         }
-        waitForExpectations(withTimeout: timeMargin, handler: nil)
+        waitForExpectations(timeout: timeMargin, handler: nil)
     }
 
     func testUserInteractiveGroup() {
-        let expectation = self.expectation(withDescription: "Expected on user interactive queue")
+        let expectation = self.expectation(description: "Expected on user interactive queue")
         let group = AsyncGroup()
         group.userInteractive {
             XCTAssertEqual(qos_class_self(), QOS_CLASS_USER_INTERACTIVE)
             expectation.fulfill()
         }
-        waitForExpectations(withTimeout: timeMargin, handler: nil)
+        waitForExpectations(timeout: timeMargin, handler: nil)
     }
 
     func testUserInitiatedGroup() {
-        let expectation = self.expectation(withDescription: "Expected on user initiated queue")
+        let expectation = self.expectation(description: "Expected on user initiated queue")
         let group = AsyncGroup()
         group.userInitiated {
             XCTAssertEqual(qos_class_self(), QOS_CLASS_USER_INITIATED)
             expectation.fulfill()
         }
-        waitForExpectations(withTimeout: timeMargin, handler: nil)
+        waitForExpectations(timeout: timeMargin, handler: nil)
     }
 
     func testUtilityGroup() {
-        let expectation = self.expectation(withDescription: "Expected on utility queue")
+        let expectation = self.expectation(description: "Expected on utility queue")
         let group = AsyncGroup()
         group.utility {
             XCTAssertEqual(qos_class_self(), QOS_CLASS_UTILITY)
             expectation.fulfill()
         }
-        waitForExpectations(withTimeout: timeMargin, handler: nil)
+        waitForExpectations(timeout: timeMargin, handler: nil)
     }
 
     func testBackgroundGroup() {
-        let expectation = self.expectation(withDescription: "Expected on background queue")
+        let expectation = self.expectation(description: "Expected on background queue")
         let group = AsyncGroup()
         group.background {
             XCTAssertEqual(qos_class_self(), QOS_CLASS_BACKGROUND)
             expectation.fulfill()
         }
-        waitForExpectations(withTimeout: timeMargin, handler: nil)
+        waitForExpectations(timeout: timeMargin, handler: nil)
     }
 
     func testGroupWait() {
@@ -80,7 +80,7 @@ class AsyncGroupTests: XCTestCase {
     func testMultipleGroups() {
         let count = 10
         let iterations = 0..<count
-        let expectations = iterations.map { expectation(withDescription: "\($0)") }
+        let expectations = iterations.map { expectation(description: "\($0)") }
         var counter = 0
         let group = AsyncGroup()
         for i in iterations {
@@ -92,13 +92,13 @@ class AsyncGroupTests: XCTestCase {
         }
         group.wait(seconds: timeMargin)
         XCTAssertEqual(counter, count)
-        waitForExpectations(withTimeout: timeMargin*2, handler: nil)
+        waitForExpectations(timeout: timeMargin*2, handler: nil)
     }
 
     func testCustomBlockGroups() {
         let count = 10
         let iterations = 0..<count
-        let expectations = iterations.map { expectation(withDescription: "\($0)") }
+        let expectations = iterations.map { expectation(description: "\($0)") }
         var counter = 0
         let group = AsyncGroup()
         for i in iterations {
@@ -112,14 +112,14 @@ class AsyncGroupTests: XCTestCase {
         }
         group.wait(seconds: timeMargin)
         XCTAssertEqual(counter, count)
-        waitForExpectations(withTimeout: timeMargin*2, handler: nil)
+        waitForExpectations(timeout: timeMargin*2, handler: nil)
     }
 
     func testNestedAsyncGroups() {
         let count = 10
         let iterations = 0..<count
-        let expectations = iterations.map { expectation(withDescription: "\($0)") }
-        let expectationsNested = iterations.map { expectation(withDescription: "Nested \($0)") }
+        let expectations = iterations.map { expectation(description: "\($0)") }
+        let expectationsNested = iterations.map { expectation(description: "Nested \($0)") }
         var counter = 0
         let group = AsyncGroup()
         for i in iterations {
@@ -136,7 +136,7 @@ class AsyncGroupTests: XCTestCase {
         }
         group.wait(seconds: timeMargin)
         XCTAssertEqual(counter, count)
-        waitForExpectations(withTimeout: timeMargin*2, handler: nil)
+        waitForExpectations(timeout: timeMargin*2, handler: nil)
     }
 
 }
