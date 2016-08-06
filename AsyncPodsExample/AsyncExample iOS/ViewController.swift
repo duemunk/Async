@@ -15,11 +15,24 @@ class ViewController: UIViewController {
 		super.viewDidLoad()
 
 		// Async syntactic sugar
-		Async.background {
-			print("A: This is run on the \(qos_class_self().description) (expected \(QOS_CLASS_BACKGROUND.description))")
-		}.main {
-			print("B: This is run on the \(qos_class_self().description) (expected \(qos_class_main().description)), after the previous block")
-		}
+//		Async.background {
+//			print("A: This is run on the \(qos_class_self().description) (expected \(QOS_CLASS_BACKGROUND.description))")
+//		}.main {
+//			print("B: This is run on the \(qos_class_self().description) (expected \(qos_class_main().description)), after the previous block")
+//		}
+        
+        //Passing parameter from block to block
+        Async.background { () -> Int in
+            return 10
+        }.main { (i: Int) -> (String) in
+            print("This is run on the \(qos_class_self().description) (expected \(qos_class_main().description)): \(i) (expected 10) ")
+                return "Test"
+        }.background { (s: String) -> (Double) in
+            print("This is run on the \(qos_class_self().description) (expected \(QOS_CLASS_BACKGROUND.description)): \(s) (expected \"Test\") ")
+                return 10
+        }.main { (d: Double) -> () in
+            print("This is run on the \(qos_class_self().description) (expected \(qos_class_main().description)): \(d) (expected 10.0) ")
+        }
 
 		// Regular GCD
 		/*
