@@ -230,6 +230,22 @@ dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0)) {
 group.wait()
 // Do rest of stuff
 ```
+You can also execute a block once all of the other tasks are complete without blocking the calling thread:
+```swift
+let group = AsyncGroup()
+for item in items {
+    group.enter()
+    someAsyncCallWithCallback {
+        response in
+        // Handle response
+        group.leave()
+    }
+}
+// Now that the above is complete, let's perform this block on the main queue
+group.notifyMain {
+    // Do something else now that the previous is done
+}
+```
 
 ### License
 The MIT License (MIT)

@@ -806,6 +806,78 @@ public struct AsyncGroup {
         }
     }
 
+    /**
+     Convenience for `dispatch_group_notify()`. Waits for current group to finish before performing this block.
+     
+     - parameters:
+     - queue: The queue on which the `block` is run.
+     - block: The block that is to be passed to be run on the `queue`
+     
+     - SeeAlso: dispatch_group_notify
+     */
+    private func notify(queue queue: dispatch_queue_t, block: dispatch_block_t) {
+        dispatch_group_notify(group, queue, block)
+    }
+    
+    /**
+     Convenience for `dispatch_group_notify()`. Waits for current group to finish before performing this block on the main queue.
+     
+     - parameters:
+     - block: The block that is to be passed to be run on the main queue
+     
+     - SeeAlso: dispatch_group_notify
+     */
+    public func notifyOnMainQueue(block: dispatch_block_t) {
+        notify(queue: GCD.mainQueue(), block: block)
+    }
+    
+    /**
+     Convenience for `dispatch_group_notify()`. Waits for current group to finish before performing this block on a queue with a quality of service of QOS_CLASS_USER_INTERACTIVE.
+     
+     - parameters:
+     - block: The block that is to be passed to be run on the queue
+     
+     - SeeAlso: dispatch_group_notify
+     */
+    public func notifyOnUserInteractiveQueue(block: dispatch_block_t) {
+        notify(queue: GCD.userInteractiveQueue(), block: block)
+    }
+    
+    /**
+     Convenience for `dispatch_group_notify()`. Waits for current group to finish before performing this block on a queue with a quality of service of QOS_CLASS_USER_INITIATED.
+     
+     - parameters:
+     - block: The block that is to be passed to be run on the queue
+     
+     - SeeAlso: dispatch_group_notify
+     */
+    public func notifyOnUserInitiatedQueue(block: dispatch_block_t) {
+        notify(queue: GCD.userInitiatedQueue(), block: block)
+    }
+    
+    /**
+     Convenience for `dispatch_group_notify()`. Waits for current group to finish before performing this block on a queue with a quality of service of QOS_CLASS_UTILITY.
+     
+     - parameters:
+     - block: The block that is to be passed to be run on the queue
+     
+     - SeeAlso: dispatch_group_notify
+     */
+    public func notifyOnUtilityQueue(block: dispatch_block_t) {
+        notify(queue: GCD.utilityQueue(), block: block)
+    }
+    
+    /**
+     Convenience for `dispatch_group_notify()`. Waits for current group to finish before performing this block on a queue with a quality of service of QOS_CLASS_BACKGROUND.
+     
+     - parameters:
+     - block: The block that is to be passed to be run on the queue
+     
+     - SeeAlso: dispatch_group_notify
+     */
+    public func notifyOnBackgroundQueue(block: dispatch_block_t) {
+        notify(queue: GCD.backgroundQueue(), block: block)
+    }
 }
 
 
