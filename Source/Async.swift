@@ -827,7 +827,7 @@ public struct AsyncGroup {
      
      - SeeAlso: dispatch_group_notify
      */
-    public func notifyMain(block: dispatch_block_t) {
+    public func notifyOnMainQueue(block: dispatch_block_t) {
         notify(queue: GCD.mainQueue(), block: block)
     }
     
@@ -839,7 +839,7 @@ public struct AsyncGroup {
      
      - SeeAlso: dispatch_group_notify
      */
-    public func notifyUserInteractive(block: dispatch_block_t) {
+    public func notifyOnUserInteractiveQueue(block: dispatch_block_t) {
         notify(queue: GCD.userInteractiveQueue(), block: block)
     }
     
@@ -851,7 +851,7 @@ public struct AsyncGroup {
      
      - SeeAlso: dispatch_group_notify
      */
-    public func notifyUserInitiated(block: dispatch_block_t) {
+    public func notifyOnUserInitiatedQueue(block: dispatch_block_t) {
         notify(queue: GCD.userInitiatedQueue(), block: block)
     }
     
@@ -863,7 +863,7 @@ public struct AsyncGroup {
      
      - SeeAlso: dispatch_group_notify
      */
-    public func notifyUtility(block: dispatch_block_t) {
+    public func notifyOnUtilityQueue(block: dispatch_block_t) {
         notify(queue: GCD.utilityQueue(), block: block)
     }
     
@@ -875,7 +875,7 @@ public struct AsyncGroup {
      
      - SeeAlso: dispatch_group_notify
      */
-    public func notifyBackground(block: dispatch_block_t) {
+    public func notifyOnBackgroundQueue(block: dispatch_block_t) {
         notify(queue: GCD.backgroundQueue(), block: block)
     }
 }
