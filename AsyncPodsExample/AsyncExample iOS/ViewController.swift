@@ -33,7 +33,8 @@ class ViewController: UIViewController {
         }.main { (d: Double) -> () in
             print("This is run on the \(qos_class_self().description) (expected \(qos_class_main().description)): \(d) (expected 10.0) ")
         }
-
+        
+        
 		// Regular GCD
 		/*
 		dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_BACKGROUND, 0), {
