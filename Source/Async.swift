@@ -132,7 +132,10 @@ public struct AsyncBlock<In, Out> {
     private let block: DispatchWorkItem
 
     private let input: Reference<In>?
-    private let output: Reference<Out>
+    private let output_: Reference<Out>
+    var output: Out? {
+        return output_.value
+    }
 
     /**
      Private init that takes a `@convention(block) () -> Swift.Void`
@@ -140,7 +143,7 @@ public struct AsyncBlock<In, Out> {
     private init(_ block: DispatchWorkItem, input: Reference<In>? = nil, output: Reference<Out> = Reference()) {
         self.block = block
         self.input = input
-        self.output = output
+        self.output_ = output
     }
 
 
@@ -432,7 +435,7 @@ public struct AsyncBlock<In, Out> {
     private func chain<O>(after seconds: Double? = nil, block chainingBlock: (Out) -> O, queue: GCD) -> AsyncBlock<Out, O> {
         let reference = Reference<O>()
         let dispatchWorkItem = DispatchWorkItem(block: {
-            reference.value = chainingBlock(self.output.value!)
+            reference.value = chainingBlock(self.output_.value!)
         })
 
         let queue = queue.queue
@@ -446,7 +449,7 @@ public struct AsyncBlock<In, Out> {
         }
 
         // See Async.async() for comments
-        return AsyncBlock<Out, O>(dispatchWorkItem, input: self.output, output: reference)
+        return AsyncBlock<Out, O>(dispatchWorkItem, input: self.output_, output: reference)
     }
 }
 
