@@ -483,10 +483,9 @@ public struct Apply {
          - block: The block that is to be passed to be run on a .
      */
     public static func userInteractive(_ iterations: Int, block: (Int) -> ()) {
-//        let dispatchWorkItem = DispatchWorkItem(qos: .userInteractive, block: block)
-//        DispatchQueue.concurrentPerform(iterations: iterations, execute: dispatchWorkItem)
-        // TODO: Find workable API for apply on non-main queue
-        DispatchQueue.concurrentPerform(iterations: iterations, execute: block)
+        GCD.userInteractive.queue.async {
+            DispatchQueue.concurrentPerform(iterations: iterations, execute: block)
+        }
     }
 
     /**
@@ -497,7 +496,9 @@ public struct Apply {
          - block: The block that is to be passed to be run on a .
      */
     public static func userInitiated(_ iterations: Int, block: (Int) -> ()) {
-        DispatchQueue.concurrentPerform(iterations: iterations, execute: block)
+        GCD.userInitiated.queue.async {
+            DispatchQueue.concurrentPerform(iterations: iterations, execute: block)
+        }
     }
 
     /**
@@ -508,7 +509,9 @@ public struct Apply {
          - block: The block that is to be passed to be run on a .
      */
     public static func utility(_ iterations: Int, block: (Int) -> ()) {
-        DispatchQueue.concurrentPerform(iterations: iterations, execute: block)
+        GCD.utility.queue.async {
+            DispatchQueue.concurrentPerform(iterations: iterations, execute: block)
+        }
     }
 
     /**
@@ -519,7 +522,9 @@ public struct Apply {
          - block: The block that is to be passed to be run on a .
      */
     public static func background(_ iterations: Int, block: (Int) -> ()) {
-        DispatchQueue.concurrentPerform(iterations: iterations, execute: block)
+        GCD.background.queue.async {
+            DispatchQueue.concurrentPerform(iterations: iterations, execute: block)
+        }
     }
 
     /**
@@ -530,7 +535,9 @@ public struct Apply {
          - block: The block that is to be passed to be run on a .
      */
     public static func custom(queue: DispatchQueue, iterations: Int, block: (Int) -> ()) {
-        DispatchQueue.concurrentPerform(iterations: iterations, execute: block)
+        queue.async {
+            DispatchQueue.concurrentPerform(iterations: iterations, execute: block)
+        }
     }
 }
 

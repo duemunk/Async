@@ -541,8 +541,8 @@ class AsyncTests: XCTestCase {
             expectations[i].fulfill()
             count += 1
         }
-        XCTAssertEqual(count, 3, "Wrong count")
         waitForExpectations(timeout: 1, handler: nil)
+        XCTAssertEqual(count, 3, "Wrong count")
     }
 
     func testApplyUserInitiated() {
@@ -556,8 +556,8 @@ class AsyncTests: XCTestCase {
             expectations[i].fulfill()
             count += 1
         }
-        XCTAssertEqual(count, 3, "Wrong count")
         waitForExpectations(timeout: 1, handler: nil)
+        XCTAssertEqual(count, 3, "Wrong count")
     }
 
     func testApplyUtility() {
@@ -571,8 +571,8 @@ class AsyncTests: XCTestCase {
             expectations[i].fulfill()
             count += 1
         }
-        XCTAssertEqual(count, 3, "Wrong count")
         waitForExpectations(timeout: 1, handler: nil)
+        XCTAssertEqual(count, 3, "Wrong count")
     }
 
     func testApplyBackground() {
@@ -586,8 +586,8 @@ class AsyncTests: XCTestCase {
             expectations[i].fulfill()
             count += 1
         }
-        XCTAssertEqual(count, 3, "Wrong count")
         waitForExpectations(timeout: 1, handler: nil)
+        XCTAssertEqual(count, 3, "Wrong count")
     }
 
     func testApplyCustomQueueConcurrent() {
@@ -597,16 +597,14 @@ class AsyncTests: XCTestCase {
         let expectations = [expectation1, expectation2, expectation3]
         var count = 0
         let label = "CustomQueueConcurrentLabel"
-        let customQueue = DispatchQueue(label: label, attributes: [.concurrent])
-        let key = DispatchSpecificKey<String>()
-        customQueue.setSpecific(key: key, value: label)
+        let customQueue = DispatchQueue(label: label, qos: .utility, attributes: [.concurrent])
         Apply.custom(queue: customQueue, iterations: 3) { i in
-            XCTAssertEqual(DispatchQueue.getSpecific(key: key), label)
+            XCTAssertEqual(qos_class_self(), customQueue.qos.qosClass.rawValue)
             expectations[i].fulfill()
             count += 1
         }
-        XCTAssertEqual(count, 3, "Wrong count")
         waitForExpectations(timeout: 1, handler: nil)
+        XCTAssertEqual(count, 3, "Wrong count")
     }
 
     func testApplyCustomQueueSerial() {
@@ -615,16 +613,14 @@ class AsyncTests: XCTestCase {
         let expectations = iterations.map { expectation(description: "\($0)") }
         var index = 0
         let label = "CustomQueueSerialLabel"
-        let customQueue = DispatchQueue(label: label, attributes: [])
-        let key = DispatchSpecificKey<String>()
-        customQueue.setSpecific(key: key, value: label)
+        let customQueue = DispatchQueue(label: label, qos: .utility, attributes: [])
         Apply.custom(queue: customQueue, iterations: count) { i in
-            XCTAssertEqual(DispatchQueue.getSpecific(key: key), label)
+            XCTAssertEqual(qos_class_self(), customQueue.qos.qosClass.rawValue)
             expectations[i].fulfill()
             index += 1
         }
-        XCTAssertEqual(index, count, "Wrong count")
         waitForExpectations(timeout: 1, handler: nil)
+        XCTAssertEqual(count, 3, "Wrong count")
     }
 
 }
