@@ -435,15 +435,14 @@ public struct AsyncBlock<In, Out> {
             reference.value = chainingBlock(self.output.value!)
         })
 
+        let queue = queue.queue
         if let seconds = seconds {
-            block.notify(queue: DispatchQueue.main) {
+            block.notify(queue: queue) {
                 let time = DispatchTime.now() + seconds
-                queue.queue.asyncAfter(deadline: time, execute: dispatchWorkItem)
+                queue.asyncAfter(deadline: time, execute: dispatchWorkItem)
             }
         } else {
-            block.notify(queue: DispatchQueue.main) {
-                queue.queue.async(execute: dispatchWorkItem)
-            }
+            block.notify(queue: queue, execute: dispatchWorkItem)
         }
 
         // See Async.async() for comments
