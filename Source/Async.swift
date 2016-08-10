@@ -114,7 +114,14 @@ Wait for block to finish:
 
 - SeeAlso: Grand Central Dispatch
 */
-public struct Async {
+
+private class Reference<T> {
+    var value: T?
+}
+
+public typealias Async = AsyncBlock<Void, Void>
+
+public struct AsyncBlock<In, Out> {
 
 
     // MARK: - Private properties and init
@@ -124,11 +131,16 @@ public struct Async {
     */
     private let block: DispatchWorkItem
 
+    private let input: Reference<In>?
+    private let output: Reference<Out>
+
     /**
      Private init that takes a `@convention(block) () -> Swift.Void`
      */
-    private init(_ block: DispatchWorkItem) {
+    private init(_ block: DispatchWorkItem, input: Reference<In>? = nil, output: Reference<Out> = Reference()) {
         self.block = block
+        self.input = input
+        self.output = output
     }
 
 
@@ -146,8 +158,8 @@ public struct Async {
     - SeeAlso: Has parity with non-static method
     */
     @discardableResult
-    public static func main(after seconds: Double? = nil, block: @convention(block) () -> Swift.Void) -> Async {
-        return Async.async(after: seconds, block: block, queue: .main)
+    public static func main<O>(after seconds: Double? = nil, _ block: (Void) -> O) -> AsyncBlock<Void, O> {
+        return AsyncBlock.async(after: seconds, block: block, queue: .main)
     }
 
     /**
@@ -162,8 +174,8 @@ public struct Async {
      - SeeAlso: Has parity with non-static method
      */
     @discardableResult
-    public static func userInteractive(after seconds: Double? = nil, block: @convention(block) () -> Swift.Void) -> Async {
-        return Async.async(after: seconds, block: block, queue: .userInteractive)
+    public static func userInteractive<O>(after seconds: Double? = nil, _ block: (Void) -> O) -> AsyncBlock<Void, O> {
+        return AsyncBlock.async(after: seconds, block: block, queue: .userInteractive)
     }
 
     /**
@@ -178,7 +190,7 @@ public struct Async {
      - SeeAlso: Has parity with non-static method
      */
     @discardableResult
-    public static func userInitiated(after seconds: Double? = nil, block: @convention(block) () -> Swift.Void) -> Async {
+    public static func userInitiated<O>(after seconds: Double? = nil, _ block: (Void) -> O) -> AsyncBlock<Void, O> {
         return Async.async(after: seconds, block: block, queue: .userInitiated)
     }
 
@@ -194,7 +206,7 @@ public struct Async {
      - SeeAlso: Has parity with non-static method
      */
     @discardableResult
-    public static func utility(after seconds: Double? = nil, block: @convention(block) () -> Swift.Void) -> Async {
+    public static func utility<O>(after seconds: Double? = nil, _ block: (Void) -> O) -> AsyncBlock<Void, O> {
         return Async.async(after: seconds, block: block, queue: .utility)
     }
 
@@ -210,7 +222,7 @@ public struct Async {
      - SeeAlso: Has parity with non-static method
      */
     @discardableResult
-    public static func background(after seconds: Double? = nil, block: @convention(block) () -> Swift.Void) -> Async {
+    public static func background<O>(after seconds: Double? = nil, _ block: (Void) -> O) -> AsyncBlock<Void, O> {
         return Async.async(after: seconds, block: block, queue: .background)
     }
 
@@ -226,7 +238,7 @@ public struct Async {
      - SeeAlso: Has parity with non-static method
      */
     @discardableResult
-    public static func custom(queue: DispatchQueue, after seconds: Double? = nil, block: @convention(block) () -> Swift.Void) -> Async {
+    public static func custom<O>(queue: DispatchQueue, after seconds: Double? = nil, _ block: (Void) -> O) -> AsyncBlock<Void, O> {
         return Async.async(after: seconds, block: block, queue: .custom(queue: queue))
     }
 
@@ -242,18 +254,22 @@ public struct Async {
 
      - returns: An `Async` struct which encapsulates the `@convention(block) () -> Swift.Void`
      */
-    private static func async(after seconds: Double? = nil, block: @convention(block) () -> Swift.Void, queue: GCD) -> Async {
-        let dispatchWorkItem = DispatchWorkItem(block: block)
+
+    private static func async<O>(after seconds: Double? = nil, block: (Void) -> O, queue: GCD) -> AsyncBlock<Void, O> {
+        let reference = Reference<O>()
+        let block = DispatchWorkItem(block: {
+            reference.value = block()
+        })
 
         if let seconds = seconds {
             let time = DispatchTime.now() + seconds
-            queue.queue.asyncAfter(deadline: time, execute: dispatchWorkItem)
+            queue.queue.asyncAfter(deadline: time, execute: block)
         } else {
-            queue.queue.async(execute: dispatchWorkItem)
+            queue.queue.async(execute: block)
         }
 
         // Wrap block in a struct since @convention(block) () -> Swift.Void can't be extended
-        return Async(dispatchWorkItem)
+        return AsyncBlock<Void, O>(block, output: reference)
     }
 
 
@@ -271,7 +287,7 @@ public struct Async {
     - SeeAlso: Has parity with static method
     */
     @discardableResult
-    public func main(after seconds: Double? = nil, chainingBlock: @convention(block) () -> Swift.Void) -> Async {
+    public func main<O>(after seconds: Double? = nil, _ chainingBlock: (Out) -> O) -> AsyncBlock<Out, O> {
         return chain(after: seconds, block: chainingBlock, queue: .main)
     }
 
@@ -287,7 +303,7 @@ public struct Async {
      - SeeAlso: Has parity with static method
      */
     @discardableResult
-    public func userInteractive(after seconds: Double? = nil, chainingBlock: @convention(block) () -> Swift.Void) -> Async {
+    public func userInteractive<O>(after seconds: Double? = nil, _ chainingBlock: (Out) -> O) -> AsyncBlock<Out, O> {
         return chain(after: seconds, block: chainingBlock, queue: .userInteractive)
     }
 
@@ -303,7 +319,7 @@ public struct Async {
      - SeeAlso: Has parity with static method
      */
     @discardableResult
-    public func userInitiated(after seconds: Double? = nil, chainingBlock: @convention(block) () -> Swift.Void) -> Async {
+    public func userInitiated<O>(after seconds: Double? = nil, _ chainingBlock: (Out) -> O) -> AsyncBlock<Out, O> {
         return chain(after: seconds, block: chainingBlock, queue: .userInitiated)
     }
 
@@ -319,7 +335,7 @@ public struct Async {
      - SeeAlso: Has parity with static method
      */
     @discardableResult
-    public func utility(after seconds: Double? = nil, chainingBlock: @convention(block) () -> Swift.Void) -> Async {
+    public func utility<O>(after seconds: Double? = nil, _ chainingBlock: (Out) -> O) -> AsyncBlock<Out, O> {
         return chain(after: seconds, block: chainingBlock, queue: .utility)
     }
 
@@ -335,7 +351,7 @@ public struct Async {
      - SeeAlso: Has parity with static method
      */
     @discardableResult
-    public func background(after seconds: Double? = nil, chainingBlock: @convention(block) () -> Swift.Void) -> Async {
+    public func background<O>(after seconds: Double? = nil, _ chainingBlock: (Out) -> O) -> AsyncBlock<Out, O> {
         return chain(after: seconds, block: chainingBlock, queue: .background)
     }
 
@@ -351,7 +367,7 @@ public struct Async {
      - SeeAlso: Has parity with static method
      */
     @discardableResult
-    public func custom(queue: DispatchQueue, after seconds: Double? = nil, chainingBlock: @convention(block) () -> Swift.Void) -> Async {
+    public func custom<O>(queue: DispatchQueue, after seconds: Double? = nil, _ chainingBlock: (Out) -> O) -> AsyncBlock<Out, O> {
         return chain(after: seconds, block: chainingBlock, queue: .custom(queue: queue))
     }
 
@@ -412,8 +428,12 @@ public struct Async {
 
      - SeeAlso: dispatch_block_notify, dispatch_block_create
      */
-    private func chain(after seconds: Double? = nil, block chainingBlock: @convention(block) () -> Swift.Void, queue: GCD) -> Async {
-        let dispatchWorkItem = DispatchWorkItem(block: chainingBlock)
+
+    private func chain<O>(after seconds: Double? = nil, block chainingBlock: (Out) -> O, queue: GCD) -> AsyncBlock<Out, O> {
+        let reference = Reference<O>()
+        let dispatchWorkItem = DispatchWorkItem(block: {
+            reference.value = chainingBlock(self.output.value!)
+        })
 
         if let seconds = seconds {
             block.notify(queue: DispatchQueue.main) {
@@ -427,7 +447,7 @@ public struct Async {
         }
 
         // See Async.async() for comments
-        return Async(dispatchWorkItem)
+        return AsyncBlock<Out, O>(dispatchWorkItem, input: self.output, output: reference)
     }
 }
 
