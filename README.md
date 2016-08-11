@@ -3,26 +3,30 @@
 
 
 
-Syntactic sugar in Swift for asynchronous dispatches in Grand Central Dispatch ([GCD](https://developer.apple.com/library/prerelease/ios/documentation/Performance/Reference/GCD_libdispatch_Ref/index.html))
+Now more than syntactic sugar for asynchronous dispatches in Grand Central Dispatch ([GCD](https://developer.apple.com/library/prerelease/ios/documentation/Performance/Reference/GCD_libdispatch_Ref/index.html)) in Swift
 
 **Async** sugar looks like this:
 ```swift
-Async.background {
-	print("This is run on the background queue")
+Async.userInitiated {
+	return 10
+}.background {
+	return "Score: \($0)"
 }.main {
-	print("This is run on the main queue, after the previous block")
+	label.text = $0
 }
 ```
 
-Instead of the familiar syntax for GCD:
+So even though GCD has nice-ish syntax as of Swift 3.0, compare the above with:
 ```swift
-dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_BACKGROUND, 0), {
-	print("This is run on the background queue")
-
-	dispatch_async(dispatch_get_main_queue(), {
-		print("This is run on the main queue, after the previous block")
-	})
-})
+DispatchQueue.global(qos: .userInitiated).async {
+	let value = 10
+	DispatchQueue.global(qos: .background).async {
+		let text = "Score: \(value)"
+		DispatchQueue.main.async {
+			label.text = text
+		}
+	}
+	}
 ```
 
 **AsyncGroup** sugar looks like this:
@@ -50,8 +54,8 @@ github "duemunk/Async"
 ```
 
 ### Benefits
-1. Less verbose code
-2. Less code indentation
+1. Avoid code indentation by chaining
+2. Arguments and return types reduce polluted scopes
 
 ### Things you can do
 Supports the modern queue classes:
@@ -92,8 +96,8 @@ backgroundBlock.main {
 
 Custom queues:
 ```swift
-let customQueue = dispatch_queue_create("CustomQueueLabel", DISPATCH_QUEUE_CONCURRENT)
-let otherCustomQueue = dispatch_queue_create("OtherCustomQueueLabel", DISPATCH_QUEUE_CONCURRENT)
+let customQueue = DispatchQueue(label: "CustomQueueLabel", attributes: [.concurrent])
+let otherCustomQueue = DispatchQueue(label: "OtherCustomQueueLabel")
 Async.custom(queue: customQueue) {
 	print("Custom queue")
 }.custom(queue: otherCustomQueue) {
