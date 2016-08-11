@@ -5,15 +5,18 @@ language: objective-c
 script:
 
 # Carthage
-# - xctool build -project Async.xcodeproj -scheme "Async iOS"
-- xctool build -project Async.xcodeproj -scheme "Async OSX"
+- xcodebuild build -project Async.xcodeproj -scheme "Async iOS"
+- xcodebuild build -project Async.xcodeproj -scheme "Async OSX"
+- xcodebuild build -project Async.xcodeproj -scheme "Async tvOS"
+- xcodebuild build -project Async.xcodeproj -scheme "Async watchOS"
 
 # CocoaPods
-#- xctool clean build -workspace AsyncPodsExample/AsyncPodsExample.xcworkspace -scheme "AsyncExample iOS" -sdk iphonesimulator ONLY_ACTIVE_ARCH=NO
-#- xctool clean build -workspace AsyncPodsExample/AsyncPodsExample.xcworkspace -scheme "AsyncExample OS X" -sdk macosx ONLY_ACTIVE_ARCH=NO
+- xcodebuild clean build -workspace AsyncPodsExample/AsyncPodsExample.xcworkspace -scheme "AsyncExample iOS" -sdk iphonesimulator ONLY_ACTIVE_ARCH=NO
+- xcodebuild clean build -workspace AsyncPodsExample/AsyncPodsExample.xcworkspace -scheme "AsyncExample OS X" -sdk macosx ONLY_ACTIVE_ARCH=NO
+- xcodebuild clean build -workspace AsyncPodsExample/AsyncPodsExample.xcworkspace -scheme "AsyncExample tvOS" -sdk appletvos ONLY_ACTIVE_ARCH=NO
 
 # Tests (OS X only, since simulator doesn't play nice with GCD)
-- xctool build test -project AsyncTest/Async.xcodeproj -scheme "AsyncOSX"
+- xcodebuild build test -project AsyncTest/Async.xcodeproj -scheme "AsyncOSX"
 
 after_success:
 - bash <(curl -s https://codecov.io/bash)
