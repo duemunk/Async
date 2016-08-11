@@ -26,7 +26,7 @@ DispatchQueue.global(qos: .userInitiated).async {
 			label.text = text
 		}
 	}
-	}
+}
 ```
 
 **AsyncGroup** sugar looks like this:
