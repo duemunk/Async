@@ -12,7 +12,8 @@
   "platforms": {
     "osx": "10.10",
     "ios": "8.0",
-    "tvos": "9.0"
+    "tvos": "9.0",
+    "watchos": "2.0"
   },
   "source": {
     "git": "https://github.com/duemunk/Async.git",

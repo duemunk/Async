@@ -16,7 +16,7 @@ class ViewController: NSViewController {
 
 		// Async syntactic sugar
 		Async.background {
-			print("A: This is run on the \(qos_class_self().description) (expected \(QOS_CLASS_BACKGROUND.description))")
+			print("A: This is run on the \(qos_class_self().description) (expected \(DispatchQoS.QoSClass.background.description))")
 		}.main {
 			print("B: This is run on the \(qos_class_self().description) (expected \(qos_class_main().description)), after the previous block")
 		}
