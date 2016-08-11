@@ -13,7 +13,8 @@ script:
 # CocoaPods
 - xcodebuild clean build -workspace AsyncPodsExample/AsyncPodsExample.xcworkspace -scheme "AsyncExample iOS" -sdk iphonesimulator ONLY_ACTIVE_ARCH=NO
 - xcodebuild clean build -workspace AsyncPodsExample/AsyncPodsExample.xcworkspace -scheme "AsyncExample OS X" -sdk macosx ONLY_ACTIVE_ARCH=NO
-- xcodebuild clean build -workspace AsyncPodsExample/AsyncPodsExample.xcworkspace -scheme "AsyncExample tvOS" -sdk appletvos ONLY_ACTIVE_ARCH=NO
+# tvOS target has issues with signing
+# - xcodebuild clean build -workspace AsyncPodsExample/AsyncPodsExample.xcworkspace -scheme "AsyncExample tvOS" -sdk appletvos ONLY_ACTIVE_ARCH=NO
 
 # Tests (OS X only, since simulator doesn't play nice with GCD)
 - xcodebuild build test -project AsyncTest/Async.xcodeproj -scheme "AsyncOSX"
