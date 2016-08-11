@@ -20,7 +20,11 @@ class AsyncGroupTests: XCTestCase {
         let expectation = self.expectation(description: "Expected on main queue")
         let group = AsyncGroup()
         group.main {
-            XCTAssertEqual(qos_class_self(), qos_class_main())
+            #if (arch(i386) || arch(x86_64)) && (os(iOS) || os(tvOS)) // Simulator
+                XCTAssert(Thread.isMainThread, "Should be on main thread (simulator)")
+            #else
+                XCTAssertEqual(qos_class_self(), qos_class_main())
+            #endif
             expectation.fulfill()
         }
         waitForExpectations(timeout: timeMargin, handler: nil)
@@ -30,7 +34,7 @@ class AsyncGroupTests: XCTestCase {
         let expectation = self.expectation(description: "Expected on user interactive queue")
         let group = AsyncGroup()
         group.userInteractive {
-            XCTAssertEqual(qos_class_self(), QOS_CLASS_USER_INTERACTIVE)
+            XCTAssertEqual(qos_class_self(), DispatchQoS.QoSClass.userInteractive.rawValue)
             expectation.fulfill()
         }
         waitForExpectations(timeout: timeMargin, handler: nil)
@@ -40,7 +44,7 @@ class AsyncGroupTests: XCTestCase {
         let expectation = self.expectation(description: "Expected on user initiated queue")
         let group = AsyncGroup()
         group.userInitiated {
-            XCTAssertEqual(qos_class_self(), QOS_CLASS_USER_INITIATED)
+            XCTAssertEqual(qos_class_self(), DispatchQoS.QoSClass.userInitiated.rawValue)
             expectation.fulfill()
         }
         waitForExpectations(timeout: timeMargin, handler: nil)
@@ -50,7 +54,7 @@ class AsyncGroupTests: XCTestCase {
         let expectation = self.expectation(description: "Expected on utility queue")
         let group = AsyncGroup()
         group.utility {
-            XCTAssertEqual(qos_class_self(), QOS_CLASS_UTILITY)
+            XCTAssertEqual(qos_class_self(), DispatchQoS.QoSClass.utility.rawValue)
             expectation.fulfill()
         }
         waitForExpectations(timeout: timeMargin, handler: nil)
@@ -60,7 +64,7 @@ class AsyncGroupTests: XCTestCase {
         let expectation = self.expectation(description: "Expected on background queue")
         let group = AsyncGroup()
         group.background {
-            XCTAssertEqual(qos_class_self(), QOS_CLASS_BACKGROUND)
+            XCTAssertEqual(qos_class_self(), DispatchQoS.QoSClass.background.rawValue)
             expectation.fulfill()
         }
         waitForExpectations(timeout: timeMargin, handler: nil)
@@ -70,7 +74,7 @@ class AsyncGroupTests: XCTestCase {
         var complete = false
         let group = AsyncGroup()
         group.background {
-            XCTAssertEqual(qos_class_self(), QOS_CLASS_BACKGROUND)
+            XCTAssertEqual(qos_class_self(), DispatchQoS.QoSClass.background.rawValue)
             complete = true
         }
         group.wait(seconds: timeMargin)
@@ -104,7 +108,7 @@ class AsyncGroupTests: XCTestCase {
         for i in iterations {
             group.enter()
             Async.background {
-                XCTAssertEqual(qos_class_self(), QOS_CLASS_BACKGROUND)
+                XCTAssertEqual(qos_class_self(), DispatchQoS.QoSClass.background.rawValue)
                 expectations[i].fulfill()
                 counter += 1
                 group.leave()
@@ -124,7 +128,7 @@ class AsyncGroupTests: XCTestCase {
         let group = AsyncGroup()
         for i in iterations {
             group.background {
-                XCTAssertEqual(qos_class_self(), QOS_CLASS_BACKGROUND)
+                XCTAssertEqual(qos_class_self(), DispatchQoS.QoSClass.background.rawValue)
                 expectations[i].fulfill()
                 group.enter()
                 Async.background {
