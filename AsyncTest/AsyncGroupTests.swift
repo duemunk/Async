@@ -70,15 +70,69 @@ class AsyncGroupTests: XCTestCase {
         waitForExpectations(timeout: timeMargin, handler: nil)
     }
 
+    func testGroupCustomQueueConcurrent() {
+        let expectation = self.expectation(description: "Expected custom queue")
+        let label = "CustomQueueLabel"
+        let customQueue = DispatchQueue(label: label, attributes: [.concurrent])
+        let key = DispatchSpecificKey<String>()
+        customQueue.setSpecific(key: key, value: label)
+        let group = AsyncGroup()
+        group.custom(queue: customQueue) {
+            XCTAssertEqual(DispatchQueue.getSpecific(key: key), label)
+            expectation.fulfill()
+        }
+        waitForExpectations(timeout: timeMargin, handler: nil)
+    }
+
+    func testGroupCustomQueueSerial() {
+        let expectation = self.expectation(description: "Expected custom queue")
+        let label = "CustomQueueLabel"
+        let customQueue = DispatchQueue(label: label, attributes: [])
+        let key = DispatchSpecificKey<String>()
+        customQueue.setSpecific(key: key, value: label)
+        let group = AsyncGroup()
+        group.custom(queue: customQueue) {
+            XCTAssertEqual(DispatchQueue.getSpecific(key: key), label)
+            expectation.fulfill()
+        }
+        waitForExpectations(timeout: timeMargin, handler: nil)
+    }
+
     func testGroupWait() {
-        var complete = false
+        var id = 0
         let group = AsyncGroup()
         group.background {
-            XCTAssertEqual(qos_class_self(), DispatchQoS.QoSClass.background.rawValue)
-            complete = true
+            // Some work
+            Thread.sleep(forTimeInterval: 0.1)
+            id += 1
+            XCTAssertEqual(id, 1, "")
         }
-        group.wait(seconds: timeMargin)
-        XCTAssertEqual(complete, true)
+        XCTAssertEqual(id, 0, "")
+
+        group.wait()
+        id += 1
+        XCTAssertEqual(id, 2, "")
+    }
+    
+    func testGroupWaitMax() {
+        var id = 0
+        let date = Date()
+        let upperTimeDelay = timeDelay + timeMargin
+        let group = AsyncGroup()
+        group.background {
+            id += 1
+            XCTAssertEqual(id, 1, "The id should be 1") // A
+            // Some work that takes longer than we want to wait for
+            Thread.sleep(forTimeInterval: self.timeDelay + self.timeMargin)
+            id += 1 // C
+        }
+        XCTAssertEqual(id, 0, "The id should be 0, since block is send to background")
+        // Wait
+        group.wait(seconds: timeDelay)
+        id += 1
+        XCTAssertEqual(id, 2, "The id should be 2, since the block has begun running") // B
+        let timePassed = Date().timeIntervalSince(date)
+        XCTAssert(timePassed < upperTimeDelay, "Shouldn't wait \(upperTimeDelay) seconds before firing")
     }
 
     func testMultipleGroups() {

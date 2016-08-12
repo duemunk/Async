@@ -528,6 +528,58 @@ class AsyncTests: XCTestCase {
     }
 
 
+    /* Generics */
+
+    func testGenericsChain() {
+        let expectationBackground = self.expectation(description: "Expected on background queue")
+        let expectationMain = self.expectation(description: "Expected on main queue")
+        let testValue = 10
+
+        Async.background {
+            XCTAssertEqual(qos_class_self(), DispatchQoS.QoSClass.background.rawValue)
+            expectationBackground.fulfill()
+            return testValue
+        }.main { (value: Int) in
+            #if (arch(i386) || arch(x86_64)) && (os(iOS) || os(tvOS)) // Simulator
+                XCTAssert(Thread.isMainThread, "Should be on main thread (simulator)")
+            #else
+                XCTAssertEqual(qos_class_self(), qos_class_main())
+            #endif
+            expectationMain.fulfill()
+            XCTAssertEqual(value, testValue)
+            return
+        }
+        waitForExpectations(timeout: timeMargin, handler: nil)
+    }
+
+    func testGenericsWait() {
+        let asyncBlock = Async.background {
+            return 10
+        }.utility {
+            return "T\($0)"
+        }
+        asyncBlock.wait()
+        XCTAssertEqual(asyncBlock.output, Optional("T10"))
+    }
+
+    func testGenericsWaitMax() {
+        var complete1 = false
+        var complete2 = false
+        let asyncBlock = Async.background {
+            complete1 = true
+            Thread.sleep(forTimeInterval: 0.2)
+            complete2 = true
+            return 10
+        }.utility { (_: Int) -> Void in
+            XCTFail()
+        }
+        asyncBlock.wait(seconds: 0.1)
+        XCTAssertNil(asyncBlock.output)
+        XCTAssert(complete1, "Should have been set in background block")
+        XCTAssertFalse(complete2, "Should not have been set/reached in background block")
+    }
+
+
     /* dispatch_apply() */
 
     func testApplyUserInteractive() {
