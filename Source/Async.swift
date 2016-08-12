@@ -710,12 +710,10 @@ public struct AsyncGroup {
      */
     @discardableResult
     public func wait(seconds: Double? = nil) -> DispatchTimeoutResult {
-        if let seconds = seconds {
-            let time = DispatchTime.now() + seconds
-            return group.wait(timeout: time)
-        } else {
-            return group.wait(timeout: DispatchTime.distantFuture)
-        }
+        let timeout = seconds
+            .flatMap { DispatchTime.now() + $0 }
+            ?? .distantFuture
+        return group.wait(timeout: timeout)
     }
 }
 
