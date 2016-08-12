@@ -1,23 +1,22 @@
 osx_image: xcode8
-
 language: objective-c
 
 script:
 
 # Carthage
-- xcodebuild -project Async.xcodeproj -scheme "Async iOS" | xcpretty
-- xcodebuild -project Async.xcodeproj -scheme "Async OSX" | xcpretty
-- xcodebuild -project Async.xcodeproj -scheme "Async tvOS" | xcpretty
-- xcodebuild -project Async.xcodeproj -scheme "Async watchOS" | xcpretty
+# - xcodebuild -project Async.xcodeproj -scheme "Async iOS" | xcpretty
+# - xcodebuild -project Async.xcodeproj -scheme "Async OSX" | xcpretty
+# - xcodebuild -project Async.xcodeproj -scheme "Async tvOS" | xcpretty
+# - xcodebuild -project Async.xcodeproj -scheme "Async watchOS" | xcpretty
 
 # CocoaPods
-- xcodebuild clean -workspace AsyncPodsExample/AsyncPodsExample.xcworkspace -scheme "AsyncExample iOS" -sdk iphonesimulator ONLY_ACTIVE_ARCH=NO | xcpretty
-- xcodebuild clean -workspace AsyncPodsExample/AsyncPodsExample.xcworkspace -scheme "AsyncExample OS X" -sdk macosx ONLY_ACTIVE_ARCH=NO | xcpretty
+# - xcodebuild clean -workspace AsyncPodsExample/AsyncPodsExample.xcworkspace -scheme "AsyncExample iOS" -sdk iphonesimulator ONLY_ACTIVE_ARCH=NO | xcpretty
+# - xcodebuild clean -workspace AsyncPodsExample/AsyncPodsExample.xcworkspace -scheme "AsyncExample OS X" -sdk macosx ONLY_ACTIVE_ARCH=NO | xcpretty
 # tvOS target has issues with signing
 # - xcodebuild clean build -workspace AsyncPodsExample/AsyncPodsExample.xcworkspace -scheme "AsyncExample tvOS" -sdk appletvos ONLY_ACTIVE_ARCH=NO
 
 # Tests (OS X only, since simulator doesn't play nice with GCD)
-- xcodebuild test -project AsyncTest/Async.xcodeproj -scheme "AsyncOSX" | xcpretty
+- xcodebuild test -project AsyncTest/Async.xcodeproj -scheme "AsyncOSX" GCC_INSTRUMENT_PROGRAM_FLOW_ARCS=YES GCC_GENERATE_TEST_COVERAGE_FILES=YES | xcpretty
 
 after_success:
 - bash <(curl -s https://codecov.io/bash) -J 'AsyncTest/Async'
