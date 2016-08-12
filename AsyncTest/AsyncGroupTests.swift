@@ -136,7 +136,7 @@ class AsyncGroupTests: XCTestCase {
     }
 
     func testMultipleGroups() {
-        let count = 10
+        let count = 3
         let iterations = 0..<count
         let expectations = iterations.map { expectation(description: "\($0)") }
         var counter = 0
@@ -150,11 +150,11 @@ class AsyncGroupTests: XCTestCase {
         }
         group.wait(seconds: timeMargin)
         XCTAssertEqual(counter, count)
-        waitForExpectations(timeout: timeMargin*2, handler: nil)
+        waitForExpectations(timeout: timeMargin, handler: nil)
     }
 
     func testCustomBlockGroups() {
-        let count = 10
+        let count = 3
         let iterations = 0..<count
         let expectations = iterations.map { expectation(description: "\($0)") }
         var counter = 0
@@ -170,11 +170,11 @@ class AsyncGroupTests: XCTestCase {
         }
         group.wait(seconds: timeMargin)
         XCTAssertEqual(counter, count)
-        waitForExpectations(timeout: timeMargin*2, handler: nil)
+        waitForExpectations(timeout: timeMargin, handler: nil)
     }
 
     func testNestedAsyncGroups() {
-        let count = 10
+        let count = 3
         let iterations = 0..<count
         let expectations = iterations.map { expectation(description: "\($0)") }
         let expectationsNested = iterations.map { expectation(description: "Nested \($0)") }
@@ -194,7 +194,7 @@ class AsyncGroupTests: XCTestCase {
         }
         group.wait(seconds: timeMargin)
         XCTAssertEqual(counter, count)
-        waitForExpectations(timeout: timeMargin*2, handler: nil)
+        waitForExpectations(timeout: timeMargin, handler: nil)
     }
 
 }

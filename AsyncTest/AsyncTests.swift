@@ -518,7 +518,8 @@ class AsyncTests: XCTestCase {
             Thread.sleep(forTimeInterval: self.timeDelay + self.timeMargin)
             id += 1 // C
         }
-        XCTAssertEqual(id, 0, "The id should be 0, since block is send to background")
+        let idCheck = id // XCTAssertEqual is experienced to behave as a wait
+        XCTAssertEqual(idCheck, 0, "The id should be 0, since block is send to background")
         // Wait
         block.wait(seconds: timeDelay)
         id += 1
@@ -567,13 +568,12 @@ class AsyncTests: XCTestCase {
         var complete2 = false
         let asyncBlock = Async.background {
             complete1 = true
-            Thread.sleep(forTimeInterval: 0.2)
+            // Some work that takes longer than we want to wait for
+            Thread.sleep(forTimeInterval: self.timeDelay + self.timeMargin)
             complete2 = true
             return 10
-        }.utility { (_: Int) -> Void in
-            XCTFail()
-        }
-        asyncBlock.wait(seconds: 0.1)
+        }.utility { (_: Int) -> Void in }
+        asyncBlock.wait(seconds: timeMargin)
         XCTAssertNil(asyncBlock.output)
         XCTAssert(complete1, "Should have been set in background block")
         XCTAssertFalse(complete2, "Should not have been set/reached in background block")
@@ -583,96 +583,73 @@ class AsyncTests: XCTestCase {
     /* dispatch_apply() */
 
     func testApplyUserInteractive() {
-        let expectation1 = expectation(description: "1")
-        let expectation2 = expectation(description: "2")
-        let expectation3 = expectation(description: "3")
-        let expectations = [expectation1, expectation2, expectation3]
-        var count = 0
-        Apply.userInteractive(3) { i in
+        let count = 3
+        let iterations = 0..<count
+        let expectations = iterations.map { expectation(description: "\($0)") }
+        Apply.userInteractive(count) { i in
             XCTAssertEqual(qos_class_self(), DispatchQoS.QoSClass.userInteractive.rawValue)
             expectations[i].fulfill()
-            count += 1
         }
-        waitForExpectations(timeout: 1, handler: nil)
-        XCTAssertEqual(count, 3, "Wrong count")
+        waitForExpectations(timeout: timeMargin, handler: nil)
     }
 
     func testApplyUserInitiated() {
-        let expectation1 = expectation(description: "1")
-        let expectation2 = expectation(description: "2")
-        let expectation3 = expectation(description: "3")
-        let expectations = [expectation1, expectation2, expectation3]
-        var count = 0
-        Apply.userInitiated(3) { i in
+        let count = 3
+        let iterations = 0..<count
+        let expectations = iterations.map { expectation(description: "\($0)") }
+        Apply.userInitiated(count) { i in
             XCTAssertEqual(qos_class_self(), DispatchQoS.QoSClass.userInitiated.rawValue)
             expectations[i].fulfill()
-            count += 1
         }
         waitForExpectations(timeout: 1, handler: nil)
-        XCTAssertEqual(count, 3, "Wrong count")
     }
 
     func testApplyUtility() {
-        let expectation1 = expectation(description: "1")
-        let expectation2 = expectation(description: "2")
-        let expectation3 = expectation(description: "3")
-        let expectations = [expectation1, expectation2, expectation3]
-        var count = 0
-        Apply.utility(3) { i in
+        let count = 3
+        let iterations = 0..<count
+        let expectations = iterations.map { expectation(description: "\($0)") }
+        Apply.utility(count) { i in
             XCTAssertEqual(qos_class_self(), DispatchQoS.QoSClass.utility.rawValue)
             expectations[i].fulfill()
-            count += 1
         }
         waitForExpectations(timeout: 1, handler: nil)
-        XCTAssertEqual(count, 3, "Wrong count")
     }
 
     func testApplyBackground() {
-        let expectation1 = expectation(description: "1")
-        let expectation2 = expectation(description: "2")
-        let expectation3 = expectation(description: "3")
-        let expectations = [expectation1, expectation2, expectation3]
-        var count = 0
-        Apply.background(3) { i in
+        let count = 3
+        let iterations = 0..<count
+        let expectations = iterations.map { expectation(description: "\($0)") }
+        Apply.background(count) { i in
             XCTAssertEqual(qos_class_self(), DispatchQoS.QoSClass.background.rawValue)
             expectations[i].fulfill()
-            count += 1
         }
         waitForExpectations(timeout: 1, handler: nil)
-        XCTAssertEqual(count, 3, "Wrong count")
     }
 
     func testApplyCustomQueueConcurrent() {
-        let expectation1 = expectation(description: "1")
-        let expectation2 = expectation(description: "2")
-        let expectation3 = expectation(description: "3")
-        let expectations = [expectation1, expectation2, expectation3]
-        var count = 0
+        let count = 3
+        let iterations = 0..<count
+        let expectations = iterations.map { expectation(description: "\($0)") }
         let label = "CustomQueueConcurrentLabel"
         let customQueue = DispatchQueue(label: label, qos: .utility, attributes: [.concurrent])
-        Apply.custom(queue: customQueue, iterations: 3) { i in
+        Apply.custom(queue: customQueue, iterations: count) { i in
             XCTAssertEqual(qos_class_self(), customQueue.qos.qosClass.rawValue)
             expectations[i].fulfill()
-            count += 1
         }
         waitForExpectations(timeout: 1, handler: nil)
-        XCTAssertEqual(count, 3, "Wrong count")
     }
 
     func testApplyCustomQueueSerial() {
         let count = 3
         let iterations = 0..<count
         let expectations = iterations.map { expectation(description: "\($0)") }
-        var index = 0
         let label = "CustomQueueSerialLabel"
         let customQueue = DispatchQueue(label: label, qos: .utility, attributes: [])
         Apply.custom(queue: customQueue, iterations: count) { i in
             XCTAssertEqual(qos_class_self(), customQueue.qos.qosClass.rawValue)
             expectations[i].fulfill()
-            index += 1
         }
         waitForExpectations(timeout: 1, handler: nil)
-        XCTAssertEqual(count, 3, "Wrong count")
     }
 
 }
