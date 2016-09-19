@@ -13,7 +13,6 @@
 		4EC98A411BE02B1B00A2EB40 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 146ED8EA1BDF312F00347390 /* Main.storyboard */; };
 		4EC98A421BE02B1F00A2EB40 /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 146ED8EE1BDF312F00347390 /* ViewController.swift */; };
 		4EC98A431BE02B2200A2EB40 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 146ED8E91BDF312F00347390 /* AppDelegate.swift */; };
-		4EF830A01975952B00C5F0EE /* main.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4EF8309F1975952B00C5F0EE /* main.swift */; };
 		4EF830A21975952B00C5F0EE /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4EF830A11975952B00C5F0EE /* ViewController.swift */; };
 		4EF830A41975952B00C5F0EE /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4EF830A31975952B00C5F0EE /* AppDelegate.swift */; };
 		4EF830A61975952B00C5F0EE /* Images.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 4EF830A51975952B00C5F0EE /* Images.xcassets */; };
@@ -37,7 +36,6 @@
 		4EC98A3E1BE0293000A2EB40 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		4EF8309B1975952B00C5F0EE /* AsyncExample OS X.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "AsyncExample OS X.app"; sourceTree = BUILT_PRODUCTS_DIR; };
 		4EF8309E1975952B00C5F0EE /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
-		4EF8309F1975952B00C5F0EE /* main.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = main.swift; sourceTree = "<group>"; };
 		4EF830A11975952B00C5F0EE /* ViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewController.swift; sourceTree = "<group>"; };
 		4EF830A31975952B00C5F0EE /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		4EF830A51975952B00C5F0EE /* Images.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Images.xcassets; sourceTree = "<group>"; };
@@ -167,7 +165,6 @@
 			isa = PBXGroup;
 			children = (
 				4EF8309E1975952B00C5F0EE /* Info.plist */,
-				4EF8309F1975952B00C5F0EE /* main.swift */,
 			);
 			name = "Supporting Files";
 			sourceTree = "<group>";
@@ -262,7 +259,7 @@
 			isa = PBXProject;
 			attributes = {
 				LastSwiftUpdateCheck = 0710;
-				LastUpgradeCheck = 0700;
+				LastUpgradeCheck = 0800;
 				ORGANIZATIONNAME = developmunk;
 				TargetAttributes = {
 					146ED8F21BDF321000347390 = {
@@ -484,7 +481,6 @@
 			files = (
 				4EF830A41975952B00C5F0EE /* AppDelegate.swift in Sources */,
 				4EF830A21975952B00C5F0EE /* ViewController.swift in Sources */,
-				4EF830A01975952B00C5F0EE /* main.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -531,6 +527,7 @@
 			isa = XCBuildConfiguration;
 			baseConfigurationReference = 28B13B03A9F70C56980CDFC4 /* Pods-AsyncExample tvOS.debug.xcconfig */;
 			buildSettings = {
+				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
 				ASSETCATALOG_COMPILER_APPICON_NAME = "App Icon & Top Shelf Image";
 				ASSETCATALOG_COMPILER_LAUNCHIMAGE_NAME = LaunchImage;
 				DEBUG_INFORMATION_FORMAT = dwarf;
@@ -540,7 +537,6 @@
 				PRODUCT_BUNDLE_IDENTIFIER = "dk.developmunk.AsyncExample-tvOS";
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SDKROOT = appletvos;
-				SWIFT_VERSION = 3.0;
 				TARGETED_DEVICE_FAMILY = 3;
 				TVOS_DEPLOYMENT_TARGET = 9.0;
 			};
@@ -550,6 +546,7 @@
 			isa = XCBuildConfiguration;
 			baseConfigurationReference = D8CE59AC46E47FA5EA55E8C4 /* Pods-AsyncExample tvOS.release.xcconfig */;
 			buildSettings = {
+				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
 				ASSETCATALOG_COMPILER_APPICON_NAME = "App Icon & Top Shelf Image";
 				ASSETCATALOG_COMPILER_LAUNCHIMAGE_NAME = LaunchImage;
 				COPY_PHASE_STRIP = NO;
@@ -560,7 +557,6 @@
 				PRODUCT_BUNDLE_IDENTIFIER = "dk.developmunk.AsyncExample-tvOS";
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SDKROOT = appletvos;
-				SWIFT_VERSION = 3.0;
 				TARGETED_DEVICE_FAMILY = 3;
 				TVOS_DEPLOYMENT_TARGET = 9.0;
 			};
@@ -579,8 +575,10 @@
 				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
 				CLANG_WARN_EMPTY_BODY = YES;
 				CLANG_WARN_ENUM_CONVERSION = YES;
+				CLANG_WARN_INFINITE_RECURSION = YES;
 				CLANG_WARN_INT_CONVERSION = YES;
 				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN_SUSPICIOUS_MOVE = YES;
 				CLANG_WARN_UNREACHABLE_CODE = YES;
 				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
@@ -589,6 +587,7 @@
 				ENABLE_TESTABILITY = YES;
 				GCC_C_LANGUAGE_STANDARD = gnu99;
 				GCC_DYNAMIC_NO_PIC = NO;
+				GCC_NO_COMMON_BLOCKS = YES;
 				GCC_OPTIMIZATION_LEVEL = 0;
 				GCC_PREPROCESSOR_DEFINITIONS = (
 					"DEBUG=1",
@@ -606,6 +605,7 @@
 				ONLY_ACTIVE_ARCH = YES;
 				SDKROOT = iphoneos;
 				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
+				SWIFT_VERSION = 3.0;
 				TARGETED_DEVICE_FAMILY = "1,2";
 			};
 			name = Debug;
@@ -623,8 +623,10 @@
 				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
 				CLANG_WARN_EMPTY_BODY = YES;
 				CLANG_WARN_ENUM_CONVERSION = YES;
+				CLANG_WARN_INFINITE_RECURSION = YES;
 				CLANG_WARN_INT_CONVERSION = YES;
 				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN_SUSPICIOUS_MOVE = YES;
 				CLANG_WARN_UNREACHABLE_CODE = YES;
 				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
@@ -632,6 +634,7 @@
 				ENABLE_NS_ASSERTIONS = NO;
 				ENABLE_STRICT_OBJC_MSGSEND = YES;
 				GCC_C_LANGUAGE_STANDARD = gnu99;
+				GCC_NO_COMMON_BLOCKS = YES;
 				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
 				GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
 				GCC_WARN_UNDECLARED_SELECTOR = YES;
@@ -641,6 +644,8 @@
 				IPHONEOS_DEPLOYMENT_TARGET = 8.0;
 				MTL_ENABLE_DEBUG_INFO = NO;
 				SDKROOT = iphoneos;
+				SWIFT_OPTIMIZATION_LEVEL = "-Owholemodule";
+				SWIFT_VERSION = 3.0;
 				TARGETED_DEVICE_FAMILY = "1,2";
 				VALIDATE_PRODUCT = YES;
 			};
@@ -650,6 +655,7 @@
 			isa = XCBuildConfiguration;
 			baseConfigurationReference = E245DB3718AE9E052D4F00BE /* Pods-AsyncExample OS X.debug.xcconfig */;
 			buildSettings = {
+				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				COMBINE_HIDPI_IMAGES = YES;
 				GCC_PREPROCESSOR_DEFINITIONS = (
@@ -664,7 +670,6 @@
 				PRODUCT_NAME = "AsyncExample OS X";
 				PROVISIONING_PROFILE = "";
 				SDKROOT = macosx;
-				SWIFT_VERSION = 3.0;
 			};
 			name = Debug;
 		};
@@ -672,6 +677,7 @@
 			isa = XCBuildConfiguration;
 			baseConfigurationReference = 814059C2443E7390BB7151F2 /* Pods-AsyncExample OS X.release.xcconfig */;
 			buildSettings = {
+				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				COMBINE_HIDPI_IMAGES = YES;
 				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
@@ -683,7 +689,6 @@
 				PRODUCT_NAME = "AsyncExample OS X";
 				PROVISIONING_PROFILE = "";
 				SDKROOT = macosx;
-				SWIFT_VERSION = 3.0;
 			};
 			name = Release;
 		};
@@ -691,6 +696,7 @@
 			isa = XCBuildConfiguration;
 			baseConfigurationReference = DFD1AB7AE290FEB64261BD7F /* Pods-AsyncExample iOS.debug.xcconfig */;
 			buildSettings = {
+				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_LAUNCHIMAGE_NAME = LaunchImage;
 				GCC_PREPROCESSOR_DEFINITIONS = (
@@ -701,7 +707,6 @@
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = "dk.developmunk.${PRODUCT_NAME:rfc1034identifier}";
 				PRODUCT_NAME = "AsyncExample iOS";
-				SWIFT_VERSION = 3.0;
 			};
 			name = Debug;
 		};
@@ -709,13 +714,13 @@
 			isa = XCBuildConfiguration;
 			baseConfigurationReference = 96F898A47080C7E249C01A72 /* Pods-AsyncExample iOS.release.xcconfig */;
 			buildSettings = {
+				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_LAUNCHIMAGE_NAME = LaunchImage;
 				INFOPLIST_FILE = "AsyncExample iOS/Info.plist";
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = "dk.developmunk.${PRODUCT_NAME:rfc1034identifier}";
 				PRODUCT_NAME = "AsyncExample iOS";
-				SWIFT_VERSION = 3.0;
 			};
 			name = Release;
 		};
