@@ -8,6 +8,7 @@
 
 import Foundation
 import XCTest
+import Async
 
 class AsyncGroupTests: XCTestCase {
 

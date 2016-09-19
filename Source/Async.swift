@@ -133,7 +133,7 @@ public struct AsyncBlock<In, Out> {
 
     private let input: Reference<In>?
     private let output_: Reference<Out>
-    var output: Out? {
+    public var output: Out? {
         return output_.value
     }
 

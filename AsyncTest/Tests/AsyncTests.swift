@@ -8,6 +8,7 @@
 
 import Foundation
 import XCTest
+import Async
 
 
 extension qos_class_t: CustomDebugStringConvertible {

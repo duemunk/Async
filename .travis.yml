@@ -1,23 +1,40 @@
+language: objective-c
 osx_image: xcode8
 
-language: objective-c
+env:
+  - "DESTINATION='platform=watchOS Simulator,name=Apple Watch - 38mm' ACTION=build"
+  - "DESTINATION='platform=tvOS Simulator,name=Apple TV 1080p' ACTION=build"
+  - "DESTINATION='platform=OS X' ACTION=test"
 
 script:
+  - set -o pipefail && xcodebuild -project AsyncTest/Async.xcodeproj -scheme Async -destination "$DESTINATION" $ACTION | xcpretty
+
+# - set -o pipefail && xcodebuild -project AsyncTest/Async.xcodeproj -scheme Async -destination 'platform=OS X' test | xcpretty
+# - set -o pipefail && xcodebuild -project AsyncTest/Async.xcodeproj -scheme Async -destination 'platform=watchOS Simulator,name=Apple Watch - 38mm' build | xcpretty
+# - set -o pipefail && xcodebuild -project AsyncTest/Async.xcodeproj -scheme Async -destination 'platform=tvOS Simulator,name=Apple TV 1080p' test | xcpretty
+
+
+
+# osx_image: xcode8
+# language: objective-c
+#
+# script:
 
 # Carthage
-- xcodebuild -project Async.xcodeproj -scheme "Async iOS" | xcpretty
-- xcodebuild -project Async.xcodeproj -scheme "Async OSX" | xcpretty
-- xcodebuild -project Async.xcodeproj -scheme "Async tvOS" | xcpretty
-- xcodebuild -project Async.xcodeproj -scheme "Async watchOS" | xcpretty
+# - xcodebuild -project Async.xcodeproj -scheme "Async iOS" | xcpretty
+# - xcodebuild -project Async.xcodeproj -scheme "Async OSX" | xcpretty
+# - xcodebuild -project Async.xcodeproj -scheme "Async tvOS" | xcpretty
+# - xcodebuild -project Async.xcodeproj -scheme "Async watchOS" | xcpretty
 
 # CocoaPods
-- xcodebuild clean -workspace AsyncPodsExample/AsyncPodsExample.xcworkspace -scheme "AsyncExample iOS" -sdk iphonesimulator ONLY_ACTIVE_ARCH=NO | xcpretty
-- xcodebuild clean -workspace AsyncPodsExample/AsyncPodsExample.xcworkspace -scheme "AsyncExample OS X" -sdk macosx ONLY_ACTIVE_ARCH=NO | xcpretty
+# - xcodebuild clean -workspace AsyncPodsExample/AsyncPodsExample.xcworkspace -scheme "AsyncExample iOS" -sdk iphonesimulator ONLY_ACTIVE_ARCH=NO | xcpretty
+# - xcodebuild clean -workspace AsyncPodsExample/AsyncPodsExample.xcworkspace -scheme "AsyncExample OS X" -sdk macosx ONLY_ACTIVE_ARCH=NO | xcpretty
 # tvOS target has issues with signing
 # - xcodebuild clean build -workspace AsyncPodsExample/AsyncPodsExample.xcworkspace -scheme "AsyncExample tvOS" -sdk appletvos ONLY_ACTIVE_ARCH=NO
 
 # Tests (OS X only, since simulator doesn't play nice with GCD)
-- xcodebuild test -project AsyncTest/Async.xcodeproj -scheme "AsyncOSX" | xcpretty
+# - set -o pipefail && xcodebuild clean build test -project AsyncTest/Async.xcodeproj -scheme "AsyncOSX" GCC_INSTRUMENT_PROGRAM_FLOW_ARCS=YES GCC_GENERATE_TEST_COVERAGE_FILES=YES ONLY_ACTIVE_ARCH=NO | xcpretty
+# - set -o pipefail && xcodebuild test -project AsyncTest/Async.xcodeproj -scheme "AsyncOSX" | xcpretty
 
 after_success:
 - bash <(curl -s https://codecov.io/bash) -J 'AsyncTest/Async'
