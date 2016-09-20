@@ -46,7 +46,7 @@ pod "AsyncSwift"
 ```
 #### Carthage
 ```ruby
-github "duemunk/Async"
+github "duemunk/Async" "feature/Swift_2.0"
 ```
 
 ### Benefits
