@@ -1,28 +1,32 @@
 # Async
-[![](http://img.shields.io/badge/OS%20X-10.10%2B-blue.svg)]() [![](http://img.shields.io/badge/iOS-8.0%2B-blue.svg)]() [![](http://img.shields.io/badge/tvOS-9.0%2B-blue.svg)]() [![](http://img.shields.io/badge/watchOS-2.0%2B-blue.svg)]() [![](http://img.shields.io/badge/Swift-2.1-blue.svg)]() [![](https://travis-ci.org/duemunk/Async.svg)](https://travis-ci.org/duemunk/Async) [![Carthage compatible](https://img.shields.io/badge/Carthage-compatible-4BC51D.svg)](https://github.com/Carthage/Carthage) [![CocoaPods compatible](https://img.shields.io/badge/CocoaPods-compatible-4BC51D.svg)](https://github.com/CocoaPods/CocoaPods) [![](http://img.shields.io/badge/operator_overload-nope-green.svg)](https://gist.github.com/duemunk/61e45932dbb1a2ca0954)
+[![](http://img.shields.io/badge/OS%20X-10.10%2B-blue.svg)]() [![](http://img.shields.io/badge/iOS-8.0%2B-blue.svg)]() [![](http://img.shields.io/badge/tvOS-9.0%2B-blue.svg)]() [![](http://img.shields.io/badge/watchOS-2.0%2B-blue.svg)]() [![](http://img.shields.io/badge/Swift-3.0-blue.svg)]() [![](https://travis-ci.org/duemunk/Async.svg)](https://travis-ci.org/duemunk/Async) [![Carthage compatible](https://img.shields.io/badge/Carthage-compatible-4BC51D.svg)](https://github.com/Carthage/Carthage) [![CocoaPods compatible](https://img.shields.io/badge/CocoaPods-compatible-4BC51D.svg)](https://github.com/CocoaPods/CocoaPods) [![](http://img.shields.io/badge/operator_overload-nope-green.svg)](https://gist.github.com/duemunk/61e45932dbb1a2ca0954)
 
 
 
-Syntactic sugar in Swift for asynchronous dispatches in Grand Central Dispatch ([GCD](https://developer.apple.com/library/prerelease/ios/documentation/Performance/Reference/GCD_libdispatch_Ref/index.html))
+Now more than syntactic sugar for asynchronous dispatches in Grand Central Dispatch ([GCD](https://developer.apple.com/library/prerelease/ios/documentation/Performance/Reference/GCD_libdispatch_Ref/index.html)) in Swift
 
 **Async** sugar looks like this:
 ```swift
-Async.background {
-	print("This is run on the background queue")
+Async.userInitiated {
+	return 10
+}.background {
+	return "Score: \($0)"
 }.main {
-	print("This is run on the main queue, after the previous block")
+	label.text = $0
 }
 ```
 
-Instead of the familiar syntax for GCD:
+So even though GCD has nice-ish syntax as of Swift 3.0, compare the above with:
 ```swift
-dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_BACKGROUND, 0), {
-	print("This is run on the background queue")
-
-	dispatch_async(dispatch_get_main_queue(), {
-		print("This is run on the main queue, after the previous block")
-	})
-})
+DispatchQueue.global(qos: .userInitiated).async {
+	let value = 10
+	DispatchQueue.global(qos: .background).async {
+		let text = "Score: \(value)"
+		DispatchQueue.main.async {
+			label.text = text
+		}
+	}
+}
 ```
 
 **AsyncGroup** sugar looks like this:
@@ -50,8 +54,8 @@ github "duemunk/Async"
 ```
 
 ### Benefits
-1. Less verbose code
-2. Less code indentation
+1. Avoid code indentation by chaining
+2. Arguments and return types reduce polluted scopes
 
 ### Things you can do
 Supports the modern queue classes:
@@ -92,11 +96,11 @@ backgroundBlock.main {
 
 Custom queues:
 ```swift
-let customQueue = dispatch_queue_create("CustomQueueLabel", DISPATCH_QUEUE_CONCURRENT)
-let otherCustomQueue = dispatch_queue_create("OtherCustomQueueLabel", DISPATCH_QUEUE_CONCURRENT)
-Async.customQueue(customQueue) {
+let customQueue = DispatchQueue(label: "CustomQueueLabel", attributes: [.concurrent])
+let otherCustomQueue = DispatchQueue(label: "OtherCustomQueueLabel")
+Async.custom(queue: customQueue) {
 	print("Custom queue")
-}.customQueue(otherCustomQueue) {
+}.custom(queue: otherCustomQueue) {
 	print("Other custom queue")
 }
 ```
@@ -198,7 +202,7 @@ group.background {}
 Custom queues:
 ```swift
 let customQueue = dispatch_queue_create("Label", DISPATCH_QUEUE_CONCURRENT)
-group.customQueue(customQueue) {}
+group.custom(queue: customQueue) {}
 ```
 Wait for group to finish:
 ```swift

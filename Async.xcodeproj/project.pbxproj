@@ -207,12 +207,18 @@
 				TargetAttributes = {
 					14CD471A1BDF23B9008F83EC = {
 						CreatedOnToolsVersion = 7.1;
+						LastSwiftMigration = 0800;
 					};
 					8DD82CCF1C81141B002F5A7D = {
 						CreatedOnToolsVersion = 7.2.1;
+						LastSwiftMigration = 0800;
+					};
+					BF41E4141AC5FB2400A1DDB2 = {
+						LastSwiftMigration = 0800;
 					};
 					BF70E4E81ABF124A00B4FDD4 = {
 						CreatedOnToolsVersion = 6.2;
+						LastSwiftMigration = 0800;
 					};
 				};
 			};
@@ -319,6 +325,7 @@
 				PRODUCT_NAME = Async;
 				SDKROOT = appletvos;
 				SKIP_INSTALL = YES;
+				SWIFT_VERSION = 3.0;
 				TARGETED_DEVICE_FAMILY = 3;
 				TVOS_DEPLOYMENT_TARGET = 9.0;
 			};
@@ -340,6 +347,7 @@
 				PRODUCT_NAME = Async;
 				SDKROOT = appletvos;
 				SKIP_INSTALL = YES;
+				SWIFT_VERSION = 3.0;
 				TARGETED_DEVICE_FAMILY = 3;
 				TVOS_DEPLOYMENT_TARGET = 9.0;
 			};
@@ -362,6 +370,7 @@
 				PRODUCT_NAME = Async;
 				SDKROOT = watchos;
 				SKIP_INSTALL = YES;
+				SWIFT_VERSION = 3.0;
 				TARGETED_DEVICE_FAMILY = 4;
 				WATCHOS_DEPLOYMENT_TARGET = 2.0;
 			};
@@ -384,6 +393,7 @@
 				PRODUCT_NAME = Async;
 				SDKROOT = watchos;
 				SKIP_INSTALL = YES;
+				SWIFT_VERSION = 3.0;
 				TARGETED_DEVICE_FAMILY = 4;
 				WATCHOS_DEPLOYMENT_TARGET = 2.0;
 			};
@@ -405,6 +415,7 @@
 				PRODUCT_NAME = Async;
 				SDKROOT = macosx;
 				SKIP_INSTALL = YES;
+				SWIFT_VERSION = 3.0;
 			};
 			name = Debug;
 		};
@@ -424,6 +435,7 @@
 				PRODUCT_NAME = Async;
 				SDKROOT = macosx;
 				SKIP_INSTALL = YES;
+				SWIFT_VERSION = 3.0;
 			};
 			name = Release;
 		};
@@ -527,6 +539,7 @@
 				PRODUCT_BUNDLE_IDENTIFIER = "dk.developmunk.$(PRODUCT_NAME:rfc1034identifier)";
 				PRODUCT_NAME = Async;
 				SKIP_INSTALL = YES;
+				SWIFT_VERSION = 3.0;
 			};
 			name = Debug;
 		};
@@ -544,6 +557,7 @@
 				PRODUCT_BUNDLE_IDENTIFIER = "dk.developmunk.$(PRODUCT_NAME:rfc1034identifier)";
 				PRODUCT_NAME = Async;
 				SKIP_INSTALL = YES;
+				SWIFT_VERSION = 3.0;
 			};
 			name = Release;
 		};

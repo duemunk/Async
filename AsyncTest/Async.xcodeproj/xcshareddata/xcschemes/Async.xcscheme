@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <Scheme
-   LastUpgradeVersion = "0710"
+   LastUpgradeVersion = "0800"
    version = "1.3">
    <BuildAction
       parallelizeBuildables = "YES"
@@ -14,9 +14,9 @@
             buildForAnalyzing = "YES">
             <BuildableReference
                BuildableIdentifier = "primary"
-               BlueprintIdentifier = "4EE7A2331BDE417600C957BA"
-               BuildableName = "AsyncOSX.app"
-               BlueprintName = "AsyncOSX"
+               BlueprintIdentifier = "4EFF42021D5E8762006E32BD"
+               BuildableName = "Async.framework"
+               BlueprintName = "Async"
                ReferencedContainer = "container:Async.xcodeproj">
             </BuildableReference>
          </BuildActionEntry>
@@ -33,9 +33,9 @@
             skipped = "NO">
             <BuildableReference
                BuildableIdentifier = "primary"
-               BlueprintIdentifier = "4EE7A2411BDE417700C957BA"
-               BuildableName = "AsyncOSXTests.xctest"
-               BlueprintName = "AsyncOSXTests"
+               BlueprintIdentifier = "4EFF420A1D5E8762006E32BD"
+               BuildableName = "AsyncTests.xctest"
+               BlueprintName = "AsyncTests"
                ReferencedContainer = "container:Async.xcodeproj">
             </BuildableReference>
          </TestableReference>
@@ -43,9 +43,9 @@
       <MacroExpansion>
          <BuildableReference
             BuildableIdentifier = "primary"
-            BlueprintIdentifier = "4EE7A2331BDE417600C957BA"
-            BuildableName = "AsyncOSX.app"
-            BlueprintName = "AsyncOSX"
+            BlueprintIdentifier = "4EFF42021D5E8762006E32BD"
+            BuildableName = "Async.framework"
+            BlueprintName = "Async"
             ReferencedContainer = "container:Async.xcodeproj">
          </BuildableReference>
       </MacroExpansion>
@@ -66,9 +66,9 @@
          runnableDebuggingMode = "0">
          <BuildableReference
             BuildableIdentifier = "primary"
-            BlueprintIdentifier = "4EE7A2331BDE417600C957BA"
-            BuildableName = "AsyncOSX.app"
-            BlueprintName = "AsyncOSX"
+            BlueprintIdentifier = "4EFF42021D5E8762006E32BD"
+            BuildableName = "Async.framework"
+            BlueprintName = "Async"
             ReferencedContainer = "container:Async.xcodeproj">
          </BuildableReference>
       </BuildableProductRunnable>
@@ -85,9 +85,9 @@
          runnableDebuggingMode = "0">
          <BuildableReference
             BuildableIdentifier = "primary"
-            BlueprintIdentifier = "4EE7A2331BDE417600C957BA"
-            BuildableName = "AsyncOSX.app"
-            BlueprintName = "AsyncOSX"
+            BlueprintIdentifier = "4EFF42021D5E8762006E32BD"
+            BuildableName = "Async.framework"
+            BlueprintName = "Async"
             ReferencedContainer = "container:Async.xcodeproj">
          </BuildableReference>
       </BuildableProductRunnable>

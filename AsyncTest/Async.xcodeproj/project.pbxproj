@@ -7,164 +7,58 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
-		4EC98A4B1BE02E5E00A2EB40 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4EC98A4A1BE02E5E00A2EB40 /* AppDelegate.swift */; };
-		4EC98A4D1BE02E5E00A2EB40 /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4EC98A4C1BE02E5E00A2EB40 /* ViewController.swift */; };
-		4EC98A501BE02E5E00A2EB40 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 4EC98A4E1BE02E5E00A2EB40 /* Main.storyboard */; };
-		4EC98A521BE02E5E00A2EB40 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 4EC98A511BE02E5E00A2EB40 /* Assets.xcassets */; };
-		4EC98A651BE02E6700A2EB40 /* AsyncTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4EE7A2511BDE41B600C957BA /* AsyncTests.swift */; };
-		4EC98A661BE02E6A00A2EB40 /* Async.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4EE7A24F1BDE418400C957BA /* Async.swift */; };
-		4EC98A671BE02E6B00A2EB40 /* Async.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4EE7A24F1BDE418400C957BA /* Async.swift */; };
-		4EC98A681BE0302B00A2EB40 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4EE7A2101BDE415200C957BA /* AppDelegate.swift */; };
-		4EC98A691BE0303200A2EB40 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 4EE7A2141BDE415200C957BA /* Main.storyboard */; };
-		4EC98A6A1BE0303500A2EB40 /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4EE7A2121BDE415200C957BA /* ViewController.swift */; };
-		4EC98A6B1BE0303800A2EB40 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 4EE7A2171BDE415200C957BA /* Assets.xcassets */; };
-		4EC98A6C1BE0303C00A2EB40 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 4EE7A2191BDE415200C957BA /* LaunchScreen.storyboard */; };
-		4EE7A2371BDE417600C957BA /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4EE7A2361BDE417600C957BA /* AppDelegate.swift */; };
-		4EE7A2391BDE417600C957BA /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 4EE7A2381BDE417600C957BA /* Assets.xcassets */; };
-		4EE7A23C1BDE417600C957BA /* MainMenu.xib in Resources */ = {isa = PBXBuildFile; fileRef = 4EE7A23A1BDE417600C957BA /* MainMenu.xib */; };
-		4EE7A2531BDE41B600C957BA /* AsyncTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4EE7A2511BDE41B600C957BA /* AsyncTests.swift */; };
-		4EE7A2571BDE42C700C957BA /* Async.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4EE7A24F1BDE418400C957BA /* Async.swift */; };
-		4EE7A2591BDE42D700C957BA /* Async.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4EE7A24F1BDE418400C957BA /* Async.swift */; };
-		4EE7A27E1BDE467100C957BA /* AsyncTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4EE7A2511BDE41B600C957BA /* AsyncTests.swift */; };
-		4EE7A27F1BDE468E00C957BA /* Async.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4EE7A24F1BDE418400C957BA /* Async.swift */; };
-		4EE7A2801BDE468F00C957BA /* Async.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4EE7A24F1BDE418400C957BA /* Async.swift */; };
-		9524933A1C61C3A500EEF97A /* AsyncGroupTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 952493391C61C3A500EEF97A /* AsyncGroupTests.swift */; };
-		9524933B1C61C3A500EEF97A /* AsyncGroupTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 952493391C61C3A500EEF97A /* AsyncGroupTests.swift */; };
-		9524933C1C61C3A500EEF97A /* AsyncGroupTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 952493391C61C3A500EEF97A /* AsyncGroupTests.swift */; };
+		4EFF420C1D5E8762006E32BD /* Async.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 4EFF42031D5E8762006E32BD /* Async.framework */; };
+		4EFF42131D5E8762006E32BD /* Async.h in Headers */ = {isa = PBXBuildFile; fileRef = 4EFF42051D5E8762006E32BD /* Async.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		4EFF421C1D5E87A6006E32BD /* AsyncGroupTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4EFF421A1D5E87A6006E32BD /* AsyncGroupTests.swift */; };
+		4EFF421D1D5E87A6006E32BD /* AsyncTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4EFF421B1D5E87A6006E32BD /* AsyncTests.swift */; };
+		4EFF421F1D5E8B01006E32BD /* Async.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4EFF421E1D5E8B01006E32BD /* Async.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
-		4EC98A591BE02E5E00A2EB40 /* PBXContainerItemProxy */ = {
+		4EFF420D1D5E8762006E32BD /* PBXContainerItemProxy */ = {
 			isa = PBXContainerItemProxy;
 			containerPortal = 4EE7A2051BDE415200C957BA /* Project object */;
 			proxyType = 1;
-			remoteGlobalIDString = 4EC98A471BE02E5E00A2EB40;
-			remoteInfo = AsynctvOS;
-		};
-		4EE7A2431BDE417700C957BA /* PBXContainerItemProxy */ = {
-			isa = PBXContainerItemProxy;
-			containerPortal = 4EE7A2051BDE415200C957BA /* Project object */;
-			proxyType = 1;
-			remoteGlobalIDString = 4EE7A2331BDE417600C957BA;
-			remoteInfo = AsyncOSX;
-		};
-		4EE7A2721BDE466A00C957BA /* PBXContainerItemProxy */ = {
-			isa = PBXContainerItemProxy;
-			containerPortal = 4EE7A2051BDE415200C957BA /* Project object */;
-			proxyType = 1;
-			remoteGlobalIDString = 4EE7A25D1BDE466A00C957BA;
-			remoteInfo = AsynciOS;
+			remoteGlobalIDString = 4EFF42021D5E8762006E32BD;
+			remoteInfo = Async;
 		};
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
-		4EC98A481BE02E5E00A2EB40 /* AsynctvOS.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = AsynctvOS.app; sourceTree = BUILT_PRODUCTS_DIR; };
-		4EC98A4A1BE02E5E00A2EB40 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
-		4EC98A4C1BE02E5E00A2EB40 /* ViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewController.swift; sourceTree = "<group>"; };
-		4EC98A4F1BE02E5E00A2EB40 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
-		4EC98A511BE02E5E00A2EB40 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
-		4EC98A531BE02E5E00A2EB40 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
-		4EC98A581BE02E5E00A2EB40 /* AsynctvOSTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = AsynctvOSTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
-		4EC98A5E1BE02E5E00A2EB40 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
-		4EE7A2101BDE415200C957BA /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
-		4EE7A2121BDE415200C957BA /* ViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewController.swift; sourceTree = "<group>"; };
-		4EE7A2151BDE415200C957BA /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
-		4EE7A2171BDE415200C957BA /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
-		4EE7A21A1BDE415200C957BA /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
-		4EE7A21C1BDE415200C957BA /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
-		4EE7A2271BDE415200C957BA /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
-		4EE7A2341BDE417600C957BA /* AsyncOSX.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = AsyncOSX.app; sourceTree = BUILT_PRODUCTS_DIR; };
-		4EE7A2361BDE417600C957BA /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
-		4EE7A2381BDE417600C957BA /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
-		4EE7A23B1BDE417600C957BA /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = Base; path = Base.lproj/MainMenu.xib; sourceTree = "<group>"; };
-		4EE7A23D1BDE417600C957BA /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
-		4EE7A2421BDE417700C957BA /* AsyncOSXTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = AsyncOSXTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
-		4EE7A2481BDE417700C957BA /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
-		4EE7A24F1BDE418400C957BA /* Async.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = Async.swift; path = ../Source/Async.swift; sourceTree = "<group>"; };
-		4EE7A2511BDE41B600C957BA /* AsyncTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AsyncTests.swift; sourceTree = "<group>"; };
-		4EE7A25E1BDE466A00C957BA /* AsynciOS.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = AsynciOS.app; sourceTree = BUILT_PRODUCTS_DIR; };
-		4EE7A2711BDE466A00C957BA /* AsynciOSTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = AsynciOSTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
-		952493391C61C3A500EEF97A /* AsyncGroupTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AsyncGroupTests.swift; sourceTree = "<group>"; };
+		4EFF42031D5E8762006E32BD /* Async.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Async.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		4EFF42051D5E8762006E32BD /* Async.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = Async.h; sourceTree = "<group>"; };
+		4EFF42061D5E8762006E32BD /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		4EFF420B1D5E8762006E32BD /* AsyncTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = AsyncTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
+		4EFF42121D5E8762006E32BD /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		4EFF421A1D5E87A6006E32BD /* AsyncGroupTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AsyncGroupTests.swift; sourceTree = "<group>"; };
+		4EFF421B1D5E87A6006E32BD /* AsyncTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AsyncTests.swift; sourceTree = "<group>"; };
+		4EFF421E1D5E8B01006E32BD /* Async.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = Async.swift; path = ../../Source/Async.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
-		4EC98A451BE02E5E00A2EB40 /* Frameworks */ = {
+		4EFF41FF1D5E8762006E32BD /* Frameworks */ = {
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
-		4EC98A551BE02E5E00A2EB40 /* Frameworks */ = {
+		4EFF42081D5E8762006E32BD /* Frameworks */ = {
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-		};
-		4EE7A2311BDE417600C957BA /* Frameworks */ = {
-			isa = PBXFrameworksBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-		};
-		4EE7A23F1BDE417700C957BA /* Frameworks */ = {
-			isa = PBXFrameworksBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-		};
-		4EE7A25B1BDE466A00C957BA /* Frameworks */ = {
-			isa = PBXFrameworksBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-		};
-		4EE7A26E1BDE466A00C957BA /* Frameworks */ = {
-			isa = PBXFrameworksBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
+				4EFF420C1D5E8762006E32BD /* Async.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
-		4EC98A491BE02E5E00A2EB40 /* AsynctvOS */ = {
-			isa = PBXGroup;
-			children = (
-				4EC98A4A1BE02E5E00A2EB40 /* AppDelegate.swift */,
-				4EC98A4C1BE02E5E00A2EB40 /* ViewController.swift */,
-				4EC98A4E1BE02E5E00A2EB40 /* Main.storyboard */,
-				4EC98A511BE02E5E00A2EB40 /* Assets.xcassets */,
-				4EC98A531BE02E5E00A2EB40 /* Info.plist */,
-			);
-			path = AsynctvOS;
-			sourceTree = "<group>";
-		};
-		4EC98A5B1BE02E5E00A2EB40 /* AsynctvOSTests */ = {
-			isa = PBXGroup;
-			children = (
-				4EC98A5E1BE02E5E00A2EB40 /* Info.plist */,
-			);
-			path = AsynctvOSTests;
-			sourceTree = "<group>";
-		};
 		4EE7A2041BDE415200C957BA = {
 			isa = PBXGroup;
 			children = (
-				4EE7A24F1BDE418400C957BA /* Async.swift */,
-				4EE7A2511BDE41B600C957BA /* AsyncTests.swift */,
-				952493391C61C3A500EEF97A /* AsyncGroupTests.swift */,
-				4EE7A20F1BDE415200C957BA /* AsynciOS */,
-				4EE7A2241BDE415200C957BA /* AsynciOSTests */,
-				4EE7A2351BDE417600C957BA /* AsyncOSX */,
-				4EE7A2451BDE417700C957BA /* AsyncOSXTests */,
-				4EC98A491BE02E5E00A2EB40 /* AsynctvOS */,
-				4EC98A5B1BE02E5E00A2EB40 /* AsynctvOSTests */,
+				4EFF42041D5E8762006E32BD /* Async */,
+				4EFF420F1D5E8762006E32BD /* AsyncTests */,
 				4EE7A20E1BDE415200C957BA /* Products */,
 			);
 			sourceTree = "<group>";
@@ -172,162 +66,82 @@
 		4EE7A20E1BDE415200C957BA /* Products */ = {
 			isa = PBXGroup;
 			children = (
-				4EE7A2341BDE417600C957BA /* AsyncOSX.app */,
-				4EE7A2421BDE417700C957BA /* AsyncOSXTests.xctest */,
-				4EE7A25E1BDE466A00C957BA /* AsynciOS.app */,
-				4EE7A2711BDE466A00C957BA /* AsynciOSTests.xctest */,
-				4EC98A481BE02E5E00A2EB40 /* AsynctvOS.app */,
-				4EC98A581BE02E5E00A2EB40 /* AsynctvOSTests.xctest */,
+				4EFF42031D5E8762006E32BD /* Async.framework */,
+				4EFF420B1D5E8762006E32BD /* AsyncTests.xctest */,
 			);
 			name = Products;
 			sourceTree = "<group>";
 		};
-		4EE7A20F1BDE415200C957BA /* AsynciOS */ = {
+		4EFF42041D5E8762006E32BD /* Async */ = {
 			isa = PBXGroup;
 			children = (
-				4EE7A2101BDE415200C957BA /* AppDelegate.swift */,
-				4EE7A2121BDE415200C957BA /* ViewController.swift */,
-				4EE7A2141BDE415200C957BA /* Main.storyboard */,
-				4EE7A2171BDE415200C957BA /* Assets.xcassets */,
-				4EE7A2191BDE415200C957BA /* LaunchScreen.storyboard */,
-				4EE7A21C1BDE415200C957BA /* Info.plist */,
+				4EFF42051D5E8762006E32BD /* Async.h */,
+				4EFF421E1D5E8B01006E32BD /* Async.swift */,
+				4EFF42061D5E8762006E32BD /* Info.plist */,
 			);
-			path = AsynciOS;
+			name = Async;
+			path = Sources;
 			sourceTree = "<group>";
 		};
-		4EE7A2241BDE415200C957BA /* AsynciOSTests */ = {
+		4EFF420F1D5E8762006E32BD /* AsyncTests */ = {
 			isa = PBXGroup;
 			children = (
-				4EE7A2271BDE415200C957BA /* Info.plist */,
+				4EFF421A1D5E87A6006E32BD /* AsyncGroupTests.swift */,
+				4EFF421B1D5E87A6006E32BD /* AsyncTests.swift */,
+				4EFF42121D5E8762006E32BD /* Info.plist */,
 			);
-			path = AsynciOSTests;
-			sourceTree = "<group>";
-		};
-		4EE7A2351BDE417600C957BA /* AsyncOSX */ = {
-			isa = PBXGroup;
-			children = (
-				4EE7A2361BDE417600C957BA /* AppDelegate.swift */,
-				4EE7A2381BDE417600C957BA /* Assets.xcassets */,
-				4EE7A23A1BDE417600C957BA /* MainMenu.xib */,
-				4EE7A23D1BDE417600C957BA /* Info.plist */,
-			);
-			path = AsyncOSX;
-			sourceTree = "<group>";
-		};
-		4EE7A2451BDE417700C957BA /* AsyncOSXTests */ = {
-			isa = PBXGroup;
-			children = (
-				4EE7A2481BDE417700C957BA /* Info.plist */,
-			);
-			path = AsyncOSXTests;
+			name = AsyncTests;
+			path = Tests;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
 
+/* Begin PBXHeadersBuildPhase section */
+		4EFF42001D5E8762006E32BD /* Headers */ = {
+			isa = PBXHeadersBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				4EFF42131D5E8762006E32BD /* Async.h in Headers */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXHeadersBuildPhase section */
+
 /* Begin PBXNativeTarget section */
-		4EC98A471BE02E5E00A2EB40 /* AsynctvOS */ = {
+		4EFF42021D5E8762006E32BD /* Async */ = {
 			isa = PBXNativeTarget;
-			buildConfigurationList = 4EC98A5F1BE02E5E00A2EB40 /* Build configuration list for PBXNativeTarget "AsynctvOS" */;
+			buildConfigurationList = 4EFF42141D5E8762006E32BD /* Build configuration list for PBXNativeTarget "Async" */;
 			buildPhases = (
-				4EC98A441BE02E5E00A2EB40 /* Sources */,
-				4EC98A451BE02E5E00A2EB40 /* Frameworks */,
-				4EC98A461BE02E5E00A2EB40 /* Resources */,
+				4EFF41FE1D5E8762006E32BD /* Sources */,
+				4EFF41FF1D5E8762006E32BD /* Frameworks */,
+				4EFF42001D5E8762006E32BD /* Headers */,
+				4EFF42011D5E8762006E32BD /* Resources */,
 			);
 			buildRules = (
 			);
 			dependencies = (
 			);
-			name = AsynctvOS;
-			productName = AsynctvOS;
-			productReference = 4EC98A481BE02E5E00A2EB40 /* AsynctvOS.app */;
-			productType = "com.apple.product-type.application";
+			name = Async;
+			productName = Async;
+			productReference = 4EFF42031D5E8762006E32BD /* Async.framework */;
+			productType = "com.apple.product-type.framework";
 		};
-		4EC98A571BE02E5E00A2EB40 /* AsynctvOSTests */ = {
+		4EFF420A1D5E8762006E32BD /* AsyncTests */ = {
 			isa = PBXNativeTarget;
-			buildConfigurationList = 4EC98A621BE02E5E00A2EB40 /* Build configuration list for PBXNativeTarget "AsynctvOSTests" */;
+			buildConfigurationList = 4EFF42171D5E8762006E32BD /* Build configuration list for PBXNativeTarget "AsyncTests" */;
 			buildPhases = (
-				4EC98A541BE02E5E00A2EB40 /* Sources */,
-				4EC98A551BE02E5E00A2EB40 /* Frameworks */,
-				4EC98A561BE02E5E00A2EB40 /* Resources */,
+				4EFF42071D5E8762006E32BD /* Sources */,
+				4EFF42081D5E8762006E32BD /* Frameworks */,
+				4EFF42091D5E8762006E32BD /* Resources */,
 			);
 			buildRules = (
 			);
 			dependencies = (
-				4EC98A5A1BE02E5E00A2EB40 /* PBXTargetDependency */,
+				4EFF420E1D5E8762006E32BD /* PBXTargetDependency */,
 			);
-			name = AsynctvOSTests;
-			productName = AsynctvOSTests;
-			productReference = 4EC98A581BE02E5E00A2EB40 /* AsynctvOSTests.xctest */;
-			productType = "com.apple.product-type.bundle.unit-test";
-		};
-		4EE7A2331BDE417600C957BA /* AsyncOSX */ = {
-			isa = PBXNativeTarget;
-			buildConfigurationList = 4EE7A24D1BDE417700C957BA /* Build configuration list for PBXNativeTarget "AsyncOSX" */;
-			buildPhases = (
-				4EE7A2301BDE417600C957BA /* Sources */,
-				4EE7A2311BDE417600C957BA /* Frameworks */,
-				4EE7A2321BDE417600C957BA /* Resources */,
-			);
-			buildRules = (
-			);
-			dependencies = (
-			);
-			name = AsyncOSX;
-			productName = AsyncOSX;
-			productReference = 4EE7A2341BDE417600C957BA /* AsyncOSX.app */;
-			productType = "com.apple.product-type.application";
-		};
-		4EE7A2411BDE417700C957BA /* AsyncOSXTests */ = {
-			isa = PBXNativeTarget;
-			buildConfigurationList = 4EE7A24E1BDE417700C957BA /* Build configuration list for PBXNativeTarget "AsyncOSXTests" */;
-			buildPhases = (
-				4EE7A23E1BDE417700C957BA /* Sources */,
-				4EE7A23F1BDE417700C957BA /* Frameworks */,
-				4EE7A2401BDE417700C957BA /* Resources */,
-			);
-			buildRules = (
-			);
-			dependencies = (
-				4EE7A2441BDE417700C957BA /* PBXTargetDependency */,
-			);
-			name = AsyncOSXTests;
-			productName = AsyncOSXTests;
-			productReference = 4EE7A2421BDE417700C957BA /* AsyncOSXTests.xctest */;
-			productType = "com.apple.product-type.bundle.unit-test";
-		};
-		4EE7A25D1BDE466A00C957BA /* AsynciOS */ = {
-			isa = PBXNativeTarget;
-			buildConfigurationList = 4EE7A2781BDE466B00C957BA /* Build configuration list for PBXNativeTarget "AsynciOS" */;
-			buildPhases = (
-				4EE7A25A1BDE466A00C957BA /* Sources */,
-				4EE7A25B1BDE466A00C957BA /* Frameworks */,
-				4EE7A25C1BDE466A00C957BA /* Resources */,
-			);
-			buildRules = (
-			);
-			dependencies = (
-			);
-			name = AsynciOS;
-			productName = AsynciOS;
-			productReference = 4EE7A25E1BDE466A00C957BA /* AsynciOS.app */;
-			productType = "com.apple.product-type.application";
-		};
-		4EE7A2701BDE466A00C957BA /* AsynciOSTests */ = {
-			isa = PBXNativeTarget;
-			buildConfigurationList = 4EE7A27B1BDE466B00C957BA /* Build configuration list for PBXNativeTarget "AsynciOSTests" */;
-			buildPhases = (
-				4EE7A26D1BDE466A00C957BA /* Sources */,
-				4EE7A26E1BDE466A00C957BA /* Frameworks */,
-				4EE7A26F1BDE466A00C957BA /* Resources */,
-			);
-			buildRules = (
-			);
-			dependencies = (
-				4EE7A2731BDE466A00C957BA /* PBXTargetDependency */,
-			);
-			name = AsynciOSTests;
-			productName = AsynciOSTests;
-			productReference = 4EE7A2711BDE466A00C957BA /* AsynciOSTests.xctest */;
+			name = AsyncTests;
+			productName = AsyncTests;
+			productReference = 4EFF420B1D5E8762006E32BD /* AsyncTests.xctest */;
 			productType = "com.apple.product-type.bundle.unit-test";
 		};
 /* End PBXNativeTarget section */
@@ -336,30 +150,19 @@
 		4EE7A2051BDE415200C957BA /* Project object */ = {
 			isa = PBXProject;
 			attributes = {
-				LastSwiftUpdateCheck = 0710;
+				LastSwiftUpdateCheck = 0800;
 				LastUpgradeCheck = 0710;
 				ORGANIZATIONNAME = developmunk;
 				TargetAttributes = {
-					4EC98A471BE02E5E00A2EB40 = {
-						CreatedOnToolsVersion = 7.1;
+					4EFF42021D5E8762006E32BD = {
+						CreatedOnToolsVersion = 8.0;
+						LastSwiftMigration = 0800;
+						ProvisioningStyle = Automatic;
 					};
-					4EC98A571BE02E5E00A2EB40 = {
-						CreatedOnToolsVersion = 7.1;
-						TestTargetID = 4EC98A471BE02E5E00A2EB40;
-					};
-					4EE7A2331BDE417600C957BA = {
-						CreatedOnToolsVersion = 7.1;
-					};
-					4EE7A2411BDE417700C957BA = {
-						CreatedOnToolsVersion = 7.1;
-						TestTargetID = 4EE7A2331BDE417600C957BA;
-					};
-					4EE7A25D1BDE466A00C957BA = {
-						CreatedOnToolsVersion = 7.1;
-					};
-					4EE7A2701BDE466A00C957BA = {
-						CreatedOnToolsVersion = 7.1;
-						TestTargetID = 4EE7A25D1BDE466A00C957BA;
+					4EFF420A1D5E8762006E32BD = {
+						CreatedOnToolsVersion = 8.0;
+						LastSwiftMigration = 0800;
+						ProvisioningStyle = Automatic;
 					};
 				};
 			};
@@ -376,60 +179,21 @@
 			projectDirPath = "";
 			projectRoot = "";
 			targets = (
-				4EE7A2331BDE417600C957BA /* AsyncOSX */,
-				4EE7A2411BDE417700C957BA /* AsyncOSXTests */,
-				4EE7A25D1BDE466A00C957BA /* AsynciOS */,
-				4EE7A2701BDE466A00C957BA /* AsynciOSTests */,
-				4EC98A471BE02E5E00A2EB40 /* AsynctvOS */,
-				4EC98A571BE02E5E00A2EB40 /* AsynctvOSTests */,
+				4EFF42021D5E8762006E32BD /* Async */,
+				4EFF420A1D5E8762006E32BD /* AsyncTests */,
 			);
 		};
 /* End PBXProject section */
 
 /* Begin PBXResourcesBuildPhase section */
-		4EC98A461BE02E5E00A2EB40 /* Resources */ = {
-			isa = PBXResourcesBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-				4EC98A521BE02E5E00A2EB40 /* Assets.xcassets in Resources */,
-				4EC98A501BE02E5E00A2EB40 /* Main.storyboard in Resources */,
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-		};
-		4EC98A561BE02E5E00A2EB40 /* Resources */ = {
+		4EFF42011D5E8762006E32BD /* Resources */ = {
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
-		4EE7A2321BDE417600C957BA /* Resources */ = {
-			isa = PBXResourcesBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-				4EE7A2391BDE417600C957BA /* Assets.xcassets in Resources */,
-				4EE7A23C1BDE417600C957BA /* MainMenu.xib in Resources */,
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-		};
-		4EE7A2401BDE417700C957BA /* Resources */ = {
-			isa = PBXResourcesBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-		};
-		4EE7A25C1BDE466A00C957BA /* Resources */ = {
-			isa = PBXResourcesBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-				4EC98A6C1BE0303C00A2EB40 /* LaunchScreen.storyboard in Resources */,
-				4EC98A6B1BE0303800A2EB40 /* Assets.xcassets in Resources */,
-				4EC98A691BE0303200A2EB40 /* Main.storyboard in Resources */,
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-		};
-		4EE7A26F1BDE466A00C957BA /* Resources */ = {
+		4EFF42091D5E8762006E32BD /* Resources */ = {
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
@@ -439,179 +203,34 @@
 /* End PBXResourcesBuildPhase section */
 
 /* Begin PBXSourcesBuildPhase section */
-		4EC98A441BE02E5E00A2EB40 /* Sources */ = {
+		4EFF41FE1D5E8762006E32BD /* Sources */ = {
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				4EC98A4D1BE02E5E00A2EB40 /* ViewController.swift in Sources */,
-				4EC98A661BE02E6A00A2EB40 /* Async.swift in Sources */,
-				4EC98A4B1BE02E5E00A2EB40 /* AppDelegate.swift in Sources */,
+				4EFF421F1D5E8B01006E32BD /* Async.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
-		4EC98A541BE02E5E00A2EB40 /* Sources */ = {
+		4EFF42071D5E8762006E32BD /* Sources */ = {
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				4EC98A651BE02E6700A2EB40 /* AsyncTests.swift in Sources */,
-				9524933C1C61C3A500EEF97A /* AsyncGroupTests.swift in Sources */,
-				4EC98A671BE02E6B00A2EB40 /* Async.swift in Sources */,
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-		};
-		4EE7A2301BDE417600C957BA /* Sources */ = {
-			isa = PBXSourcesBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-				4EE7A2571BDE42C700C957BA /* Async.swift in Sources */,
-				4EE7A2371BDE417600C957BA /* AppDelegate.swift in Sources */,
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-		};
-		4EE7A23E1BDE417700C957BA /* Sources */ = {
-			isa = PBXSourcesBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-				4EE7A2591BDE42D700C957BA /* Async.swift in Sources */,
-				9524933A1C61C3A500EEF97A /* AsyncGroupTests.swift in Sources */,
-				4EE7A2531BDE41B600C957BA /* AsyncTests.swift in Sources */,
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-		};
-		4EE7A25A1BDE466A00C957BA /* Sources */ = {
-			isa = PBXSourcesBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-				4EC98A6A1BE0303500A2EB40 /* ViewController.swift in Sources */,
-				4EC98A681BE0302B00A2EB40 /* AppDelegate.swift in Sources */,
-				4EE7A27F1BDE468E00C957BA /* Async.swift in Sources */,
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-		};
-		4EE7A26D1BDE466A00C957BA /* Sources */ = {
-			isa = PBXSourcesBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-				4EE7A27E1BDE467100C957BA /* AsyncTests.swift in Sources */,
-				9524933B1C61C3A500EEF97A /* AsyncGroupTests.swift in Sources */,
-				4EE7A2801BDE468F00C957BA /* Async.swift in Sources */,
+				4EFF421D1D5E87A6006E32BD /* AsyncTests.swift in Sources */,
+				4EFF421C1D5E87A6006E32BD /* AsyncGroupTests.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 /* End PBXSourcesBuildPhase section */
 
 /* Begin PBXTargetDependency section */
-		4EC98A5A1BE02E5E00A2EB40 /* PBXTargetDependency */ = {
+		4EFF420E1D5E8762006E32BD /* PBXTargetDependency */ = {
 			isa = PBXTargetDependency;
-			target = 4EC98A471BE02E5E00A2EB40 /* AsynctvOS */;
-			targetProxy = 4EC98A591BE02E5E00A2EB40 /* PBXContainerItemProxy */;
-		};
-		4EE7A2441BDE417700C957BA /* PBXTargetDependency */ = {
-			isa = PBXTargetDependency;
-			target = 4EE7A2331BDE417600C957BA /* AsyncOSX */;
-			targetProxy = 4EE7A2431BDE417700C957BA /* PBXContainerItemProxy */;
-		};
-		4EE7A2731BDE466A00C957BA /* PBXTargetDependency */ = {
-			isa = PBXTargetDependency;
-			target = 4EE7A25D1BDE466A00C957BA /* AsynciOS */;
-			targetProxy = 4EE7A2721BDE466A00C957BA /* PBXContainerItemProxy */;
+			target = 4EFF42021D5E8762006E32BD /* Async */;
+			targetProxy = 4EFF420D1D5E8762006E32BD /* PBXContainerItemProxy */;
 		};
 /* End PBXTargetDependency section */
 
-/* Begin PBXVariantGroup section */
-		4EC98A4E1BE02E5E00A2EB40 /* Main.storyboard */ = {
-			isa = PBXVariantGroup;
-			children = (
-				4EC98A4F1BE02E5E00A2EB40 /* Base */,
-			);
-			name = Main.storyboard;
-			sourceTree = "<group>";
-		};
-		4EE7A2141BDE415200C957BA /* Main.storyboard */ = {
-			isa = PBXVariantGroup;
-			children = (
-				4EE7A2151BDE415200C957BA /* Base */,
-			);
-			name = Main.storyboard;
-			sourceTree = "<group>";
-		};
-		4EE7A2191BDE415200C957BA /* LaunchScreen.storyboard */ = {
-			isa = PBXVariantGroup;
-			children = (
-				4EE7A21A1BDE415200C957BA /* Base */,
-			);
-			name = LaunchScreen.storyboard;
-			sourceTree = "<group>";
-		};
-		4EE7A23A1BDE417600C957BA /* MainMenu.xib */ = {
-			isa = PBXVariantGroup;
-			children = (
-				4EE7A23B1BDE417600C957BA /* Base */,
-			);
-			name = MainMenu.xib;
-			sourceTree = "<group>";
-		};
-/* End PBXVariantGroup section */
-
 /* Begin XCBuildConfiguration section */
-		4EC98A601BE02E5E00A2EB40 /* Debug */ = {
-			isa = XCBuildConfiguration;
-			buildSettings = {
-				ASSETCATALOG_COMPILER_APPICON_NAME = "App Icon & Top Shelf Image";
-				ASSETCATALOG_COMPILER_LAUNCHIMAGE_NAME = LaunchImage;
-				INFOPLIST_FILE = AsynctvOS/Info.plist;
-				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
-				PRODUCT_BUNDLE_IDENTIFIER = dk.developmunk.AsynctvOS;
-				PRODUCT_NAME = "$(TARGET_NAME)";
-				SDKROOT = appletvos;
-				TARGETED_DEVICE_FAMILY = 3;
-				TVOS_DEPLOYMENT_TARGET = 9.0;
-			};
-			name = Debug;
-		};
-		4EC98A611BE02E5E00A2EB40 /* Release */ = {
-			isa = XCBuildConfiguration;
-			buildSettings = {
-				ASSETCATALOG_COMPILER_APPICON_NAME = "App Icon & Top Shelf Image";
-				ASSETCATALOG_COMPILER_LAUNCHIMAGE_NAME = LaunchImage;
-				INFOPLIST_FILE = AsynctvOS/Info.plist;
-				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
-				PRODUCT_BUNDLE_IDENTIFIER = dk.developmunk.AsynctvOS;
-				PRODUCT_NAME = "$(TARGET_NAME)";
-				SDKROOT = appletvos;
-				TARGETED_DEVICE_FAMILY = 3;
-				TVOS_DEPLOYMENT_TARGET = 9.0;
-			};
-			name = Release;
-		};
-		4EC98A631BE02E5E00A2EB40 /* Debug */ = {
-			isa = XCBuildConfiguration;
-			buildSettings = {
-				BUNDLE_LOADER = "$(TEST_HOST)";
-				INFOPLIST_FILE = AsynctvOSTests/Info.plist;
-				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
-				PRODUCT_BUNDLE_IDENTIFIER = dk.developmunk.AsynctvOSTests;
-				PRODUCT_NAME = "$(TARGET_NAME)";
-				SDKROOT = appletvos;
-				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/AsynctvOS.app/AsynctvOS";
-				TVOS_DEPLOYMENT_TARGET = 9.0;
-			};
-			name = Debug;
-		};
-		4EC98A641BE02E5E00A2EB40 /* Release */ = {
-			isa = XCBuildConfiguration;
-			buildSettings = {
-				BUNDLE_LOADER = "$(TEST_HOST)";
-				INFOPLIST_FILE = AsynctvOSTests/Info.plist;
-				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
-				PRODUCT_BUNDLE_IDENTIFIER = dk.developmunk.AsynctvOSTests;
-				PRODUCT_NAME = "$(TARGET_NAME)";
-				SDKROOT = appletvos;
-				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/AsynctvOS.app/AsynctvOS";
-				TVOS_DEPLOYMENT_TARGET = 9.0;
-			};
-			name = Release;
-		};
 		4EE7A2281BDE415200C957BA /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
@@ -648,11 +267,15 @@
 				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
 				GCC_WARN_UNUSED_FUNCTION = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
+				IPHONEOS_DEPLOYMENT_TARGET = 8.0;
+				MACOSX_DEPLOYMENT_TARGET = 10.10;
 				MTL_ENABLE_DEBUG_INFO = YES;
 				ONLY_ACTIVE_ARCH = YES;
-				SDKROOT = iphoneos;
+				SUPPORTED_PLATFORMS = "iphonesimulator iphoneos watchsimulator watchos appletvsimulator appletvos macosx";
 				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
-				TARGETED_DEVICE_FAMILY = "1,2";
+				TARGETED_DEVICE_FAMILY = "1,2,3,4";
+				TVOS_DEPLOYMENT_TARGET = 9.0;
+				WATCHOS_DEPLOYMENT_TARGET = 2.0;
 			};
 			name = Debug;
 		};
@@ -686,146 +309,110 @@
 				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
 				GCC_WARN_UNUSED_FUNCTION = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
+				IPHONEOS_DEPLOYMENT_TARGET = 8.0;
+				MACOSX_DEPLOYMENT_TARGET = 10.10;
 				MTL_ENABLE_DEBUG_INFO = NO;
-				SDKROOT = iphoneos;
-				TARGETED_DEVICE_FAMILY = "1,2";
+				SUPPORTED_PLATFORMS = "iphonesimulator iphoneos watchsimulator watchos appletvsimulator appletvos macosx";
+				TARGETED_DEVICE_FAMILY = "1,2,3,4";
+				TVOS_DEPLOYMENT_TARGET = 9.0;
 				VALIDATE_PRODUCT = YES;
+				WATCHOS_DEPLOYMENT_TARGET = 2.0;
 			};
 			name = Release;
 		};
-		4EE7A2491BDE417700C957BA /* Debug */ = {
+		4EFF42151D5E8762006E32BD /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
-				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
-				CODE_SIGN_IDENTITY = "-";
+				CLANG_ANALYZER_NONNULL = YES;
+				CLANG_ENABLE_MODULES = YES;
+				CLANG_WARN_DOCUMENTATION_COMMENTS = YES;
+				CLANG_WARN_INFINITE_RECURSION = YES;
+				CLANG_WARN_SUSPICIOUS_MOVES = YES;
 				COMBINE_HIDPI_IMAGES = YES;
-				INFOPLIST_FILE = AsyncOSX/Info.plist;
-				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/../Frameworks";
-				MACOSX_DEPLOYMENT_TARGET = 10.10;
-				PRODUCT_BUNDLE_IDENTIFIER = dk.developmunk.AsyncOSX;
-				PRODUCT_NAME = "$(TARGET_NAME)";
-				SDKROOT = macosx;
-			};
-			name = Debug;
-		};
-		4EE7A24A1BDE417700C957BA /* Release */ = {
-			isa = XCBuildConfiguration;
-			buildSettings = {
-				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
-				CODE_SIGN_IDENTITY = "-";
-				COMBINE_HIDPI_IMAGES = YES;
-				INFOPLIST_FILE = AsyncOSX/Info.plist;
-				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/../Frameworks";
-				MACOSX_DEPLOYMENT_TARGET = 10.10;
-				PRODUCT_BUNDLE_IDENTIFIER = dk.developmunk.AsyncOSX;
-				PRODUCT_NAME = "$(TARGET_NAME)";
-				SDKROOT = macosx;
-			};
-			name = Release;
-		};
-		4EE7A24B1BDE417700C957BA /* Debug */ = {
-			isa = XCBuildConfiguration;
-			buildSettings = {
-				BUNDLE_LOADER = "$(TEST_HOST)";
-				CODE_SIGN_IDENTITY = "-";
-				COMBINE_HIDPI_IMAGES = YES;
-				INFOPLIST_FILE = AsyncOSXTests/Info.plist;
-				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/../Frameworks @loader_path/../Frameworks";
-				MACOSX_DEPLOYMENT_TARGET = 10.11;
-				PRODUCT_BUNDLE_IDENTIFIER = dk.developmunk.AsyncOSXTests;
-				PRODUCT_NAME = "$(TARGET_NAME)";
-				SDKROOT = macosx;
-				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/AsyncOSX.app/Contents/MacOS/AsyncOSX";
-			};
-			name = Debug;
-		};
-		4EE7A24C1BDE417700C957BA /* Release */ = {
-			isa = XCBuildConfiguration;
-			buildSettings = {
-				BUNDLE_LOADER = "$(TEST_HOST)";
-				CODE_SIGN_IDENTITY = "-";
-				COMBINE_HIDPI_IMAGES = YES;
-				INFOPLIST_FILE = AsyncOSXTests/Info.plist;
-				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/../Frameworks @loader_path/../Frameworks";
-				MACOSX_DEPLOYMENT_TARGET = 10.11;
-				PRODUCT_BUNDLE_IDENTIFIER = dk.developmunk.AsyncOSXTests;
-				PRODUCT_NAME = "$(TARGET_NAME)";
-				SDKROOT = macosx;
-				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/AsyncOSX.app/Contents/MacOS/AsyncOSX";
-			};
-			name = Release;
-		};
-		4EE7A2791BDE466B00C957BA /* Debug */ = {
-			isa = XCBuildConfiguration;
-			buildSettings = {
-				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
-				INFOPLIST_FILE = AsynciOS/Info.plist;
-				IPHONEOS_DEPLOYMENT_TARGET = 8.0;
-				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
-				PRODUCT_BUNDLE_IDENTIFIER = dk.developmunk.AsynciOS;
-				PRODUCT_NAME = "$(TARGET_NAME)";
-			};
-			name = Debug;
-		};
-		4EE7A27A1BDE466B00C957BA /* Release */ = {
-			isa = XCBuildConfiguration;
-			buildSettings = {
-				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
-				INFOPLIST_FILE = AsynciOS/Info.plist;
-				IPHONEOS_DEPLOYMENT_TARGET = 8.0;
-				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
-				PRODUCT_BUNDLE_IDENTIFIER = dk.developmunk.AsynciOS;
-				PRODUCT_NAME = "$(TARGET_NAME)";
-			};
-			name = Release;
-		};
-		4EE7A27C1BDE466B00C957BA /* Debug */ = {
-			isa = XCBuildConfiguration;
-			buildSettings = {
-				BUNDLE_LOADER = "$(TEST_HOST)";
-				INFOPLIST_FILE = AsynciOSTests/Info.plist;
-				IPHONEOS_DEPLOYMENT_TARGET = 9.1;
+				DEFINES_MODULE = YES;
+				DYLIB_COMPATIBILITY_VERSION = 1;
+				DYLIB_CURRENT_VERSION = 1;
+				DYLIB_INSTALL_NAME_BASE = "@rpath";
+				INFOPLIST_FILE = Sources/Info.plist;
+				INSTALL_PATH = "$(LOCAL_LIBRARY_DIR)/Frameworks";
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
-				PRODUCT_BUNDLE_IDENTIFIER = dk.developmunk.AsynciOSTests;
+				MODULEMAP_FILE = Sources/module.modulemap;
+				PRODUCT_BUNDLE_IDENTIFIER = dk.developmunk.Async;
 				PRODUCT_NAME = "$(TARGET_NAME)";
-				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/AsynciOS.app/AsynciOS";
+				SKIP_INSTALL = YES;
+				SWIFT_ACTIVE_COMPILATION_CONDITIONS = DEBUG;
+				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
+				SWIFT_VERSION = 3.0;
 			};
 			name = Debug;
 		};
-		4EE7A27D1BDE466B00C957BA /* Release */ = {
+		4EFF42161D5E8762006E32BD /* Release */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
-				BUNDLE_LOADER = "$(TEST_HOST)";
-				INFOPLIST_FILE = AsynciOSTests/Info.plist;
-				IPHONEOS_DEPLOYMENT_TARGET = 9.1;
+				CLANG_ANALYZER_NONNULL = YES;
+				CLANG_ENABLE_MODULES = YES;
+				CLANG_WARN_DOCUMENTATION_COMMENTS = YES;
+				CLANG_WARN_INFINITE_RECURSION = YES;
+				CLANG_WARN_SUSPICIOUS_MOVES = YES;
+				COMBINE_HIDPI_IMAGES = YES;
+				DEFINES_MODULE = YES;
+				DYLIB_COMPATIBILITY_VERSION = 1;
+				DYLIB_CURRENT_VERSION = 1;
+				DYLIB_INSTALL_NAME_BASE = "@rpath";
+				INFOPLIST_FILE = Sources/Info.plist;
+				INSTALL_PATH = "$(LOCAL_LIBRARY_DIR)/Frameworks";
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
-				PRODUCT_BUNDLE_IDENTIFIER = dk.developmunk.AsynciOSTests;
+				MODULEMAP_FILE = Sources/module.modulemap;
+				PRODUCT_BUNDLE_IDENTIFIER = dk.developmunk.Async;
 				PRODUCT_NAME = "$(TARGET_NAME)";
-				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/AsynciOS.app/AsynciOS";
+				SKIP_INSTALL = YES;
+				SWIFT_OPTIMIZATION_LEVEL = "-Owholemodule";
+				SWIFT_VERSION = 3.0;
+			};
+			name = Release;
+		};
+		4EFF42181D5E8762006E32BD /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				CLANG_ANALYZER_NONNULL = YES;
+				CLANG_ENABLE_MODULES = YES;
+				CLANG_WARN_DOCUMENTATION_COMMENTS = YES;
+				CLANG_WARN_INFINITE_RECURSION = YES;
+				CLANG_WARN_SUSPICIOUS_MOVES = YES;
+				COMBINE_HIDPI_IMAGES = YES;
+				INFOPLIST_FILE = Tests/Info.plist;
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
+				"LD_RUNPATH_SEARCH_PATHS[sdk=macosx*]" = "$(inherited) @executable_path/../Frameworks @loader_path/../Frameworks";
+				PRODUCT_BUNDLE_IDENTIFIER = dk.developmunk.AsyncTests;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_ACTIVE_COMPILATION_CONDITIONS = DEBUG;
+				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
+				SWIFT_VERSION = 3.0;
+			};
+			name = Debug;
+		};
+		4EFF42191D5E8762006E32BD /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				CLANG_ANALYZER_NONNULL = YES;
+				CLANG_ENABLE_MODULES = YES;
+				CLANG_WARN_DOCUMENTATION_COMMENTS = YES;
+				CLANG_WARN_INFINITE_RECURSION = YES;
+				CLANG_WARN_SUSPICIOUS_MOVES = YES;
+				COMBINE_HIDPI_IMAGES = YES;
+				INFOPLIST_FILE = Tests/Info.plist;
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
+				"LD_RUNPATH_SEARCH_PATHS[sdk=macosx*]" = "$(inherited) @executable_path/../Frameworks @loader_path/../Frameworks";
+				PRODUCT_BUNDLE_IDENTIFIER = dk.developmunk.AsyncTests;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_OPTIMIZATION_LEVEL = "-Owholemodule";
+				SWIFT_VERSION = 3.0;
 			};
 			name = Release;
 		};
 /* End XCBuildConfiguration section */
 
 /* Begin XCConfigurationList section */
-		4EC98A5F1BE02E5E00A2EB40 /* Build configuration list for PBXNativeTarget "AsynctvOS" */ = {
-			isa = XCConfigurationList;
-			buildConfigurations = (
-				4EC98A601BE02E5E00A2EB40 /* Debug */,
-				4EC98A611BE02E5E00A2EB40 /* Release */,
-			);
-			defaultConfigurationIsVisible = 0;
-			defaultConfigurationName = Release;
-		};
-		4EC98A621BE02E5E00A2EB40 /* Build configuration list for PBXNativeTarget "AsynctvOSTests" */ = {
-			isa = XCConfigurationList;
-			buildConfigurations = (
-				4EC98A631BE02E5E00A2EB40 /* Debug */,
-				4EC98A641BE02E5E00A2EB40 /* Release */,
-			);
-			defaultConfigurationIsVisible = 0;
-			defaultConfigurationName = Release;
-		};
 		4EE7A2081BDE415200C957BA /* Build configuration list for PBXProject "Async" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
@@ -835,41 +422,21 @@
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;
 		};
-		4EE7A24D1BDE417700C957BA /* Build configuration list for PBXNativeTarget "AsyncOSX" */ = {
+		4EFF42141D5E8762006E32BD /* Build configuration list for PBXNativeTarget "Async" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
-				4EE7A2491BDE417700C957BA /* Debug */,
-				4EE7A24A1BDE417700C957BA /* Release */,
+				4EFF42151D5E8762006E32BD /* Debug */,
+				4EFF42161D5E8762006E32BD /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
-			defaultConfigurationName = Release;
 		};
-		4EE7A24E1BDE417700C957BA /* Build configuration list for PBXNativeTarget "AsyncOSXTests" */ = {
+		4EFF42171D5E8762006E32BD /* Build configuration list for PBXNativeTarget "AsyncTests" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
-				4EE7A24B1BDE417700C957BA /* Debug */,
-				4EE7A24C1BDE417700C957BA /* Release */,
+				4EFF42181D5E8762006E32BD /* Debug */,
+				4EFF42191D5E8762006E32BD /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
-			defaultConfigurationName = Release;
-		};
-		4EE7A2781BDE466B00C957BA /* Build configuration list for PBXNativeTarget "AsynciOS" */ = {
-			isa = XCConfigurationList;
-			buildConfigurations = (
-				4EE7A2791BDE466B00C957BA /* Debug */,
-				4EE7A27A1BDE466B00C957BA /* Release */,
-			);
-			defaultConfigurationIsVisible = 0;
-			defaultConfigurationName = Release;
-		};
-		4EE7A27B1BDE466B00C957BA /* Build configuration list for PBXNativeTarget "AsynciOSTests" */ = {
-			isa = XCConfigurationList;
-			buildConfigurations = (
-				4EE7A27C1BDE466B00C957BA /* Debug */,
-				4EE7A27D1BDE466B00C957BA /* Release */,
-			);
-			defaultConfigurationIsVisible = 0;
-			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
 	};
