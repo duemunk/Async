@@ -715,6 +715,33 @@ public struct AsyncGroup {
             ?? .distantFuture
         return group.wait(timeout: timeout)
     }
+    
+    /**
+     Convenience for `DispatchGroup().notify`. Waits for current group to finish before performing this block.
+     
+     - parameters:
+     - queue: The queue on which the `block` is run.
+     - block: The block that is to be passed to be run on the `queue`
+     
+     - SeeAlso: dispatch_group_notify
+     */
+    public func notify(queue: DispatchQueue, block: @escaping @convention(block) () -> Swift.Void) {
+        group.notify(queue: queue, execute: block)
+    }
+    
+    /**
+     Convenience for `DispatchGroup().notify`. Waits for current group to finish before performing this block. Block will be performed at the specified Quality of Service.
+     
+     - parameters:
+     - qos: The quality of service level on which the `block` is run.
+     - block: The block that is to be passed to be run on the `queue`
+     
+     - SeeAlso: dispatch_group_notify
+     */
+    public func notify(qos: DispatchQoS.QoSClass, block: @escaping @convention(block) () -> Swift.Void) {
+        group.notify(queue: .global(qos: qos), execute: block)
+    }
+
 }
 
 
