@@ -217,6 +217,20 @@ group.background {
 group.wait()
 // Do rest of stuff
 ```
+Or notify a block to run once the group is finished:
+```swift
+let group = AsyncGroup()
+group.background {
+    // Something here
+}
+group.background {
+    // Something else going on in the background
+}
+// Block called once the group is finished
+group.notify(queue: .main) {
+    // Run this stuff now that the group above is done
+}
+```
 Custom asynchronous operations:
 ```swift
 let group = AsyncGroup()
