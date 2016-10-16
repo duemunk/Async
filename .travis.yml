@@ -7,7 +7,7 @@ env:
   - "DESTINATION='platform=OS X' ACTION=test"
 
 script:
-  - set -o pipefail && xcodebuild -project AsyncTest/Async.xcodeproj -scheme Async -destination "$DESTINATION" $ACTION | xcpretty
+  - set -o pipefail && xcodebuild -project Async.xcodeproj -scheme Async -destination "$DESTINATION" $ACTION | xcpretty
 
 # - set -o pipefail && xcodebuild -project AsyncTest/Async.xcodeproj -scheme Async -destination 'platform=OS X' test | xcpretty
 # - set -o pipefail && xcodebuild -project AsyncTest/Async.xcodeproj -scheme Async -destination 'platform=watchOS Simulator,name=Apple Watch - 38mm' build | xcpretty
@@ -37,4 +37,4 @@ script:
 # - set -o pipefail && xcodebuild test -project AsyncTest/Async.xcodeproj -scheme "AsyncOSX" | xcpretty
 
 after_success:
-- bash <(curl -s https://codecov.io/bash) -J 'AsyncTest/Async'
+- bash <(curl -s https://codecov.io/bash) -J 'Async'
