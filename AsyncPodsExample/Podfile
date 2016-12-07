@@ -15,6 +15,3 @@ target 'AsyncExample OS X' do
     use_frameworks!
     pod 'AsyncSwift', :path => '../'
 end
-
-
-
