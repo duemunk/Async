@@ -2,23 +2,17 @@ language: objective-c
 osx_image: xcode8
 
 env:
+  - "DESTINATION='platform=iOS Simulator,name=iPhone 5' ACTION=build"
   - "DESTINATION='platform=watchOS Simulator,name=Apple Watch - 38mm' ACTION=build"
   - "DESTINATION='platform=tvOS Simulator,name=Apple TV 1080p' ACTION=build"
   - "DESTINATION='platform=OS X' ACTION=test"
 
 script:
   - set -o pipefail && xcodebuild -project Async.xcodeproj -scheme Async -destination "$DESTINATION" $ACTION | xcpretty
-
+  - ./scripts/check-build-settings.sh "$DESTINATION"
 # - set -o pipefail && xcodebuild -project AsyncTest/Async.xcodeproj -scheme Async -destination 'platform=OS X' test | xcpretty
 # - set -o pipefail && xcodebuild -project AsyncTest/Async.xcodeproj -scheme Async -destination 'platform=watchOS Simulator,name=Apple Watch - 38mm' build | xcpretty
 # - set -o pipefail && xcodebuild -project AsyncTest/Async.xcodeproj -scheme Async -destination 'platform=tvOS Simulator,name=Apple TV 1080p' test | xcpretty
-
-
-
-# osx_image: xcode8
-# language: objective-c
-#
-# script:
 
 # Carthage
 # - xcodebuild -project Async.xcodeproj -scheme "Async iOS" | xcpretty
