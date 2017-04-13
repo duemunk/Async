@@ -1,0 +1,14 @@
+// Generated using xcconfig-extractor by Toshihiro Suzuki - https://github.com/toshi0383/xcconfig-extractor
+CLANG_ENABLE_MODULES = YES
+DEFINES_MODULE = YES
+ENABLE_TESTABILITY = YES
+INFOPLIST_FILE = Async.xcodeproj/Async_Info.plist
+IPHONEOS_DEPLOYMENT_TARGET = 8.0
+LD_RUNPATH_SEARCH_PATHS = executable_path/Frameworks @loader_path/Frameworks
+OTHER_LDFLAGS = $(inherited)
+OTHER_SWIFT_FLAGS = $(inherited)
+PRODUCT_BUNDLE_IDENTIFIER = Async
+PRODUCT_MODULE_NAME = $(TARGET_NAME:c99extidentifier)
+PRODUCT_NAME = $(TARGET_NAME:c99extidentifier)
+SKIP_INSTALL = YES
+SWIFT_VERSION = 3.0
