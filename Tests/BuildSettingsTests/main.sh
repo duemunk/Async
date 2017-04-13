@@ -15,7 +15,7 @@ do
         MISSING="${MISSING} ${expected}"
     fi
 done < $EXPECTED_XCCONFIG
-if [ $MISSING ]
+if [ "$MISSING" ]
 then
     echo "Missing configurations detected. : ${MISSING}"
     exit 1
