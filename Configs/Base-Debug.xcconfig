@@ -1,4 +1,5 @@
 // Generated using xcconfig-extractor by Toshihiro Suzuki - https://github.com/toshi0383/xcconfig-extractor
+#include "Base.xcconfig"
 ALWAYS_SEARCH_USER_PATHS = NO
 CLANG_CXX_LANGUAGE_STANDARD = gnu++0x
 CLANG_CXX_LIBRARY = libc++

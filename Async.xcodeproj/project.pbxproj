@@ -29,8 +29,9 @@
 		1F720E551E9F945A00DAD25B /* Base-Release.xcconfig */ = {isa = PBXFileReference; lastKnownFileType = text.xcconfig; path = "Base-Release.xcconfig"; sourceTree = "<group>"; };
 		1F720E561E9F945A00DAD25B /* Tests-Debug.xcconfig */ = {isa = PBXFileReference; lastKnownFileType = text.xcconfig; path = "Tests-Debug.xcconfig"; sourceTree = "<group>"; };
 		1F720E571E9F945A00DAD25B /* Tests-Release.xcconfig */ = {isa = PBXFileReference; lastKnownFileType = text.xcconfig; path = "Tests-Release.xcconfig"; sourceTree = "<group>"; };
+		1FA32FF21E9F95B300F1980C /* Base.xcconfig */ = {isa = PBXFileReference; lastKnownFileType = text.xcconfig; path = Base.xcconfig; sourceTree = "<group>"; };
 		1FA5CB9E1DB3A7D4001294FD /* Async.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = Async.swift; path = Sources/Async.swift; sourceTree = "<group>"; };
-		1FA5CBA41DB3A7F0001294FD /* Tests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = Tests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
+		1FA5CBA41DB3A7F0001294FD /* AsyncTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = AsyncTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		1FA5CBA81DB3A7F0001294FD /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		1FA5CBAC1DB3A80A001294FD /* AsyncGroupTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AsyncGroupTests.swift; sourceTree = "<group>"; };
 		1FA5CBAD1DB3A80A001294FD /* AsyncTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AsyncTests.swift; sourceTree = "<group>"; };
@@ -63,6 +64,7 @@
 				1F720E531E9F945A00DAD25B /* Async-Release.xcconfig */,
 				1F720E541E9F945A00DAD25B /* Base-Debug.xcconfig */,
 				1F720E551E9F945A00DAD25B /* Base-Release.xcconfig */,
+				1FA32FF21E9F95B300F1980C /* Base.xcconfig */,
 				1F720E561E9F945A00DAD25B /* Tests-Debug.xcconfig */,
 				1F720E571E9F945A00DAD25B /* Tests-Release.xcconfig */,
 			);
@@ -94,7 +96,7 @@
 			isa = PBXGroup;
 			children = (
 				"_____Product_Async" /* Async.framework */,
-				1FA5CBA41DB3A7F0001294FD /* Tests.xctest */,
+				1FA5CBA41DB3A7F0001294FD /* AsyncTests.xctest */,
 			);
 			name = Products;
 			sourceTree = "<group>";
@@ -125,7 +127,7 @@
 			);
 			name = Tests;
 			productName = Tests;
-			productReference = 1FA5CBA41DB3A7F0001294FD /* Tests.xctest */;
+			productReference = 1FA5CBA41DB3A7F0001294FD /* AsyncTests.xctest */;
 			productType = "com.apple.product-type.bundle.unit-test";
 		};
 		"______Target_Async" /* Async */ = {

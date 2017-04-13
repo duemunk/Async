@@ -9,7 +9,7 @@ INFOPLIST_FILE = Tests/Info.plist
 LD_RUNPATH_SEARCH_PATHS = $(inherited) @executable_path/Frameworks @loader_path/Frameworks
 LD_RUNPATH_SEARCH_PATHS[sdk=macosx*] = $(inherited) @executable_path/../Frameworks @loader_path/../Frameworks
 PRODUCT_BUNDLE_IDENTIFIER = dk.developmunk.AsyncTests
-PRODUCT_NAME = $(TARGET_NAME)
+PRODUCT_NAME = AsyncTests
 SWIFT_ACTIVE_COMPILATION_CONDITIONS = DEBUG
 SWIFT_OPTIMIZATION_LEVEL = -Onone
 SWIFT_VERSION = 3.0

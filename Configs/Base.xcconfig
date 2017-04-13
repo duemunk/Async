@@ -1,0 +1,3 @@
+INFOPLIST_FILE = Info.plist
+PRODUCT_NAME = Async
+PRODUCT_BUNDLE_IDENTIFIER = dk.developmunk.Async
