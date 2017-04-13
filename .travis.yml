@@ -9,7 +9,7 @@ env:
 
 script:
   - set -o pipefail && xcodebuild -project Async.xcodeproj -scheme Async -destination "$DESTINATION" $ACTION | xcpretty
-  - ./scripts/check-build-settings.sh "$DESTINATION"
+  - ./Tests/BuildSettingsTests/main.sh "$DESTINATION"
 # - set -o pipefail && xcodebuild -project AsyncTest/Async.xcodeproj -scheme Async -destination 'platform=OS X' test | xcpretty
 # - set -o pipefail && xcodebuild -project AsyncTest/Async.xcodeproj -scheme Async -destination 'platform=watchOS Simulator,name=Apple Watch - 38mm' build | xcpretty
 # - set -o pipefail && xcodebuild -project AsyncTest/Async.xcodeproj -scheme Async -destination 'platform=tvOS Simulator,name=Apple TV 1080p' test | xcpretty
