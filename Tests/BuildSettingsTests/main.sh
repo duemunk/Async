@@ -1,8 +1,9 @@
 #!/bin/bash
+DESTINATION=${1:?}
 
 echo "=== BuildSettingsTests started ==="
 
-BUILD_SETTINGS=$(make settings | tr -d " ")
+BUILD_SETTINGS=$(make settings DESTINATION="$DESTINATION" | tr -d " ")
 set +e
 MISSING=
 BASE_DIR=$(cd $(dirname $0);pwd)
