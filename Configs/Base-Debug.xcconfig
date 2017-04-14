@@ -1,4 +1,5 @@
 // Generated using xcconfig-extractor by Toshihiro Suzuki - https://github.com/toshi0383/xcconfig-extractor
+#include "Base.xcconfig"
 CLANG_ENABLE_OBJC_ARC = YES
 COMBINE_HIDPI_IMAGES = YES
 COPY_PHASE_STRIP = NO

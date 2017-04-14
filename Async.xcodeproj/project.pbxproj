@@ -30,6 +30,7 @@
 		1F99522B1EA0FF2F0095B0F1 /* AsyncTests-Release.xcconfig */ = {isa = PBXFileReference; lastKnownFileType = text.xcconfig; path = "AsyncTests-Release.xcconfig"; sourceTree = "<group>"; };
 		1F99522C1EA0FF2F0095B0F1 /* Base-Debug.xcconfig */ = {isa = PBXFileReference; lastKnownFileType = text.xcconfig; path = "Base-Debug.xcconfig"; sourceTree = "<group>"; };
 		1F99522D1EA0FF2F0095B0F1 /* Base-Release.xcconfig */ = {isa = PBXFileReference; lastKnownFileType = text.xcconfig; path = "Base-Release.xcconfig"; sourceTree = "<group>"; };
+		1FC6D32E1EA10026004DAA25 /* Base.xcconfig */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xcconfig; path = Base.xcconfig; sourceTree = "<group>"; };
 		OBJ_12 /* AsyncGroupTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AsyncGroupTests.swift; sourceTree = "<group>"; };
 		OBJ_13 /* AsyncTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AsyncTests.swift; sourceTree = "<group>"; };
 		OBJ_14 /* AsyncPodsExample */ = {isa = PBXFileReference; lastKnownFileType = folder; path = AsyncPodsExample; sourceTree = SOURCE_ROOT; };
@@ -62,6 +63,7 @@
 		1F9952271EA0FF2F0095B0F1 /* Configs */ = {
 			isa = PBXGroup;
 			children = (
+				1FC6D32E1EA10026004DAA25 /* Base.xcconfig */,
 				1F9952281EA0FF2F0095B0F1 /* Async-Debug.xcconfig */,
 				1F9952291EA0FF2F0095B0F1 /* Async-Release.xcconfig */,
 				1F99522A1EA0FF2F0095B0F1 /* AsyncTests-Debug.xcconfig */,
