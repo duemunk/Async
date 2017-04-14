@@ -1,0 +1,9 @@
+// Generated using xcconfig-extractor by Toshihiro Suzuki - https://github.com/toshi0383/xcconfig-extractor
+EMBEDDED_CONTENT_CONTAINS_SWIFT = YES
+FRAMEWORK_SEARCH_PATHS = $(inherited) $(PLATFORM_DIR)/Developer/Library/Frameworks
+HEADER_SEARCH_PATHS = $(inherited)
+INFOPLIST_FILE = Async.xcodeproj/AsyncTests_Info.plist
+LD_RUNPATH_SEARCH_PATHS = @loader_path/../Frameworks @loader_path/Frameworks
+OTHER_LDFLAGS = $(inherited)
+OTHER_SWIFT_FLAGS = $(inherited)
+TARGET_NAME = AsyncTests
