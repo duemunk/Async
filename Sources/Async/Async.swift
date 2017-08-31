@@ -161,7 +161,7 @@ public struct AsyncBlock<In, Out> {
     - SeeAlso: Has parity with non-static method
     */
     @discardableResult
-    public static func main<O>(after seconds: Double? = nil, _ block: @escaping (Void) -> O) -> AsyncBlock<Void, O> {
+    public static func main<O>(after seconds: Double? = nil, _ block: @escaping () -> O) -> AsyncBlock<Void, O> {
         return AsyncBlock.async(after: seconds, block: block, queue: .main)
     }
 
@@ -177,7 +177,7 @@ public struct AsyncBlock<In, Out> {
      - SeeAlso: Has parity with non-static method
      */
     @discardableResult
-    public static func userInteractive<O>(after seconds: Double? = nil, _ block: @escaping (Void) -> O) -> AsyncBlock<Void, O> {
+    public static func userInteractive<O>(after seconds: Double? = nil, _ block: @escaping () -> O) -> AsyncBlock<Void, O> {
         return AsyncBlock.async(after: seconds, block: block, queue: .userInteractive)
     }
 
@@ -193,7 +193,7 @@ public struct AsyncBlock<In, Out> {
      - SeeAlso: Has parity with non-static method
      */
     @discardableResult
-    public static func userInitiated<O>(after seconds: Double? = nil, _ block: @escaping (Void) -> O) -> AsyncBlock<Void, O> {
+    public static func userInitiated<O>(after seconds: Double? = nil, _ block: @escaping () -> O) -> AsyncBlock<Void, O> {
         return Async.async(after: seconds, block: block, queue: .userInitiated)
     }
 
@@ -209,7 +209,7 @@ public struct AsyncBlock<In, Out> {
      - SeeAlso: Has parity with non-static method
      */
     @discardableResult
-    public static func utility<O>(after seconds: Double? = nil, _ block: @escaping (Void) -> O) -> AsyncBlock<Void, O> {
+    public static func utility<O>(after seconds: Double? = nil, _ block: @escaping () -> O) -> AsyncBlock<Void, O> {
         return Async.async(after: seconds, block: block, queue: .utility)
     }
 
@@ -225,7 +225,7 @@ public struct AsyncBlock<In, Out> {
      - SeeAlso: Has parity with non-static method
      */
     @discardableResult
-    public static func background<O>(after seconds: Double? = nil, _ block: @escaping (Void) -> O) -> AsyncBlock<Void, O> {
+    public static func background<O>(after seconds: Double? = nil, _ block: @escaping () -> O) -> AsyncBlock<Void, O> {
         return Async.async(after: seconds, block: block, queue: .background)
     }
 
@@ -241,7 +241,7 @@ public struct AsyncBlock<In, Out> {
      - SeeAlso: Has parity with non-static method
      */
     @discardableResult
-    public static func custom<O>(queue: DispatchQueue, after seconds: Double? = nil, _ block: @escaping (Void) -> O) -> AsyncBlock<Void, O> {
+    public static func custom<O>(queue: DispatchQueue, after seconds: Double? = nil, _ block: @escaping () -> O) -> AsyncBlock<Void, O> {
         return Async.async(after: seconds, block: block, queue: .custom(queue: queue))
     }
 
@@ -258,7 +258,7 @@ public struct AsyncBlock<In, Out> {
      - returns: An `Async` struct which encapsulates the `@convention(block) () -> Swift.Void`
      */
 
-    private static func async<O>(after seconds: Double? = nil, block: @escaping (Void) -> O, queue: GCD) -> AsyncBlock<Void, O> {
+    private static func async<O>(after seconds: Double? = nil, block: @escaping () -> O, queue: GCD) -> AsyncBlock<Void, O> {
         let reference = Reference<O>()
         let block = DispatchWorkItem(block: {
             reference.value = block()
