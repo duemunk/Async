@@ -5,7 +5,7 @@ env:
   - "DESTINATION='platform=iOS Simulator,name=iPhone 5' ACTION=build"
   - "DESTINATION='platform=watchOS Simulator,name=Apple Watch - 38mm' ACTION=build"
   - "DESTINATION='platform=tvOS Simulator,name=Apple TV 1080p' ACTION=build"
-  - "DESTINATION='platform=OS X' ACTION=test"
+  - "DESTINATION='platform=OS X' ACTION=build"
 
 script:
   - set -o pipefail && xcodebuild -project Async.xcodeproj -scheme Async -destination "$DESTINATION" $ACTION | xcpretty
