@@ -11,7 +11,7 @@ Pod::Spec.new do |s|
   s.tvos.deployment_target = "9.0"
   s.watchos.deployment_target = "3.0"
   s.source   = { :git => "https://github.com/duemunk/Async.git", :tag => "2.0.4"}
-  s.source_files = "Sources/*.swift"
+  s.source_files = "Sources/**/*.swift"
   s.requires_arc = true
   s.module_name = 'Async'
 end
