@@ -1,0 +1,19 @@
+// Generated using xcconfig-extractor by Toshihiro Suzuki - https://github.com/toshi0383/xcconfig-extractor
+#include "Base.xcconfig"
+CLANG_ENABLE_OBJC_ARC = YES
+COMBINE_HIDPI_IMAGES = YES
+COPY_PHASE_STRIP = NO
+DEBUG_INFORMATION_FORMAT = dwarf
+DYLIB_INSTALL_NAME_BASE = @rpath
+ENABLE_NS_ASSERTIONS = YES
+GCC_OPTIMIZATION_LEVEL = 0
+MACOSX_DEPLOYMENT_TARGET = 10.10
+ONLY_ACTIVE_ARCH = YES
+OTHER_SWIFT_FLAGS = -DXcode
+PRODUCT_NAME = $(TARGET_NAME)
+SDKROOT = macosx
+SUPPORTED_PLATFORMS = macosx iphoneos iphonesimulator appletvos appletvsimulator watchos watchsimulator
+SWIFT_ACTIVE_COMPILATION_CONDITIONS = SWIFT_PACKAGE
+SWIFT_OPTIMIZATION_LEVEL = -Onone
+SWIFT_VERSION = 3.0
+USE_HEADERMAP = NO

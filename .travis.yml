@@ -1,24 +1,18 @@
 language: objective-c
-osx_image: xcode8
+osx_image: xcode9
 
 env:
+  - "DESTINATION='platform=iOS Simulator,name=iPhone 5' ACTION=build"
   - "DESTINATION='platform=watchOS Simulator,name=Apple Watch - 38mm' ACTION=build"
   - "DESTINATION='platform=tvOS Simulator,name=Apple TV 1080p' ACTION=build"
-  - "DESTINATION='platform=OS X' ACTION=test"
+  - "DESTINATION='platform=OS X' ACTION=build"
 
 script:
-  - set -o pipefail && xcodebuild -project AsyncTest/Async.xcodeproj -scheme Async -destination "$DESTINATION" $ACTION | xcpretty
-
+  - set -o pipefail && xcodebuild -project Async.xcodeproj -scheme Async -destination "$DESTINATION" $ACTION | xcpretty
+  - ./Tests/BuildSettingsTests/main.sh "$DESTINATION"
 # - set -o pipefail && xcodebuild -project AsyncTest/Async.xcodeproj -scheme Async -destination 'platform=OS X' test | xcpretty
 # - set -o pipefail && xcodebuild -project AsyncTest/Async.xcodeproj -scheme Async -destination 'platform=watchOS Simulator,name=Apple Watch - 38mm' build | xcpretty
 # - set -o pipefail && xcodebuild -project AsyncTest/Async.xcodeproj -scheme Async -destination 'platform=tvOS Simulator,name=Apple TV 1080p' test | xcpretty
-
-
-
-# osx_image: xcode8
-# language: objective-c
-#
-# script:
 
 # Carthage
 # - xcodebuild -project Async.xcodeproj -scheme "Async iOS" | xcpretty
@@ -37,4 +31,4 @@ script:
 # - set -o pipefail && xcodebuild test -project AsyncTest/Async.xcodeproj -scheme "AsyncOSX" | xcpretty
 
 after_success:
-- bash <(curl -s https://codecov.io/bash) -J 'AsyncTest/Async'
+- bash <(curl -s https://codecov.io/bash) -J 'Async'
