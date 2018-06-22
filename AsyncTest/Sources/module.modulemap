@@ -1,3 +1,0 @@
-framework module Async {
-    umbrella header "Async.h"
-}

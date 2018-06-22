@@ -211,12 +211,13 @@ class AsyncTests: XCTestCase {
         let time = DispatchTime.now() + timeDelay
         let qos = DispatchQoS.QoSClass.background
         let queue = DispatchQueue.global(qos: qos)
-        queue.asyncAfter(deadline: time) {
+        let block = DispatchWorkItem {
             let timePassed = Date().timeIntervalSince(date)
             XCTAssert(timePassed >= lowerTimeDelay, "Should wait \(timePassed) >= \(lowerTimeDelay) seconds before firing")
             XCTAssertEqual(qos_class_self(), qos.rawValue)
             expectation.fulfill()
         }
+        queue.asyncAfter(deadline: time, execute: block)
         waitForExpectations(timeout: timeDelay + timeMargin, handler: nil)
     }
 
