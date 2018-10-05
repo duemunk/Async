@@ -56,7 +56,7 @@ class AsyncTests: XCTestCase {
         let expectation = self.expectation(description: "Expected on main queue")
         var calledStuffAfterSinceAsync = false
         Async.main {
-            #if (arch(i386) || arch(x86_64)) && (os(iOS) || os(tvOS)) // Simulator
+            #if targetEnvironment(simulator)
                 XCTAssert(Thread.isMainThread, "Should be on main thread (simulator)")
             #else
                 XCTAssertEqual(qos_class_self(), qos_class_main())
@@ -141,7 +141,7 @@ class AsyncTests: XCTestCase {
             XCTAssertEqual(qos_class_self(), DispatchQoS.QoSClass.background.rawValue)
             wasInBackground = true
         }.main {
-            #if (arch(i386) || arch(x86_64)) && (os(iOS) || os(tvOS)) // Simulator
+            #if targetEnvironment(simulator)
                 XCTAssert(Thread.isMainThread, "Should be on main thread (simulator)")
             #else
                 XCTAssertEqual(qos_class_self(), qos_class_main())
@@ -156,7 +156,7 @@ class AsyncTests: XCTestCase {
         let expectation = self.expectation(description: "Expected On \(qos_class_self()) (expected \(DispatchQoS.QoSClass.userInitiated.rawValue))")
         var id = 0
         Async.main {
-            #if (arch(i386) || arch(x86_64)) && (os(iOS) || os(tvOS)) // Simulator
+            #if targetEnvironment(simulator)
                 XCTAssert(Thread.isMainThread, "Should be on main thread (simulator)")
             #else
                 XCTAssertEqual(qos_class_self(), qos_class_main())
@@ -228,7 +228,7 @@ class AsyncTests: XCTestCase {
         Async.main(after: timeDelay) {
             let timePassed = Date().timeIntervalSince(date)
             XCTAssert(timePassed >= lowerTimeDelay, "Should wait \(timePassed) >= \(lowerTimeDelay) seconds before firing")
-            #if (arch(i386) || arch(x86_64)) && (os(iOS) || os(tvOS)) // Simulator
+            #if targetEnvironment(simulator)
                 XCTAssert(Thread.isMainThread, "Should be on main thread (simulator)")
             #else
                 XCTAssertEqual(qos_class_self(), qos_class_main())
@@ -543,7 +543,7 @@ class AsyncTests: XCTestCase {
             expectationBackground.fulfill()
             return testValue
         }.main { (value: Int) in
-            #if (arch(i386) || arch(x86_64)) && (os(iOS) || os(tvOS)) // Simulator
+            #if targetEnvironment(simulator)
                 XCTAssert(Thread.isMainThread, "Should be on main thread (simulator)")
             #else
                 XCTAssertEqual(qos_class_self(), qos_class_main())

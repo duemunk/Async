@@ -236,8 +236,6 @@
 			buildSettings = {
 				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = NO;
 				IPHONEOS_DEPLOYMENT_TARGET = 9.0;
-				SWIFT_SWIFT3_OBJC_INFERENCE = On;
-				SWIFT_VERSION = 4.0;
 			};
 			name = Debug;
 		};
@@ -247,8 +245,6 @@
 			buildSettings = {
 				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = NO;
 				IPHONEOS_DEPLOYMENT_TARGET = 9.0;
-				SWIFT_SWIFT3_OBJC_INFERENCE = On;
-				SWIFT_VERSION = 4.0;
 			};
 			name = Release;
 		};
@@ -256,8 +252,6 @@
 			isa = XCBuildConfiguration;
 			baseConfigurationReference = 1F99522A1EA0FF2F0095B0F1 /* AsyncTests-Debug.xcconfig */;
 			buildSettings = {
-				SWIFT_SWIFT3_OBJC_INFERENCE = On;
-				SWIFT_VERSION = 4.0;
 			};
 			name = Debug;
 		};
@@ -265,8 +259,6 @@
 			isa = XCBuildConfiguration;
 			baseConfigurationReference = 1F99522B1EA0FF2F0095B0F1 /* AsyncTests-Release.xcconfig */;
 			buildSettings = {
-				SWIFT_SWIFT3_OBJC_INFERENCE = On;
-				SWIFT_VERSION = 4.0;
 			};
 			name = Release;
 		};
@@ -274,6 +266,7 @@
 			isa = XCBuildConfiguration;
 			baseConfigurationReference = 1F99522C1EA0FF2F0095B0F1 /* Base-Debug.xcconfig */;
 			buildSettings = {
+				SWIFT_VERSION = 4.2;
 			};
 			name = Debug;
 		};
@@ -281,6 +274,7 @@
 			isa = XCBuildConfiguration;
 			baseConfigurationReference = 1F99522D1EA0FF2F0095B0F1 /* Base-Release.xcconfig */;
 			buildSettings = {
+				SWIFT_VERSION = 4.2;
 			};
 			name = Release;
 		};

@@ -1,5 +1,5 @@
 framework module Async {
-  umbrella header "AsyncSwift-OSX-umbrella.h"
+  umbrella header "AsyncSwift-macOS-umbrella.h"
 
   export *
   module * { export * }
