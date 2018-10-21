@@ -15,5 +15,5 @@ SDKROOT = macosx
 SUPPORTED_PLATFORMS = macosx iphoneos iphonesimulator appletvos appletvsimulator watchos watchsimulator
 SWIFT_ACTIVE_COMPILATION_CONDITIONS = SWIFT_PACKAGE
 SWIFT_OPTIMIZATION_LEVEL = -Onone
-SWIFT_VERSION = 3.0
+SWIFT_VERSION = 4.2
 USE_HEADERMAP = NO

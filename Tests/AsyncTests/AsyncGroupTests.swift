@@ -21,7 +21,7 @@ class AsyncGroupTests: XCTestCase {
         let expectation = self.expectation(description: "Expected on main queue")
         let group = AsyncGroup()
         group.main {
-            #if (arch(i386) || arch(x86_64)) && (os(iOS) || os(tvOS)) // Simulator
+            #if targetEnvironment(simulator)
                 XCTAssert(Thread.isMainThread, "Should be on main thread (simulator)")
             #else
                 XCTAssertEqual(qos_class_self(), qos_class_main())
