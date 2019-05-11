@@ -762,6 +762,7 @@ public extension DispatchQoS.QoSClass {
             case .utility: return "Utility"
             case .background: return "Background"
             case .unspecified: return "Unspecified"
+            @unknown default: return "Unknown"
             }
         }
     }
