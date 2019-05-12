@@ -717,6 +717,19 @@ public struct AsyncGroup {
     }
 }
 
+/**
+Each QoSClassDescription's case contains a description for qos_class_t or DispatchQoS.QoSClass cases
+ */
+enum QoSClassDescription: String {
+    case main = "Main"
+    case userInteractive = "User Interactive"
+    case userInitiated = "User Initiated"
+    case `default` = "Default"
+    case utility = "Utility"
+    case background = "Background"
+    case unspecified = "Unspecified"
+    case unknown = "Unknown"
+}
 
 // MARK: - Extension for `qos_class_t`
 
@@ -729,18 +742,18 @@ public extension qos_class_t {
      Description of the `qos_class_t`. E.g. "Main", "User Interactive", etc. for the given Quality of Service class.
      */
     var description: String {
-        get {
-            switch self {
-            case qos_class_main(): return "Main"
-            case DispatchQoS.QoSClass.userInteractive.rawValue: return "User Interactive"
-            case DispatchQoS.QoSClass.userInitiated.rawValue: return "User Initiated"
-            case DispatchQoS.QoSClass.default.rawValue: return "Default"
-            case DispatchQoS.QoSClass.utility.rawValue: return "Utility"
-            case DispatchQoS.QoSClass.background.rawValue: return "Background"
-            case DispatchQoS.QoSClass.unspecified.rawValue: return "Unspecified"
-            default: return "Unknown"
-            }
+        let result: QoSClassDescription
+        switch self {
+        case qos_class_main(): result = .main
+        case DispatchQoS.QoSClass.userInteractive.rawValue: result = .userInteractive
+        case DispatchQoS.QoSClass.userInitiated.rawValue: result = .userInitiated
+        case DispatchQoS.QoSClass.default.rawValue: result = .default
+        case DispatchQoS.QoSClass.utility.rawValue: result = .utility
+        case DispatchQoS.QoSClass.background.rawValue: result = .background
+        case DispatchQoS.QoSClass.unspecified.rawValue: result = .unspecified
+        default: result = .unknown
         }
+        return result.rawValue
     }
 }
 
@@ -753,17 +766,17 @@ public extension qos_class_t {
 public extension DispatchQoS.QoSClass {
 
     var description: String {
-        get {
-            switch self {
-            case DispatchQoS.QoSClass(rawValue: qos_class_main())!: return "Main"
-            case .userInteractive: return "User Interactive"
-            case .userInitiated: return "User Initiated"
-            case .default: return "Default"
-            case .utility: return "Utility"
-            case .background: return "Background"
-            case .unspecified: return "Unspecified"
-            @unknown default: return "Unknown"
-            }
+        let result: QoSClassDescription
+        switch self {
+        case DispatchQoS.QoSClass(rawValue: qos_class_main())!: result = .main
+        case .userInteractive: result = .userInteractive
+        case .userInitiated: result = .userInitiated
+        case .default: result = .default
+        case .utility: result = .utility
+        case .background: result = .background
+        case .unspecified: result = .unspecified
+        @unknown default: result = .unknown
         }
+        return result.rawValue
     }
 }
