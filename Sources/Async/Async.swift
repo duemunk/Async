@@ -720,7 +720,7 @@ public struct AsyncGroup {
 /**
 Each QoSClassDescription's case contains a description for qos_class_t or DispatchQoS.QoSClass cases
  */
-enum QoSClassDescription: String {
+private enum QoSClassDescription: String {
     case main = "Main"
     case userInteractive = "User Interactive"
     case userInitiated = "User Initiated"
