@@ -12,9 +12,7 @@ import Async
 
 
 extension qos_class_t: CustomDebugStringConvertible {
-    public var debugDescription: String {
-        return description
-    }
+    public var debugDescription: String { description }
 }
 
 
