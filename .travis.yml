@@ -2,8 +2,8 @@ language: objective-c
 osx_image: xcode11.1
 
 env:
-  - "DESTINATION='platform=iOS Simulator,name=iPhone 5' ACTION=build"
-  - "DESTINATION='platform=watchOS Simulator,name=Apple Watch Series 2 - 38mm' ACTION=build"
+  - "DESTINATION='platform=iOS Simulator,name=iPhone 11' ACTION=build"
+  - "DESTINATION='platform=watchOS Simulator,name=Apple Watch Series 5 - 44mm' ACTION=build"
   - "DESTINATION='platform=tvOS Simulator,name=Apple TV' ACTION=build"
   - "DESTINATION='platform=OS X' ACTION=build"
 
