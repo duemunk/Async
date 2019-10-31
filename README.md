@@ -43,6 +43,15 @@ print("Both asynchronous blocks are complete")
 ```
 
 ### Install
+#### Swift Package Manager
+##### Add To Your Project In Xcode 11:
+File > Swift Packages > Add Package Dependency
+##### Add As A Dependency In Package.swift:
+```swift
+dependencies: [
+    .package(url: "https://github.com/duemunk/Async", from: "2.1.0"),
+],
+```
 #### CocoaPods
 ```ruby
 use_frameworks!
